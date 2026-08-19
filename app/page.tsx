@@ -6,9 +6,9 @@ type Fighter = { name:string; hp:number; min:number; max:number };
 const INITIAL:Fighter[] = [{name:"Ragnar",hp:100,min:9,max:18},{name:"Brakka",hp:100,min:8,max:20}];
 const wait=(ms:number)=>new Promise(r=>setTimeout(r,ms));
 
-function Brute({side,attacking,hit}:{side:"left"|"right";attacking:boolean;hit:boolean}){
-  return <div className={`fighter ${side} ${attacking?"attack":""} ${hit?"hit":""}`} aria-hidden="true">
-    <div className="shadow"/><div className="body"><div className="hair"/><div className="head"><i/><b/></div><div className="torso"><i/></div><div className="arm back"/><div className="arm front"><i className="club"/></div><div className="leg back"/><div className="leg front"/></div>
+function Brute({side,variant,attacking,hit}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;hit:boolean}){
+  return <div className={`fighter ${side} ${variant} ${attacking?"attack":""} ${hit?"hit":""}`} aria-hidden="true">
+    <div className="shadow"/><div className="body"><div className="hair"/><div className="head"><i/><b/><span className="nose"/><span className="beard"/></div><div className="torso"><i/><span className="chest-mark"/></div><div className="arm back"/><div className="arm front"><i className="club weapon"/></div><div className="leg back"/><div className="leg front"/></div>
   </div>;
 }
 
@@ -34,7 +34,7 @@ export default function Home(){
       <div className="arena"><div className="sun"/><div className="cloud c1"/><div className="cloud c2"/><div className="mountains"/><div className="crowd"/>
         <div className="hud hleft"><strong>{fighters[0].name}</strong><small>EL IMPARABLE</small><div className="health"><span style={{width:`${fighters[0].hp}%`}}/><b>{fighters[0].hp}</b></div></div>
         <div className="hud hright"><strong>{fighters[1].name}</strong><small>LA BESTIA</small><div className="health"><b>{fighters[1].hp}</b><span className="red" style={{width:`${fighters[1].hp}%`}}/></div></div><div className="vs">VS</div>
-        <div className="stage"><Brute side="left" attacking={active===0} hit={hit===0}/><Brute side="right" attacking={active===1} hit={hit===1}/></div><div className="floor"/>
+        <div className="stage"><Brute side="left" variant="ragnar" attacking={active===0} hit={hit===0}/><Brute side="right" variant="brakka" attacking={active===1} hit={hit===1}/></div><div className="floor"/>
       </div><div className="status" aria-live="polite"><p>{message}</p><button onClick={fight} disabled={running}>{running?"Combate en curso":"Repetir combate"}</button></div>
     </section><footer>Prototipo jugable · Sin registro · Resultados aleatorios</footer>
   </main>;
