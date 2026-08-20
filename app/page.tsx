@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {CLASS_NAMES,describeAttack,makeProfile,maxHp,simulateBattle,type AttackKind as EngineAttack,type BattleFighter,type FighterClass,type Outcome} from "./game/engine";
 import {pickRival,RIVAL_ROSTER,type RivalCard} from "./game/roster";
+import rigDefinition from "./game/rig.json";
 
 type AttackKind="punch"|"kick";
 type DefenseReaction="dodge"|"block"|"perfect-block";
@@ -10,13 +11,17 @@ const wait=(ms:number)=>new Promise(r=>setTimeout(r,ms));
 const fresh=(name:string,className:FighterClass):BattleFighter=>{const profile=makeProfile(name,className);const life=maxHp(profile);return{...profile,hp:life,maxHp:life}};
 const INITIAL:[BattleFighter,BattleFighter]=[fresh("Ragnar","Luchador"),fresh("Brakka","Atleta")];
 const CHARACTER_RIG_SVG="/characters/base-normal/personaje-43-capas.svg";
-const CHARACTER_BASE_IMAGE="/characters/base-normal/personaje-base-rig.png";
+type RigLayer={id:string;file:string;parent:string;z_index:number;canvas_position:{x:number;y:number};size:{width:number;height:number};pivot_local:{x:number;y:number}};
+const RIG_CANVAS=rigDefinition.canvas;
+const RIG_LAYERS=(rigDefinition.layers as RigLayer[]).slice().sort((a,b)=>a.z_index-b.z_index);
 function CharacterLayer({id,className=""}:{id:string;className?:string}){return <g className={`svg-part part-${id} ${className}`}><use href={`${CHARACTER_RIG_SVG}#${id}`}/></g>}
 
-function Brute({side,variant,attacking,attackKind,hit,critical,reaction,defeated}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;attackKind:AttackKind|null;hit:boolean;critical:boolean;reaction:DefenseReaction|null;defeated:boolean}){
+function LayeredCharacterRig(){return <div className="layered-character-rig" data-layer-count={RIG_LAYERS.length}><img className="rig-composite-base" src="/characters/base-normal/verificacion/montaje.png" alt="" draggable={false}/>{RIG_LAYERS.map(layer=><img key={layer.id} className={`rig-part rig-part-${layer.id}`} data-part={layer.id} data-parent={layer.parent} src={`/characters/base-normal/${layer.file}`} alt="" draggable={false} style={{left:`${layer.canvas_position.x/RIG_CANVAS.width*100}%`,top:`${layer.canvas_position.y/RIG_CANVAS.height*100}%`,width:`${layer.size.width/RIG_CANVAS.width*100}%`,height:`${layer.size.height/RIG_CANVAS.height*100}%`,zIndex:layer.z_index+1,transformOrigin:`${layer.pivot_local.x/layer.size.width*100}% ${layer.pivot_local.y/layer.size.height*100}%`}}/>)}</div>}
+
+function LegacyBrute({side,variant,attacking,attackKind,hit,critical,reaction,defeated}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;attackKind:AttackKind|null;hit:boolean;critical:boolean;reaction:DefenseReaction|null;defeated:boolean}){
   return <div className={`fighter ${side} ${variant} ${attacking?`attack attack-${attackKind}`:""} ${critical?"critical":""} ${hit?"hit":""} ${reaction?`defense-${reaction}`:""} ${defeated?"defeated":""}`} aria-hidden="true">
     <div className="fighter-aura"/><div className="shadow"/>
-    <img className="rig-visible-image" src={CHARACTER_BASE_IMAGE} alt="" draggable={false}/>
+    <LayeredCharacterRig/>
     <svg className="brute-rig" viewBox="0 0 240 360" role="presentation">
       <defs>
         <linearGradient id={`skin-${side}`} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#ffd08a"/><stop offset=".58" stopColor="#f3a85f"/><stop offset="1" stopColor="#c8753f"/></linearGradient>
@@ -80,6 +85,10 @@ function Brute({side,variant,attacking,attackKind,hit,critical,reaction,defeated
   </div>;
 }
 
+function Brute({side,variant,attacking,attackKind,hit,critical,reaction,defeated}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;attackKind:AttackKind|null;hit:boolean;critical:boolean;reaction:DefenseReaction|null;defeated:boolean}){
+  return <div className={`fighter character-clean ${side} ${variant} ${attacking?`attack attack-${attackKind}`:""} ${critical?"critical":""} ${hit?"hit":""} ${reaction?`defense-${reaction}`:""} ${defeated?"defeated":""}`} aria-hidden="true"><div className="fighter-aura"/><div className="shadow"/><img className="character-clean-image" src="/characters/active/montaje-verificacion.png" alt="" draggable={false}/></div>;
+}
+
 function FighterCard({fighter,side}:{fighter:BattleFighter;side:"left"|"right"}){
   const suffix=`life-${side}`;
   const percent=Math.max(0,Math.min(100,fighter.hp/fighter.maxHp*100));
@@ -96,7 +105,7 @@ function FighterCard({fighter,side}:{fighter:BattleFighter;side:"left"|"right"})
       <use href="/ui/barra-vida.svg#marco"/>
       <g filter={`url(#shadow-${suffix})`}>
         <circle cx="130" cy="135" r="111" fill="#3a2415" stroke="#e8aa2d" strokeWidth="12"/>
-        <image href="/characters/base-normal/personaje-base.webp" x="26" y="27" width="208" height="208" preserveAspectRatio="xMidYMin slice" clipPath={`url(#portrait-${suffix})`}/>
+        <image href="/characters/active/montaje-verificacion.png" x="26" y="27" width="208" height="208" preserveAspectRatio="xMidYMin slice" clipPath={`url(#portrait-${suffix})`}/>
         <circle cx="130" cy="135" r="103" fill="none" stroke="#fff4b0" strokeOpacity=".45" strokeWidth="5"/>
       </g>
       <text x="282" y="99" className="life-name-shadow">{fighter.name.toUpperCase()}</text>

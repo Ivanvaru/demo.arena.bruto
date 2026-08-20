@@ -1,0 +1,1091 @@
+{
+  "format": "liga-de-brutos-rig",
+  "version": 1,
+  "coordinate_system": "SVG top-left origin; +x right; +y down",
+  "canvas": {
+    "width": 979,
+    "height": 1606
+  },
+  "layer_count": 43,
+  "z_order_rule": "Array order and z_index run from back to front; higher z_index is drawn above lower z_index.",
+  "pivot_rule": "Place each PNG at canvas_position, then rotate/scale around pivot_local. Child transforms inherit the parent transform.",
+  "overlap_rule": "Joint layers include intentional transparent-image overlap. overlap_margin_px records the recommended protected margin.",
+  "root": "personaje",
+  "layers": [
+    {
+      "id": "dedos_pie_der",
+      "file": "partes/dedos_pie_der.png",
+      "parent": "pie_der",
+      "z_index": 0,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 610,
+        "y": 1450
+      },
+      "size": {
+        "width": 290,
+        "height": 156
+      },
+      "pivot_global": {
+        "x": 705,
+        "y": 1515
+      },
+      "pivot_local": {
+        "x": 95,
+        "y": 65
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "pie_der",
+      "file": "partes/pie_der.png",
+      "parent": "tobillo_der",
+      "z_index": 1,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 500,
+        "y": 1340
+      },
+      "size": {
+        "width": 400,
+        "height": 225
+      },
+      "pivot_global": {
+        "x": 610,
+        "y": 1380
+      },
+      "pivot_local": {
+        "x": 110,
+        "y": 40
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "tobillo_der",
+      "file": "partes/tobillo_der.png",
+      "parent": "pantorrilla_der_inferior",
+      "z_index": 2,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 510,
+        "y": 1310
+      },
+      "size": {
+        "width": 210,
+        "height": 150
+      },
+      "pivot_global": {
+        "x": 610,
+        "y": 1370
+      },
+      "pivot_local": {
+        "x": 100,
+        "y": 60
+      },
+      "overlap_margin_px": 16,
+      "transparent": true
+    },
+    {
+      "id": "pantorrilla_der_inferior",
+      "file": "partes/pantorrilla_der_inferior.png",
+      "parent": "pantorrilla_der_superior",
+      "z_index": 3,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 515,
+        "y": 1190
+      },
+      "size": {
+        "width": 195,
+        "height": 215
+      },
+      "pivot_global": {
+        "x": 615,
+        "y": 1250
+      },
+      "pivot_local": {
+        "x": 100,
+        "y": 60
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "pantorrilla_der_superior",
+      "file": "partes/pantorrilla_der_superior.png",
+      "parent": "rodilla_der",
+      "z_index": 4,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 515,
+        "y": 1070
+      },
+      "size": {
+        "width": 200,
+        "height": 215
+      },
+      "pivot_global": {
+        "x": 615,
+        "y": 1120
+      },
+      "pivot_local": {
+        "x": 100,
+        "y": 50
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "rodilla_der",
+      "file": "partes/rodilla_der.png",
+      "parent": "muslo_der_inferior",
+      "z_index": 5,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 505,
+        "y": 1025
+      },
+      "size": {
+        "width": 205,
+        "height": 145
+      },
+      "pivot_global": {
+        "x": 615,
+        "y": 1090
+      },
+      "pivot_local": {
+        "x": 110,
+        "y": 65
+      },
+      "overlap_margin_px": 24,
+      "transparent": true
+    },
+    {
+      "id": "muslo_der_inferior",
+      "file": "partes/muslo_der_inferior.png",
+      "parent": "muslo_der_superior",
+      "z_index": 6,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 500,
+        "y": 930
+      },
+      "size": {
+        "width": 205,
+        "height": 205
+      },
+      "pivot_global": {
+        "x": 600,
+        "y": 1010
+      },
+      "pivot_local": {
+        "x": 100,
+        "y": 80
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "muslo_der_superior",
+      "file": "partes/muslo_der_superior.png",
+      "parent": "cadera_der",
+      "z_index": 7,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 500,
+        "y": 810
+      },
+      "size": {
+        "width": 200,
+        "height": 225
+      },
+      "pivot_global": {
+        "x": 575,
+        "y": 875
+      },
+      "pivot_local": {
+        "x": 75,
+        "y": 65
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "cadera_der",
+      "file": "partes/cadera_der.png",
+      "parent": "pelvis",
+      "z_index": 8,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 490,
+        "y": 790
+      },
+      "size": {
+        "width": 175,
+        "height": 165
+      },
+      "pivot_global": {
+        "x": 565,
+        "y": 855
+      },
+      "pivot_local": {
+        "x": 75,
+        "y": 65
+      },
+      "overlap_margin_px": 24,
+      "transparent": true
+    },
+    {
+      "id": "dedos_pie_izq",
+      "file": "partes/dedos_pie_izq.png",
+      "parent": "pie_izq",
+      "z_index": 9,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 125,
+        "y": 1460
+      },
+      "size": {
+        "width": 280,
+        "height": 146
+      },
+      "pivot_global": {
+        "x": 300,
+        "y": 1520
+      },
+      "pivot_local": {
+        "x": 175,
+        "y": 60
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "pie_izq",
+      "file": "partes/pie_izq.png",
+      "parent": "tobillo_izq",
+      "z_index": 10,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 130,
+        "y": 1340
+      },
+      "size": {
+        "width": 325,
+        "height": 230
+      },
+      "pivot_global": {
+        "x": 340,
+        "y": 1380
+      },
+      "pivot_local": {
+        "x": 210,
+        "y": 40
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "tobillo_izq",
+      "file": "partes/tobillo_izq.png",
+      "parent": "pantorrilla_izq_inferior",
+      "z_index": 11,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 225,
+        "y": 1310
+      },
+      "size": {
+        "width": 215,
+        "height": 150
+      },
+      "pivot_global": {
+        "x": 340,
+        "y": 1370
+      },
+      "pivot_local": {
+        "x": 115,
+        "y": 60
+      },
+      "overlap_margin_px": 16,
+      "transparent": true
+    },
+    {
+      "id": "pantorrilla_izq_inferior",
+      "file": "partes/pantorrilla_izq_inferior.png",
+      "parent": "pantorrilla_izq_superior",
+      "z_index": 12,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 245,
+        "y": 1190
+      },
+      "size": {
+        "width": 205,
+        "height": 220
+      },
+      "pivot_global": {
+        "x": 375,
+        "y": 1250
+      },
+      "pivot_local": {
+        "x": 130,
+        "y": 60
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "pantorrilla_izq_superior",
+      "file": "partes/pantorrilla_izq_superior.png",
+      "parent": "rodilla_izq",
+      "z_index": 13,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 275,
+        "y": 1070
+      },
+      "size": {
+        "width": 195,
+        "height": 215
+      },
+      "pivot_global": {
+        "x": 385,
+        "y": 1120
+      },
+      "pivot_local": {
+        "x": 110,
+        "y": 50
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "rodilla_izq",
+      "file": "partes/rodilla_izq.png",
+      "parent": "muslo_izq_inferior",
+      "z_index": 14,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 275,
+        "y": 1025
+      },
+      "size": {
+        "width": 195,
+        "height": 145
+      },
+      "pivot_global": {
+        "x": 385,
+        "y": 1090
+      },
+      "pivot_local": {
+        "x": 110,
+        "y": 65
+      },
+      "overlap_margin_px": 24,
+      "transparent": true
+    },
+    {
+      "id": "muslo_izq_inferior",
+      "file": "partes/muslo_izq_inferior.png",
+      "parent": "muslo_izq_superior",
+      "z_index": 15,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 285,
+        "y": 930
+      },
+      "size": {
+        "width": 220,
+        "height": 205
+      },
+      "pivot_global": {
+        "x": 410,
+        "y": 1010
+      },
+      "pivot_local": {
+        "x": 125,
+        "y": 80
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "muslo_izq_superior",
+      "file": "partes/muslo_izq_superior.png",
+      "parent": "cadera_izq",
+      "z_index": 16,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 300,
+        "y": 810
+      },
+      "size": {
+        "width": 225,
+        "height": 225
+      },
+      "pivot_global": {
+        "x": 430,
+        "y": 875
+      },
+      "pivot_local": {
+        "x": 130,
+        "y": 65
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "cadera_izq",
+      "file": "partes/cadera_izq.png",
+      "parent": "pelvis",
+      "z_index": 17,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 315,
+        "y": 790
+      },
+      "size": {
+        "width": 195,
+        "height": 165
+      },
+      "pivot_global": {
+        "x": 435,
+        "y": 855
+      },
+      "pivot_local": {
+        "x": 120,
+        "y": 65
+      },
+      "overlap_margin_px": 24,
+      "transparent": true
+    },
+    {
+      "id": "dedos_der",
+      "file": "partes/dedos_der.png",
+      "parent": "mano_der",
+      "z_index": 18,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 655,
+        "y": 915
+      },
+      "size": {
+        "width": 230,
+        "height": 160
+      },
+      "pivot_global": {
+        "x": 790,
+        "y": 975
+      },
+      "pivot_local": {
+        "x": 135,
+        "y": 60
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "mano_der",
+      "file": "partes/mano_der.png",
+      "parent": "muneca_der",
+      "z_index": 19,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 640,
+        "y": 805
+      },
+      "size": {
+        "width": 235,
+        "height": 195
+      },
+      "pivot_global": {
+        "x": 705,
+        "y": 915
+      },
+      "pivot_local": {
+        "x": 65,
+        "y": 110
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "muneca_der",
+      "file": "partes/muneca_der.png",
+      "parent": "antebrazo_der",
+      "z_index": 20,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 625,
+        "y": 850
+      },
+      "size": {
+        "width": 170,
+        "height": 130
+      },
+      "pivot_global": {
+        "x": 700,
+        "y": 900
+      },
+      "pivot_local": {
+        "x": 75,
+        "y": 50
+      },
+      "overlap_margin_px": 16,
+      "transparent": true
+    },
+    {
+      "id": "antebrazo_der",
+      "file": "partes/antebrazo_der.png",
+      "parent": "codo_der",
+      "z_index": 21,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 595,
+        "y": 646.146
+      },
+      "size": {
+        "width": 255,
+        "height": 343.854
+      },
+      "pivot_global": {
+        "x": 675,
+        "y": 720
+      },
+      "pivot_local": {
+        "x": 80,
+        "y": 73.854
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "codo_der",
+      "file": "partes/codo_der.png",
+      "parent": "brazo_der_superior",
+      "z_index": 22,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 590,
+        "y": 650
+      },
+      "size": {
+        "width": 200,
+        "height": 160
+      },
+      "pivot_global": {
+        "x": 675,
+        "y": 710
+      },
+      "pivot_local": {
+        "x": 85,
+        "y": 60
+      },
+      "overlap_margin_px": 24,
+      "transparent": true
+    },
+    {
+      "id": "brazo_der_superior",
+      "file": "partes/brazo_der_superior.png",
+      "parent": "hombro_der",
+      "z_index": 23,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 575,
+        "y": 443.032
+      },
+      "size": {
+        "width": 215,
+        "height": 371.968
+      },
+      "pivot_global": {
+        "x": 640,
+        "y": 535
+      },
+      "pivot_local": {
+        "x": 65,
+        "y": 91.968
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "hombro_der",
+      "file": "partes/hombro_der.png",
+      "parent": "clavicula_der",
+      "z_index": 24,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 570,
+        "y": 420
+      },
+      "size": {
+        "width": 190,
+        "height": 205
+      },
+      "pivot_global": {
+        "x": 625,
+        "y": 505
+      },
+      "pivot_local": {
+        "x": 55,
+        "y": 85
+      },
+      "overlap_margin_px": 24,
+      "transparent": true
+    },
+    {
+      "id": "clavicula_der",
+      "file": "partes/clavicula_der.png",
+      "parent": "pecho_superior",
+      "z_index": 25,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 480,
+        "y": 430
+      },
+      "size": {
+        "width": 210,
+        "height": 135
+      },
+      "pivot_global": {
+        "x": 570,
+        "y": 495
+      },
+      "pivot_local": {
+        "x": 90,
+        "y": 65
+      },
+      "overlap_margin_px": 16,
+      "transparent": true
+    },
+    {
+      "id": "dedos_izq",
+      "file": "partes/dedos_izq.png",
+      "parent": "mano_izq",
+      "z_index": 26,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 110,
+        "y": 915
+      },
+      "size": {
+        "width": 240,
+        "height": 160
+      },
+      "pivot_global": {
+        "x": 220,
+        "y": 975
+      },
+      "pivot_local": {
+        "x": 110,
+        "y": 60
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "mano_izq",
+      "file": "partes/mano_izq.png",
+      "parent": "muneca_izq",
+      "z_index": 27,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 110,
+        "y": 800
+      },
+      "size": {
+        "width": 255,
+        "height": 200
+      },
+      "pivot_global": {
+        "x": 285,
+        "y": 915
+      },
+      "pivot_local": {
+        "x": 175,
+        "y": 115
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "muneca_izq",
+      "file": "partes/muneca_izq.png",
+      "parent": "antebrazo_izq",
+      "z_index": 28,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 190,
+        "y": 850
+      },
+      "size": {
+        "width": 165,
+        "height": 130
+      },
+      "pivot_global": {
+        "x": 285,
+        "y": 900
+      },
+      "pivot_local": {
+        "x": 95,
+        "y": 50
+      },
+      "overlap_margin_px": 16,
+      "transparent": true
+    },
+    {
+      "id": "antebrazo_izq",
+      "file": "partes/antebrazo_izq.png",
+      "parent": "codo_izq",
+      "z_index": 29,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 110,
+        "y": 640
+      },
+      "size": {
+        "width": 222.574,
+        "height": 350
+      },
+      "pivot_global": {
+        "x": 300,
+        "y": 720
+      },
+      "pivot_local": {
+        "x": 190,
+        "y": 80
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "codo_izq",
+      "file": "partes/codo_izq.png",
+      "parent": "brazo_izq_superior",
+      "z_index": 30,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 195,
+        "y": 650
+      },
+      "size": {
+        "width": 180,
+        "height": 160
+      },
+      "pivot_global": {
+        "x": 300,
+        "y": 710
+      },
+      "pivot_local": {
+        "x": 105,
+        "y": 60
+      },
+      "overlap_margin_px": 24,
+      "transparent": true
+    },
+    {
+      "id": "brazo_izq_superior",
+      "file": "partes/brazo_izq_superior.png",
+      "parent": "hombro_izq",
+      "z_index": 31,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 203.105,
+        "y": 445
+      },
+      "size": {
+        "width": 162.773,
+        "height": 365
+      },
+      "pivot_global": {
+        "x": 320,
+        "y": 535
+      },
+      "pivot_local": {
+        "x": 116.895,
+        "y": 90
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "hombro_izq",
+      "file": "partes/hombro_izq.png",
+      "parent": "clavicula_izq",
+      "z_index": 32,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 195,
+        "y": 420
+      },
+      "size": {
+        "width": 215,
+        "height": 205
+      },
+      "pivot_global": {
+        "x": 335,
+        "y": 505
+      },
+      "pivot_local": {
+        "x": 140,
+        "y": 85
+      },
+      "overlap_margin_px": 24,
+      "transparent": true
+    },
+    {
+      "id": "clavicula_izq",
+      "file": "partes/clavicula_izq.png",
+      "parent": "pecho_superior",
+      "z_index": 33,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 280,
+        "y": 430
+      },
+      "size": {
+        "width": 220,
+        "height": 135
+      },
+      "pivot_global": {
+        "x": 410,
+        "y": 495
+      },
+      "pivot_local": {
+        "x": 130,
+        "y": 65
+      },
+      "overlap_margin_px": 16,
+      "transparent": true
+    },
+    {
+      "id": "pelvis",
+      "file": "partes/pelvis.png",
+      "parent": "abdomen_inferior",
+      "z_index": 34,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 305,
+        "y": 780
+      },
+      "size": {
+        "width": 375,
+        "height": 190
+      },
+      "pivot_global": {
+        "x": 490,
+        "y": 830
+      },
+      "pivot_local": {
+        "x": 185,
+        "y": 50
+      },
+      "overlap_margin_px": 18,
+      "transparent": true
+    },
+    {
+      "id": "abdomen_inferior",
+      "file": "partes/abdomen_inferior.png",
+      "parent": "abdomen_superior",
+      "z_index": 35,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 315,
+        "y": 710
+      },
+      "size": {
+        "width": 350,
+        "height": 160
+      },
+      "pivot_global": {
+        "x": 490,
+        "y": 755
+      },
+      "pivot_local": {
+        "x": 175,
+        "y": 45
+      },
+      "overlap_margin_px": 18,
+      "transparent": true
+    },
+    {
+      "id": "abdomen_superior",
+      "file": "partes/abdomen_superior.png",
+      "parent": "caja_toracica",
+      "z_index": 36,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 305,
+        "y": 620
+      },
+      "size": {
+        "width": 365,
+        "height": 170
+      },
+      "pivot_global": {
+        "x": 490,
+        "y": 675
+      },
+      "pivot_local": {
+        "x": 185,
+        "y": 55
+      },
+      "overlap_margin_px": 18,
+      "transparent": true
+    },
+    {
+      "id": "caja_toracica",
+      "file": "partes/caja_toracica.png",
+      "parent": "pecho_superior",
+      "z_index": 37,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 290,
+        "y": 530
+      },
+      "size": {
+        "width": 400,
+        "height": 175
+      },
+      "pivot_global": {
+        "x": 490,
+        "y": 570
+      },
+      "pivot_local": {
+        "x": 200,
+        "y": 40
+      },
+      "overlap_margin_px": 18,
+      "transparent": true
+    },
+    {
+      "id": "pecho_superior",
+      "file": "partes/pecho_superior.png",
+      "parent": "cuello_inferior",
+      "z_index": 38,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 270,
+        "y": 423.466
+      },
+      "size": {
+        "width": 430,
+        "height": 196.534
+      },
+      "pivot_global": {
+        "x": 490,
+        "y": 490
+      },
+      "pivot_local": {
+        "x": 220,
+        "y": 66.534
+      },
+      "overlap_margin_px": 18,
+      "transparent": true
+    },
+    {
+      "id": "cuello_inferior",
+      "file": "partes/cuello_inferior.png",
+      "parent": "cuello_superior",
+      "z_index": 39,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 390,
+        "y": 420
+      },
+      "size": {
+        "width": 200,
+        "height": 115
+      },
+      "pivot_global": {
+        "x": 490,
+        "y": 445
+      },
+      "pivot_local": {
+        "x": 100,
+        "y": 25
+      },
+      "overlap_margin_px": 18,
+      "transparent": true
+    },
+    {
+      "id": "cuello_superior",
+      "file": "partes/cuello_superior.png",
+      "parent": "rostro_mandibula",
+      "z_index": 40,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 400,
+        "y": 370
+      },
+      "size": {
+        "width": 185,
+        "height": 115
+      },
+      "pivot_global": {
+        "x": 490,
+        "y": 405
+      },
+      "pivot_local": {
+        "x": 90,
+        "y": 35
+      },
+      "overlap_margin_px": 18,
+      "transparent": true
+    },
+    {
+      "id": "rostro_mandibula",
+      "file": "partes/rostro_mandibula.png",
+      "parent": "craneo",
+      "z_index": 41,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 250,
+        "y": 220
+      },
+      "size": {
+        "width": 530,
+        "height": 250
+      },
+      "pivot_global": {
+        "x": 500,
+        "y": 350
+      },
+      "pivot_local": {
+        "x": 250,
+        "y": 130
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    },
+    {
+      "id": "craneo",
+      "file": "partes/craneo.png",
+      "parent": null,
+      "z_index": 42,
+      "depth_order": "back_to_front",
+      "canvas_position": {
+        "x": 245,
+        "y": 0
+      },
+      "size": {
+        "width": 540,
+        "height": 390
+      },
+      "pivot_global": {
+        "x": 500,
+        "y": 180
+      },
+      "pivot_local": {
+        "x": 255,
+        "y": 180
+      },
+      "overlap_margin_px": 10,
+      "transparent": true
+    }
+  ]
+}

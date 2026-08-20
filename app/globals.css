@@ -92,6 +92,24 @@
 /* Rig coordinado: cadenas completas de brazo y pierna se desplazan juntas */
 .designed-rig .rig-body,.designed-rig .limb-chain,.designed-rig .svg-part{transform-box:view-box;will-change:transform}
 .rig-visible-image{position:absolute;z-index:4;left:50%;bottom:0;width:auto;height:100%;max-width:none;object-fit:contain;transform:translateX(-50%);pointer-events:none;user-select:none;filter:drop-shadow(0 3px 1px rgba(36,27,18,.22))}.designed-rig[data-rig="43-capas"]{display:none}
+.layered-character-rig{position:absolute;z-index:4;inset:0;pointer-events:none;user-select:none;filter:drop-shadow(0 3px 1px rgba(36,27,18,.22));transform-origin:50% 76%;animation:layered-rig-idle 2.2s ease-in-out infinite}
+.rig-composite-base{position:absolute;z-index:0;inset:0;width:100%;height:100%;display:block;object-fit:contain;pointer-events:none;user-select:none}
+.rig-part{position:absolute;display:block;max-width:none;object-fit:fill;pointer-events:none;user-select:none;will-change:transform}
+.fighter.character-clean{background:none;overflow:visible}
+.character-clean-image{position:absolute;z-index:4;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center bottom;max-width:none;pointer-events:none;user-select:none;filter:drop-shadow(0 3px 1px rgba(36,27,18,.22))}
+@keyframes layered-rig-idle{0%,100%{transform:translateY(0) rotate(-.2deg)}50%{transform:translateY(-4px) rotate(.2deg)}}
+.fighter.attack-punch .rig-part-pecho_superior,.fighter.attack-punch .rig-part-caja_toracica,.fighter.attack-punch .rig-part-abdomen_superior{animation:layered-punch-core .58s cubic-bezier(.22,.7,.25,1)}
+.fighter.attack-punch .rig-part-brazo_izq_superior,.fighter.attack-punch .rig-part-codo_izq{animation:layered-punch-upper .58s cubic-bezier(.2,.8,.25,1)}
+.fighter.attack-punch .rig-part-antebrazo_izq,.fighter.attack-punch .rig-part-muneca_izq,.fighter.attack-punch .rig-part-mano_izq,.fighter.attack-punch .rig-part-dedos_izq{animation:layered-punch-lower .58s cubic-bezier(.2,.8,.25,1)}
+@keyframes layered-punch-core{0%,100%{transform:rotate(0)}20%{transform:rotate(3deg)}58%,70%{transform:rotate(-5deg)}}
+@keyframes layered-punch-upper{0%,100%{transform:rotate(0)}20%{transform:rotate(12deg)}58%,70%{transform:translate(10%,-3%) rotate(-28deg)}}
+@keyframes layered-punch-lower{0%,100%{transform:rotate(0)}20%{transform:rotate(8deg)}58%,70%{transform:translate(34%,-8%) rotate(-40deg)}}
+.fighter.attack-kick .rig-part-pecho_superior,.fighter.attack-kick .rig-part-caja_toracica,.fighter.attack-kick .rig-part-abdomen_superior{animation:layered-kick-core .72s ease-in-out}
+.fighter.attack-kick .rig-part-muslo_izq_superior,.fighter.attack-kick .rig-part-muslo_izq_inferior,.fighter.attack-kick .rig-part-rodilla_izq{animation:layered-kick-thigh .72s cubic-bezier(.2,.72,.2,1)}
+.fighter.attack-kick .rig-part-pantorrilla_izq_superior,.fighter.attack-kick .rig-part-pantorrilla_izq_inferior,.fighter.attack-kick .rig-part-tobillo_izq,.fighter.attack-kick .rig-part-pie_izq,.fighter.attack-kick .rig-part-dedos_pie_izq{animation:layered-kick-lower .72s cubic-bezier(.2,.72,.2,1)}
+@keyframes layered-kick-core{0%,100%{transform:rotate(0)}22%{transform:rotate(4deg)}58%,72%{transform:rotate(-6deg)}}
+@keyframes layered-kick-thigh{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}58%,72%{transform:translate(17%,-9%) rotate(-42deg)}}
+@keyframes layered-kick-lower{0%,100%{transform:rotate(0)}25%{transform:rotate(18deg)}58%,72%{transform:translate(48%,-20%) rotate(-62deg)}}
 .designed-rig .rig-body{transform-origin:480px 1160px;animation:natural-idle 2.1s ease-in-out infinite}
 .designed-rig .cabeza-svg{transform-origin:485px 405px;animation:natural-head 3s ease-in-out infinite}
 .designed-rig .torso-svg{transform-origin:480px 700px;animation:natural-breathe 2.1s ease-in-out infinite}
