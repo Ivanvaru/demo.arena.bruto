@@ -97,6 +97,11 @@
 .rig-part{position:absolute;display:block;max-width:none;object-fit:fill;pointer-events:none;user-select:none;will-change:transform}
 .fighter.character-clean{background:none;overflow:visible}
 .character-clean-image{position:absolute;z-index:4;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center bottom;max-width:none;pointer-events:none;user-select:none;filter:drop-shadow(0 3px 1px rgba(36,27,18,.22))}
+.svg-character-rig{position:absolute;z-index:4;inset:0;overflow:visible;pointer-events:none;user-select:none;filter:drop-shadow(0 3px 1px rgba(36,27,18,.22));transform-origin:50% 76%;animation:layered-rig-idle 2.2s ease-in-out infinite}
+.rig-inline-svg,.character-rig-svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+.rig-loading-fallback{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center bottom;opacity:1;transition:opacity .12s linear}
+.svg-character-rig.rig-ready .rig-loading-fallback{opacity:0}
+.rig-svg-part{will-change:transform}
 @keyframes layered-rig-idle{0%,100%{transform:translateY(0) rotate(-.2deg)}50%{transform:translateY(-4px) rotate(.2deg)}}
 .fighter.attack-punch .rig-part-pecho_superior,.fighter.attack-punch .rig-part-caja_toracica,.fighter.attack-punch .rig-part-abdomen_superior{animation:layered-punch-core .58s cubic-bezier(.22,.7,.25,1)}
 .fighter.attack-punch .rig-part-brazo_izq_superior,.fighter.attack-punch .rig-part-codo_izq{animation:layered-punch-upper .58s cubic-bezier(.2,.8,.25,1)}
