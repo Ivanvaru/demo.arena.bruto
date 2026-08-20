@@ -140,6 +140,24 @@
 
 .fighter.hit .designed-rig{animation:natural-hit .36s ease-out}.fighter.hit .cabeza-svg{animation:natural-hit-head .36s ease-out}
 @keyframes natural-hit{30%{transform:translateX(-24px) rotate(7deg);filter:brightness(1.32)}65%{transform:translateX(7px) rotate(-2deg)}}@keyframes natural-hit-head{30%{transform:rotate(17deg) translate(9px,-6px)}}
+
+/* Reacciones defensivas: el cuerpo responde al resultado real del motor */
+.fighter.defense-block .rig-body,.fighter.defense-perfect-block .rig-body{animation:defense-brace .52s cubic-bezier(.2,.75,.25,1)}
+.fighter.defense-block .arm-left,.fighter.defense-block .arm-right,.fighter.defense-perfect-block .arm-left,.fighter.defense-perfect-block .arm-right{animation:defense-guard .52s ease-out}
+.fighter.defense-perfect-block .designed-rig{filter:drop-shadow(0 0 12px #ffd44d) brightness(1.08)}
+@keyframes defense-brace{20%{transform:translateY(5px) rotate(-3deg) scale(.98,1.01)}45%,72%{transform:translateX(-12px) translateY(9px) rotate(5deg) scale(.96,1.02)}100%{transform:none}}
+@keyframes defense-guard{18%{transform:rotate(0)}42%,72%{transform:rotate(-42deg) translate(10px,-30px)}100%{transform:none}}
+.fighter.left.defense-dodge{animation:defense-dodge-left .52s cubic-bezier(.18,.82,.28,1)}.fighter.right.defense-dodge{animation:defense-dodge-right .52s cubic-bezier(.18,.82,.28,1)}
+.fighter.defense-dodge .rig-body{animation:defense-dodge-body .52s ease-out}
+@keyframes defense-dodge-left{30%,64%{transform:translate(-58px,-12px)}100%{transform:none}}@keyframes defense-dodge-right{30%,64%{transform:scaleX(-1) translate(-58px,-12px)}100%{transform:scaleX(-1)}}
+@keyframes defense-dodge-body{28%,66%{transform:rotate(-11deg) translateY(-6px)}100%{transform:none}}
+
+/* Crítico: destello y golpe visualmente más pesado sin cambiar el cálculo */
+.fighter.critical .fighter-aura{opacity:1;background:radial-gradient(ellipse,#ffcf3d99,#e53e1b44 48%,transparent 72%);animation:critical-aura .5s ease-out}
+.fighter.critical .designed-rig{filter:drop-shadow(0 0 8px #ffd33d) saturate(1.2)}
+@keyframes critical-aura{0%{transform:translateX(-50%) scale(.4);opacity:0}40%{transform:translateX(-50%) scale(1.25);opacity:1}100%{transform:translateX(-50%) scale(1);opacity:.2}}
+.impact.critical-impact:before{background:#ff7a28;filter:drop-shadow(5px 6px 0 #6f130b)}.impact.critical-impact{color:#fff;transform:translate(-50%,-50%) scale(1.28) rotate(-6deg)}.impact.critical-impact i{font-size:13px;color:#fff4a4;text-shadow:2px 2px #6f130b}
+.defense-effect{position:absolute;z-index:16;left:50%;top:44%;opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.55);transition:.14s}.defense-effect.show{opacity:1;transform:translate(-50%,-50%) scale(1)}.defense-effect span{display:block;padding:9px 15px;border:4px solid var(--ink);border-radius:12px;background:#4e9bd8;color:#fff;font:900 14px Georgia,serif;letter-spacing:.04em;box-shadow:4px 5px #0005;transform:rotate(-4deg)}.defense-effect.dodge span{background:#6654b8}.defense-effect.perfect-block span{background:#e9ad25;color:#2b1b0d}
 @media(max-width:720px){.stage{left:5%;right:5%;bottom:4.5%;height:39%}.fighter,.fighter.ragnar,.fighter.brakka{height:100%;width:auto;scale:1;--advance-distance:clamp(72px,22vw,115px)}.designed-rig{height:100%;width:100%}}
 
 /* Selector compacto de clase para el primer motor de combate */
