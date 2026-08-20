@@ -360,10 +360,10 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 
 /* Guardia viva: el peso permanece en los pies y la respiración nace en el torso */
 .fighter:not(.attack):not(.hit):not(.defense-block):not(.defense-perfect-block):not(.defense-dodge):not(.defeated) .skeleton-character-rig{animation:sk-idle-root 3.2s cubic-bezier(.42,0,.58,1) infinite}
-.fighter:not(.attack):not(.hit):not(.defeated) .bone-core{animation:sk-idle-core 3.2s cubic-bezier(.42,0,.58,1) infinite}
-.fighter:not(.attack):not(.hit):not(.defeated) .bone-head{animation:sk-idle-head 5.6s ease-in-out infinite}
-.fighter:not(.attack):not(.hit):not(.defeated) .bone-upper-arm-izq{animation:sk-idle-arm-front 3.2s ease-in-out infinite}
-.fighter:not(.attack):not(.hit):not(.defeated) .bone-upper-arm-der{animation:sk-idle-arm-back 3.2s ease-in-out infinite}
+.fighter:not(.attack):not(.hit):not(.defense-block):not(.defense-perfect-block):not(.defense-dodge):not(.defeated) .bone-core{animation:sk-idle-core 3.2s cubic-bezier(.42,0,.58,1) infinite}
+.fighter:not(.attack):not(.hit):not(.defense-block):not(.defense-perfect-block):not(.defense-dodge):not(.defeated) .bone-head{animation:sk-idle-head 5.6s ease-in-out infinite}
+.fighter:not(.attack):not(.hit):not(.defense-block):not(.defense-perfect-block):not(.defense-dodge):not(.defeated) .bone-upper-arm-izq{animation:sk-idle-arm-front 3.2s ease-in-out infinite}
+.fighter:not(.attack):not(.hit):not(.defense-block):not(.defense-perfect-block):not(.defense-dodge):not(.defeated) .bone-upper-arm-der{animation:sk-idle-arm-back 3.2s ease-in-out infinite}
 @keyframes sk-idle-root{0%,100%{transform:translateY(0) rotate(-.12deg)}28%{transform:translateY(-1px)}55%{transform:translateY(-3px) rotate(.12deg)}78%{transform:translateY(-1px)}}
 @keyframes sk-idle-core{0%,100%{transform:scale(1)}52%{transform:translateY(-3px) scale(1.004,1.009)}}
 @keyframes sk-idle-head{0%,22%,100%{transform:rotate(-.4deg)}48%,64%{transform:rotate(.7deg) translateY(-1px)}}
@@ -419,20 +419,24 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 /* Reacciones defensivas e impactos: siempre se resuelven en el contacto */
 .fighter.hit .skeleton-character-rig{animation:sk-hit-root .43s cubic-bezier(.16,.82,.2,1)}
 .fighter.hit .bone-core{animation:sk-hit-core .43s ease-out}.fighter.hit .bone-head{animation:sk-hit-head .43s ease-out}
+.fighter.hit{animation:none}
 @keyframes sk-hit-root{0%,100%{transform:translateX(-50%)}24%{transform:translateX(calc(-50% - 20px)) rotate(6deg)}58%{transform:translateX(calc(-50% + 7px)) rotate(-2deg)}80%{transform:translateX(calc(-50% - 2px))}}
 @keyframes sk-hit-core{0%,100%{transform:none}24%{transform:rotate(8deg) translate(-8px,2px)}58%{transform:rotate(-2deg)}}
 @keyframes sk-hit-head{0%,100%{transform:none}24%{transform:rotate(17deg) translate(-7px,-3px)}58%{transform:rotate(-4deg)}}
 .fighter.defense-block .bone-upper-arm-izq,.fighter.defense-perfect-block .bone-upper-arm-izq{animation:sk-block-front .52s ease-out}.fighter.defense-block .bone-forearm-izq,.fighter.defense-perfect-block .bone-forearm-izq{animation:sk-block-forearm .52s ease-out}.fighter.defense-block .bone-upper-arm-der,.fighter.defense-perfect-block .bone-upper-arm-der{animation:sk-block-back .52s ease-out}
 .fighter.defense-block .bone-core,.fighter.defense-perfect-block .bone-core{animation:sk-block-core .52s ease-out}
+.fighter.defense-block .bone-thigh-der,.fighter.defense-perfect-block .bone-thigh-der{animation:sk-block-support .52s ease-out}
 @keyframes sk-block-core{0%,100%{transform:none}24%,70%{transform:translate(-7px,5px) rotate(4deg)}}
 @keyframes sk-block-front{0%,100%{transform:none}24%,70%{transform:rotate(-54deg)}}
 @keyframes sk-block-forearm{0%,100%{transform:none}24%,70%{transform:rotate(-48deg)}}
 @keyframes sk-block-back{0%,100%{transform:none}24%,70%{transform:rotate(42deg)}}
+@keyframes sk-block-support{0%,100%{transform:none}24%,70%{transform:rotate(5deg) translate(-3px,2px)}}
 .fighter.defense-perfect-block .skeleton-character-rig{filter:drop-shadow(0 0 12px #ffd44d) brightness(1.08)}
 .fighter.defense-dodge .skeleton-character-rig{animation:sk-dodge .56s cubic-bezier(.16,.84,.18,1)}
 .fighter.defense-dodge .bone-core{animation:sk-dodge-core .56s ease-out}
 @keyframes sk-dodge{0%,100%{transform:translateX(-50%)}24%,68%{transform:translate(calc(-50% - 25px),-12px) rotate(-8deg)}}
 @keyframes sk-dodge-core{0%,100%{transform:none}24%,68%{transform:rotate(-9deg) translate(-8px,-2px)}}
 .fighter.critical .skeleton-character-rig{filter:drop-shadow(0 0 12px #ffd33d) saturate(1.24) brightness(1.07)}
+.fighter.left.defeated{transform:none;animation:none}.fighter.right.defeated{transform:scaleX(-1);animation:none}
 .fighter.defeated .skeleton-character-rig{animation:sk-defeat .9s cubic-bezier(.32,.04,.58,1) both}
 @keyframes sk-defeat{0%{transform:translateX(-50%)}18%{transform:translate(calc(-50% - 5px),-4px) rotate(3deg)}45%{transform:translate(calc(-50% - 20px),2px) rotate(12deg)}75%{transform:translate(calc(-50% - 34px),17px) rotate(24deg)}100%{transform:translate(calc(-50% - 40px),22px) rotate(29deg) scaleY(.96)}}
