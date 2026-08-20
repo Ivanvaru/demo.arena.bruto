@@ -24,8 +24,16 @@ test("the engine generates the agreed combat variety",()=>{
     result.turns.forEach(t=>{seen.add(t.attack);seen.add(t.outcome);if(t.critical)seen.add("critical");if(t.knockdown)seen.add("knockdown");if(t.stun)seen.add("stun");if(t.counter)seen.add("counter")});
     consecutive ||= result.turns.some((t,i)=>i>0&&result.turns[i-1].actor===t.actor);
   }
-  ["punch","kick","heavy","combo","hit","miss","dodge","block","critical","counter"].forEach(value=>assert.equal(seen.has(value),true,`missing ${value}`));
+  ["punch","kick","heavy","combo","hit","dodge","block","critical","counter"].forEach(value=>assert.equal(seen.has(value),true,`missing ${value}`));
   assert.equal(consecutive,true);
+});
+
+test("attacks always end in a hit, block or dodge",()=>{
+  const valid=new Set(["hit","dodge","block","perfect-block"]);
+  for(let seed=700;seed<950;seed++){
+    const result=simulateBattle(makeProfile("A","Aventurero"),makeProfile("B","Atleta"),seed);
+    result.turns.forEach(turn=>assert.equal(valid.has(turn.outcome),true));
+  }
 });
 
 test("the initial classes remain competitive",()=>{
