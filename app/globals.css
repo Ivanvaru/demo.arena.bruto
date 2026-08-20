@@ -440,3 +440,29 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 .fighter.left.defeated{transform:none;animation:none}.fighter.right.defeated{transform:scaleX(-1);animation:none}
 .fighter.defeated .skeleton-character-rig{animation:sk-defeat .9s cubic-bezier(.32,.04,.58,1) both}
 @keyframes sk-defeat{0%{transform:translateX(-50%)}18%{transform:translate(calc(-50% - 5px),-4px) rotate(3deg)}45%{transform:translate(calc(-50% - 20px),2px) rotate(12deg)}75%{transform:translate(calc(-50% - 34px),17px) rotate(24deg)}100%{transform:translate(calc(-50% - 40px),22px) rotate(29deg) scaleY(.96)}}
+
+/* Calibración de espacios: el contenedor, la sombra y los pies comparten el mismo eje */
+.locker-character .fighter{position:absolute;left:50%;bottom:18px;width:auto;height:86%;margin:0;transform:translateX(-50%);transform-origin:50% 100%}
+.locker-character .fighter .shadow{bottom:-2px}
+.locker-actions{display:flex;align-items:center;justify-content:center;gap:22px;margin:25px auto 0}
+.locker-actions .primary-game-button,.locker-actions .secondary-game-button{margin:0}
+.match-character{bottom:18px;width:35%;height:68%;pointer-events:none}
+.match-character .fighter{position:relative;width:auto;height:100%;margin:0;flex:0 0 auto}
+.player-card>small,.player-card>h3,.player-card>b,.player-card>p,.player-card>.stats-panel{margin-left:36%}
+.rival-card>small,.rival-card>h3,.rival-card>b,.rival-card>p,.rival-card>.stats-panel{margin-right:36%}
+
+/* Laboratorio integrado: usa el mismo Brute y las mismas clases del combate */
+.lab-screen{width:min(1120px,calc(100% - 32px))}
+.lab-demo{position:relative;height:430px;margin:28px 0 24px;overflow:hidden;border:7px ridge #795a35;border-radius:8px;background:linear-gradient(#0000 72%,#4d2c1688),url('/arena-dojo.webp') center/cover;box-shadow:0 0 0 4px #24170f,inset 0 0 35px #2a160b66}
+.lab-demo .fighter{position:absolute;left:18%;bottom:6%;height:78%;width:auto;--advance-distance:clamp(120px,22vw,300px)}
+.lab-demo .lab-target{position:absolute;right:13%;bottom:7%;width:128px;height:205px;border:4px dashed #5b3b20aa;border-radius:50% 50% 20% 20%;display:grid;place-items:center;background:#f2d28c33;color:#503017;font:900 10px Georgia,serif;letter-spacing:.15em}
+.lab-demo .lab-target:after{content:"";position:absolute;left:50%;bottom:-10px;width:150px;height:25px;border-radius:50%;background:#2f251e55;transform:translateX(-50%)}
+.lab-demo.paused *{animation-play-state:paused!important}
+.lab-demo.speed-half .fighter.attack-punch,.lab-demo.speed-half .fighter.attack-punch *{animation-duration:2.24s!important}.lab-demo.speed-quarter .fighter.attack-punch,.lab-demo.speed-quarter .fighter.attack-punch *{animation-duration:4.48s!important}
+.lab-demo.speed-half .fighter.attack-kick,.lab-demo.speed-half .fighter.attack-kick *{animation-duration:2.52s!important}.lab-demo.speed-quarter .fighter.attack-kick,.lab-demo.speed-quarter .fighter.attack-kick *{animation-duration:5.04s!important}
+.lab-demo.speed-half .fighter:is(.hit,.defense-block,.defense-perfect-block,.defense-dodge,.defeated) *{animation-duration:1.1s!important}.lab-demo.speed-quarter .fighter:is(.hit,.defense-block,.defense-perfect-block,.defense-dodge,.defeated) *{animation-duration:2.2s!important}
+.lab-demo.speed-half .fighter:not(.attack):not(.hit):not(.defense-block):not(.defense-perfect-block):not(.defense-dodge):not(.defeated) *{animation-duration:6.4s!important}.lab-demo.speed-quarter .fighter:not(.attack):not(.hit):not(.defense-block):not(.defense-perfect-block):not(.defense-dodge):not(.defeated) *{animation-duration:12.8s!important}
+.lab-controls{padding:18px;border:4px solid #2b1a0f;border-radius:12px;background:#ead0a0;box-shadow:inset 0 0 20px #6b3c1644}
+.lab-motion-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.lab-motion-list button,.lab-transport button{padding:10px 8px;border:3px solid #2b1a0f;border-radius:7px;background:#fff1d0;color:#382313;font-size:9px;font-weight:900;cursor:pointer}.lab-motion-list button.selected{background:#ffc347;box-shadow:inset 0 -4px #d07813}
+.lab-transport{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px}.lab-transport label{display:flex;align-items:center;gap:8px;color:#4d321c;font-size:9px;font-weight:900}.lab-transport select{padding:8px;border:3px solid #2b1a0f;border-radius:7px;background:#fff7df;font-weight:900}.lab-back{display:block;margin:24px auto 0}
+@media(max-width:720px){.locker-character .fighter{height:82%;bottom:15px}.locker-actions{flex-direction:column}.locker-actions button{width:100%}.match-character{position:relative;left:auto!important;right:auto!important;bottom:auto;width:100%;height:235px;margin-bottom:10px}.player-card>small,.player-card>h3,.player-card>b,.player-card>p,.player-card>.stats-panel,.rival-card>small,.rival-card>h3,.rival-card>b,.rival-card>p,.rival-card>.stats-panel{margin-left:0;margin-right:0}.lab-demo{height:330px}.lab-demo .fighter{left:6%;height:70%;--advance-distance:clamp(75px,27vw,130px)}.lab-demo .lab-target{right:5%;width:88px;height:150px}.lab-motion-list{grid-template-columns:repeat(2,1fr)}.lab-transport{flex-wrap:wrap}}
