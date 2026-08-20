@@ -58,6 +58,7 @@ function Brute({side,variant,attacking,attackKind,hit,critical,reaction,defeated
     </svg>
     <svg className="designed-rig" viewBox="0 0 979 1606" role="presentation" data-rig="43-capas">
       <g className="rig-body">
+        <image className="rig-visible-base" href={CHARACTER_SVG} width="979" height="1606" preserveAspectRatio="xMidYMax meet"/>
         <g className="limb-chain leg-chain leg-right">
           <CharacterLayer id="dedos_pie_der"/><CharacterLayer id="pie_der" className="pie-der"/><CharacterLayer id="tobillo_der"/><CharacterLayer id="pantorrilla_der_inferior" className="pierna-der"/><CharacterLayer id="pantorrilla_der_superior"/><CharacterLayer id="rodilla_der"/><CharacterLayer id="muslo_der_inferior"/><CharacterLayer id="muslo_der_superior" className="muslo-der"/><CharacterLayer id="cadera_der"/>
         </g>
