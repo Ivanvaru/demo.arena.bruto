@@ -74,9 +74,35 @@ function Brute({side,variant,attacking,hit,defeated}:{side:"left"|"right";varian
 }
 
 function FighterCard({fighter,side}:{fighter:Fighter;side:"left"|"right"}){
-  return <div className={`fighter-card card-${side}`}>
-    <div className="portrait-token"><span>{fighter.variant==="ragnar"?"⚒":"⚡"}</span></div>
-    <div className="fighter-info"><small>{fighter.title}</small><strong>{fighter.name}</strong><div className="health-track"><span className={`health-fill ${fighter.variant}`} style={{width:`${fighter.hp}%`}}/></div><div className="health-meta"><b>{fighter.hp} PV</b><em>{fighter.stat}</em></div></div>
+  const suffix=`life-${side}`;
+  const fillWidth=1293*Math.max(0,Math.min(100,fighter.hp))/100;
+  return <div className={`life-card card-${side}`} aria-label={`${fighter.name}: ${fighter.hp} puntos de vida`}>
+    <svg viewBox="0 0 1600 300" role="img" aria-hidden="true">
+      <defs>
+        <linearGradient id={`life-green-${suffix}`} x1="0" y1="0" x2="0" y2="1"><stop stopColor="#91ee37"/><stop offset=".46" stopColor="#47c923"/><stop offset="1" stopColor="#168c16"/></linearGradient>
+        <linearGradient id={`life-shine-${suffix}`} x1="0" y1="0" x2="0" y2="1"><stop stopColor="#fff" stopOpacity=".72"/><stop offset="1" stopColor="#fff" stopOpacity="0"/></linearGradient>
+        <clipPath id={`portrait-${suffix}`}><circle cx="130" cy="135" r="103"/></clipPath>
+        <clipPath id={`progress-${suffix}`}><rect x="281" y="123" width={fillWidth} height="86" rx="38"/></clipPath>
+        <filter id={`shadow-${suffix}`} x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="5" dy="7" stdDeviation="5" floodColor="#120b05" floodOpacity=".55"/></filter>
+      </defs>
+      <use href="/ui/barra-vida.svg#marco"/>
+      <g filter={`url(#shadow-${suffix})`}>
+        <circle cx="130" cy="135" r="111" fill="#3a2415" stroke="#e8aa2d" strokeWidth="12"/>
+        <image href="/characters/base-normal/personaje-base.webp" x="26" y="27" width="208" height="208" preserveAspectRatio="xMidYMin slice" clipPath={`url(#portrait-${suffix})`}/>
+        <circle cx="130" cy="135" r="103" fill="none" stroke="#fff4b0" strokeOpacity=".45" strokeWidth="5"/>
+      </g>
+      <text x="282" y="99" className="life-name-shadow">{fighter.name.toUpperCase()}</text>
+      <text x="282" y="93" className="life-name">{fighter.name.toUpperCase()}</text>
+      <rect x="271" y="113" width="1313" height="106" rx="49" fill="#1c160f" stroke="#0c0906" strokeWidth="5"/>
+      <rect x="281" y="123" width="1293" height="86" rx="39" fill="#4f3c27"/>
+      <g clipPath={`url(#progress-${suffix})`}>
+        <rect x="281" y="123" width="1293" height="86" fill={`url(#life-green-${suffix})`}/>
+        <rect x="281" y="127" width="1293" height="31" rx="16" fill={`url(#life-shine-${suffix})`}/>
+        <path d="M288 192 Q620 174 945 192 T1566 191" fill="none" stroke="#0d6514" strokeOpacity=".55" strokeWidth="8"/>
+      </g>
+      <text x="286" y="270" className="life-count"><tspan>{fighter.hp}</tspan><tspan className="life-total"> / 100 PV</tspan></text>
+      <text x="1568" y="270" textAnchor="end" className="life-stat">{fighter.stat.toUpperCase()}</text>
+    </svg>
   </div>;
 }
 

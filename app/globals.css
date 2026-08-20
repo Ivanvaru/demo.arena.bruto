@@ -67,3 +67,14 @@
 @keyframes designed-lunge{45%{transform:rotate(-8deg) translate(25px,-8px)}}@keyframes designed-punch-upper{45%{transform:rotate(-58deg)}}@keyframes designed-punch-lower{45%{transform:rotate(-48deg) translateY(-10px)}}@keyframes designed-attack-head{45%{transform:rotate(-8deg) translateY(5px)}}@keyframes designed-step{45%{transform:rotate(-8deg) translateX(12px)}}
 @keyframes designed-hit{35%{transform:translateX(-18px) rotate(8deg);filter:brightness(1.35)}}@keyframes designed-hit-head{35%{transform:rotate(16deg) translate(10px,-8px)}}
 @media(max-width:720px){.designed-rig{height:270px}}
+
+/* Marcadores de vida ornamentales basados en el SVG aportado */
+.cards-row{left:18px;right:18px;top:13px;grid-template-columns:minmax(0,1fr) 82px minmax(0,1fr);gap:8px;align-items:center}
+.life-card{width:100%;min-width:0;filter:drop-shadow(0 5px 3px rgba(32,20,9,.32))}
+.life-card svg{display:block;width:100%;height:auto;overflow:visible}
+.life-name,.life-name-shadow{font:900 57px Georgia,serif;letter-spacing:2px;paint-order:stroke fill;stroke-linejoin:round}
+.life-name{fill:#fff4c3;stroke:#3b210e;stroke-width:10px}.life-name-shadow{fill:#4c210d;stroke:#130b06;stroke-width:13px;opacity:.72}
+.life-count{fill:#fff5cb;stroke:#201207;stroke-width:5px;paint-order:stroke fill;font:900 42px Georgia,serif}.life-total{font-size:30px}.life-stat{fill:#e7b84a;stroke:#201207;stroke-width:4px;paint-order:stroke fill;font:900 25px Arial,sans-serif;letter-spacing:2px}
+.life-card.card-right{transform:none;text-align:initial}
+.life-card rect[width]{transition:width .35s ease}
+@media(max-width:720px){.cards-row{left:5px;right:5px;top:8px;grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr);gap:1px}.versus{width:42px;height:42px}.life-card{filter:drop-shadow(0 2px 2px rgba(32,20,9,.35))}.life-stat{display:none}}
