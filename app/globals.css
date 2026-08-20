@@ -17,3 +17,11 @@
 .sky,.banners,.crowd{display:none}
 .floor{border-top:0;background:linear-gradient(180deg,transparent,rgba(69,31,10,.07))}
 .arena-mark,.floor>i{display:none}
+
+/* Skin modular principal: un mismo archivo para ambos combatientes */
+.fighter{width:185px;height:285px}
+.fighter.ragnar,.fighter.brakka{scale:1}
+.fighter-skin{position:absolute;z-index:4;left:50%;bottom:0;width:auto;height:100%;max-width:none;transform:translateX(-50%);object-fit:contain;user-select:none;pointer-events:none;filter:drop-shadow(0 3px 1px rgba(36,27,18,.2))}
+.fighter .shadow{left:50%;bottom:-3px;width:145px;transform:translateX(-50%)}
+.fighter .fighter-aura{left:50%;bottom:7px;transform:translateX(-50%)}
+@media(max-width:720px){.fighter.ragnar,.fighter.brakka{scale:.82}.fighter{margin:-10px}}

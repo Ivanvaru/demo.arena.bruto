@@ -12,7 +12,7 @@ const wait=(ms:number)=>new Promise(r=>setTimeout(r,ms));
 function Brute({side,variant,attacking,hit,defeated}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;hit:boolean;defeated:boolean}){
   return <div className={`fighter ${side} ${variant} ${attacking?"attack":""} ${hit?"hit":""} ${defeated?"defeated":""}`} aria-hidden="true">
     <div className="fighter-aura"/><div className="shadow"/>
-    <div className="body"><div className="hair"/><div className="head"><i/><b/><span className="nose"/><span className="beard"/></div><div className="torso"><i/><span className="chest-mark"/></div><div className="arm back"/><div className="arm front"><i className="club weapon"/></div><div className="leg back"/><div className="leg front"/></div>
+    <img className="fighter-skin" src="/characters/skin-principal.png" alt="" draggable={false}/>
   </div>;
 }
 
