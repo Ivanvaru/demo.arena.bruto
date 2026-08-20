@@ -83,7 +83,11 @@
 .stage{left:12%;right:12%;bottom:4.5%;height:39%;align-items:flex-end}
 .fighter,.fighter.ragnar,.fighter.brakka{height:100%;width:auto;aspect-ratio:979/1606;flex:0 0 auto;margin:0;scale:1}
 .designed-rig{left:0;bottom:0;width:100%;height:100%;transform:none;overflow:visible}
-.fighter.left.attack{transform:none}.fighter.right.attack{transform:scaleX(-1)}
+.fighter{--advance-distance:clamp(120px,19vw,285px);will-change:transform}
+.fighter.left.attack{animation:arena-advance-left .86s cubic-bezier(.22,.72,.24,1)}
+.fighter.right.attack{animation:arena-advance-right .86s cubic-bezier(.22,.72,.24,1)}
+@keyframes arena-advance-left{0%{transform:translate(0,0)}18%{transform:translate(calc(var(--advance-distance)*.22),-15px) rotate(-2deg)}40%,56%{transform:translate(var(--advance-distance),-3px) rotate(-1deg)}72%{transform:translate(calc(var(--advance-distance)*.78),-18px) rotate(1deg)}100%{transform:translate(0,0)}}
+@keyframes arena-advance-right{0%{transform:scaleX(-1) translate(0,0)}18%{transform:scaleX(-1) translate(calc(var(--advance-distance)*.22),-15px) rotate(-2deg)}40%,56%{transform:scaleX(-1) translate(var(--advance-distance),-3px) rotate(-1deg)}72%{transform:scaleX(-1) translate(calc(var(--advance-distance)*.78),-18px) rotate(1deg)}100%{transform:scaleX(-1) translate(0,0)}}
 
 /* Rig coordinado: cadenas completas de brazo y pierna se desplazan juntas */
 .designed-rig .rig-body,.designed-rig .limb-chain,.designed-rig .svg-part{transform-box:view-box;will-change:transform}
@@ -136,7 +140,7 @@
 
 .fighter.hit .designed-rig{animation:natural-hit .36s ease-out}.fighter.hit .cabeza-svg{animation:natural-hit-head .36s ease-out}
 @keyframes natural-hit{30%{transform:translateX(-24px) rotate(7deg);filter:brightness(1.32)}65%{transform:translateX(7px) rotate(-2deg)}}@keyframes natural-hit-head{30%{transform:rotate(17deg) translate(9px,-6px)}}
-@media(max-width:720px){.stage{left:5%;right:5%;bottom:4.5%;height:39%}.fighter,.fighter.ragnar,.fighter.brakka{height:100%;width:auto;scale:1}.designed-rig{height:100%;width:100%}}
+@media(max-width:720px){.stage{left:5%;right:5%;bottom:4.5%;height:39%}.fighter,.fighter.ragnar,.fighter.brakka{height:100%;width:auto;scale:1;--advance-distance:clamp(72px,22vw,115px)}.designed-rig{height:100%;width:100%}}
 
 /* Selector compacto de clase para el primer motor de combate */
 .class-picker{display:flex;justify-content:center;gap:7px;margin:15px auto -7px}.class-picker button{padding:7px 11px;border:2px solid #5a4125;border-radius:99px;background:#fff7e5;color:#6d5534;font-size:8px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:.15s}.class-picker button:hover:not(:disabled),.class-picker button.selected{background:var(--ink);color:var(--gold);transform:translateY(-1px)}.class-picker button:disabled{cursor:not-allowed;opacity:.62}.class-picker button:focus-visible,.commentary button:focus-visible,.brand:focus-visible{outline:3px solid #fff;outline-offset:3px}
