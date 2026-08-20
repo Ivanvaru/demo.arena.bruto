@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Arena de Brutos — Demo",
-  description: "Demo privada de un combate automático entre dos luchadores.",
+  title: "Liga de Brutos — Demo",
+  description: "Crea tu bruto, conoce a tu rival y contempla el combate.",
   other: {
     "codex-preview": "development",
   },
