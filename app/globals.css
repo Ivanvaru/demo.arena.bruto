@@ -101,12 +101,12 @@
 
 /* Puñetazo: carga, transferencia de peso, extensión y recuperación */
 .fighter.attack-punch .rig-body{animation:punch-body .58s cubic-bezier(.22,.7,.25,1)}
-.fighter.attack-punch .torso-svg{animation:punch-torso .58s cubic-bezier(.22,.7,.25,1)}
-.fighter.attack-punch .cabeza-svg{animation:punch-head .58s ease-out}
-.fighter.attack-punch .arm-left{animation:punch-arm .58s cubic-bezier(.2,.8,.25,1)}
+.fighter.attack.attack-punch .designed-rig .torso-svg{animation:punch-torso .58s cubic-bezier(.22,.7,.25,1)}
+.fighter.attack.attack-punch .designed-rig .cabeza-svg{animation:punch-head .58s ease-out}
+.fighter.attack.attack-punch .designed-rig .arm-left{animation:punch-arm .58s cubic-bezier(.2,.8,.25,1)}
 .fighter.attack-punch .arm-left .antebrazo-izq{animation:punch-forearm .58s cubic-bezier(.2,.8,.25,1)}
 .fighter.attack-punch .arm-left .mano-izq{animation:punch-fist .58s ease-out}
-.fighter.attack-punch .arm-right{animation:punch-guard .58s ease-out}
+.fighter.attack.attack-punch .designed-rig .arm-right{animation:punch-guard .58s ease-out}
 .fighter.attack-punch .leg-left{animation:punch-front-leg .58s ease-out}.fighter.attack-punch .leg-right{animation:punch-back-leg .58s ease-out}
 @keyframes punch-body{0%,100%{transform:translate(0,0) rotate(0)}18%{transform:translate(-12px,2px) rotate(2deg)}58%{transform:translate(74px,-4px) rotate(-4deg)}76%{transform:translate(61px,-2px) rotate(-2deg)}}
 @keyframes punch-torso{0%,100%{transform:rotate(0)}18%{transform:rotate(6deg)}58%{transform:rotate(-10deg)}76%{transform:rotate(-5deg)}}
@@ -119,7 +119,7 @@
 
 /* Patada: apoyo, rodilla arriba, extensión de la pierna y regreso al suelo */
 .fighter.attack-kick .rig-body{animation:kick-body .72s cubic-bezier(.22,.7,.25,1)}
-.fighter.attack-kick .torso-svg{animation:kick-torso .72s ease-in-out}.fighter.attack-kick .cabeza-svg{animation:kick-head .72s ease-in-out}
+.fighter.attack.attack-kick .designed-rig .torso-svg{animation:kick-torso .72s ease-in-out}.fighter.attack.attack-kick .designed-rig .cabeza-svg{animation:kick-head .72s ease-in-out}
 .fighter.attack-kick .leg-left{animation:kick-thigh .72s cubic-bezier(.2,.8,.25,1)}
 .fighter.attack-kick .leg-left .pierna-izq{animation:kick-shin .72s cubic-bezier(.2,.8,.25,1)}
 .fighter.attack-kick .leg-left .pie-izq{animation:kick-foot .72s ease-out}
