@@ -48,3 +48,22 @@
 @keyframes rig-attack-head{45%{transform:rotate(-8deg) translateY(2px)}}@keyframes rig-step{45%{transform:rotate(-9deg) translateX(5px)}}
 @keyframes rig-hit{35%{transform:rotate(13deg) translateX(-9px);filter:brightness(1.3)}100%{transform:rotate(0)}}@keyframes rig-hit-head{35%{transform:rotate(18deg) translate(5px,-4px)}100%{transform:rotate(0)}}
 @media(max-width:720px){.fighter{width:175px;height:270px}.brute-rig{width:180px;height:270px}.fighter.ragnar,.fighter.brakka{scale:.78}}
+
+/* SVG definitivo aportado: quince capas anatómicas conservadas */
+.brute-rig{display:none}
+.designed-rig{position:absolute;z-index:4;left:50%;bottom:0;width:auto;height:300px;overflow:visible;transform:translateX(-50%);filter:drop-shadow(0 3px 1px rgba(36,27,18,.22))}
+.designed-rig .svg-part{transform-box:view-box;transform-origin:center;will-change:transform}
+.designed-rig .cabeza-svg{transform-origin:485px 405px;animation:designed-head 2.5s ease-in-out infinite}
+.designed-rig .cuello-svg{transform-origin:485px 430px}
+.designed-rig .torso-svg{transform-origin:480px 500px;animation:designed-breathe 1.8s ease-in-out infinite}
+.designed-rig .brazo-izq{transform-origin:335px 510px;animation:designed-arm-left 1.8s ease-in-out infinite}.designed-rig .antebrazo-izq{transform-origin:305px 720px}.designed-rig .mano-izq{transform-origin:285px 925px}
+.designed-rig .brazo-der{transform-origin:625px 505px;animation:designed-arm-right 1.8s ease-in-out infinite}.designed-rig .antebrazo-der{transform-origin:650px 720px}.designed-rig .mano-der{transform-origin:700px 930px}
+.designed-rig .muslo-izq{transform-origin:430px 855px}.designed-rig .pierna-izq{transform-origin:380px 1110px}.designed-rig .pie-izq{transform-origin:350px 1380px}
+.designed-rig .muslo-der{transform-origin:575px 860px}.designed-rig .pierna-der{transform-origin:615px 1110px}.designed-rig .pie-der{transform-origin:595px 1380px}
+.fighter.attack .designed-rig .torso-svg{animation:designed-lunge .42s ease-out}.fighter.attack .designed-rig .brazo-izq{animation:designed-punch-upper .42s ease-out}.fighter.attack .designed-rig .antebrazo-izq{animation:designed-punch-lower .42s ease-out}.fighter.attack .designed-rig .cabeza-svg{animation:designed-attack-head .42s ease-out}.fighter.attack .designed-rig .muslo-izq{animation:designed-step .42s ease-out}
+.fighter.hit .designed-rig{animation:designed-hit .34s ease-out}.fighter.hit .designed-rig .cabeza-svg{animation:designed-hit-head .34s ease-out}
+@keyframes designed-breathe{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(-7px) scaleY(1.012)}}@keyframes designed-head{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(2deg) translateY(-3px)}}
+@keyframes designed-arm-left{0%,100%{transform:rotate(1deg)}50%{transform:rotate(-3deg)}}@keyframes designed-arm-right{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(3deg)}}
+@keyframes designed-lunge{45%{transform:rotate(-8deg) translate(25px,-8px)}}@keyframes designed-punch-upper{45%{transform:rotate(-58deg)}}@keyframes designed-punch-lower{45%{transform:rotate(-48deg) translateY(-10px)}}@keyframes designed-attack-head{45%{transform:rotate(-8deg) translateY(5px)}}@keyframes designed-step{45%{transform:rotate(-8deg) translateX(12px)}}
+@keyframes designed-hit{35%{transform:translateX(-18px) rotate(8deg);filter:brightness(1.35)}}@keyframes designed-hit-head{35%{transform:rotate(16deg) translate(10px,-8px)}}
+@media(max-width:720px){.designed-rig{height:270px}}

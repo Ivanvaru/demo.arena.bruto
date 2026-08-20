@@ -53,6 +53,23 @@ function Brute({side,variant,attacking,hit,defeated}:{side:"left"|"right";varian
         </g>
       </g>
     </svg>
+    <svg className="designed-rig" viewBox="0 0 979 1606" role="presentation">
+      <g className="svg-part pie-der"><use href="/characters/base-normal/personaje.svg#pie_der"/></g>
+      <g className="svg-part pie-izq"><use href="/characters/base-normal/personaje.svg#pie_izq"/></g>
+      <g className="svg-part pierna-der"><use href="/characters/base-normal/personaje.svg#pierna_der"/></g>
+      <g className="svg-part pierna-izq"><use href="/characters/base-normal/personaje.svg#pierna_izq"/></g>
+      <g className="svg-part muslo-der"><use href="/characters/base-normal/personaje.svg#muslo_der"/></g>
+      <g className="svg-part muslo-izq"><use href="/characters/base-normal/personaje.svg#muslo_izq"/></g>
+      <g className="svg-part mano-der"><use href="/characters/base-normal/personaje.svg#mano_der"/></g>
+      <g className="svg-part antebrazo-der"><use href="/characters/base-normal/personaje.svg#antebrazo_der"/></g>
+      <g className="svg-part brazo-der"><use href="/characters/base-normal/personaje.svg#brazo_der_superior"/></g>
+      <g className="svg-part mano-izq"><use href="/characters/base-normal/personaje.svg#mano_izq"/></g>
+      <g className="svg-part antebrazo-izq"><use href="/characters/base-normal/personaje.svg#antebrazo_izq"/></g>
+      <g className="svg-part brazo-izq"><use href="/characters/base-normal/personaje.svg#brazo_izq_superior"/></g>
+      <g className="svg-part torso-svg"><use href="/characters/base-normal/personaje.svg#torso"/></g>
+      <g className="svg-part cuello-svg"><use href="/characters/base-normal/personaje.svg#cuello"/></g>
+      <g className="svg-part cabeza-svg"><use href="/characters/base-normal/personaje.svg#cabeza"/></g>
+    </svg>
   </div>;
 }
 

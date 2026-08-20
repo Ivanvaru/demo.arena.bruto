@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="979" height="1606" viewBox="0 0 979 1606">
+  <title>Personaje articulado por partes</title>
+  <desc>SVG autocontenido con quince grupos anatómicos independientes y pivotes de animación.</desc>
+  <defs>
+    <image id="imagen_base" width="979" height="1606" preserveAspectRatio="none" href="/characters/base-normal/personaje-base.webp"/>
+    <clipPath id="clip_pie_der" clipPathUnits="userSpaceOnUse"><path d="M520 1320 L720 1320 L900 1606 L500 1606 Z"/></clipPath>
+<clipPath id="clip_pie_izq" clipPathUnits="userSpaceOnUse"><path d="M190 1320 L430 1320 L450 1606 L130 1606 Z"/></clipPath>
+<clipPath id="clip_pierna_der" clipPathUnits="userSpaceOnUse"><path d="M515 1020 L720 1020 L720 1450 L500 1450 Z"/></clipPath>
+<clipPath id="clip_pierna_izq" clipPathUnits="userSpaceOnUse"><path d="M275 1020 L470 1020 L450 1450 L245 1450 Z"/></clipPath>
+<clipPath id="clip_muslo_der" clipPathUnits="userSpaceOnUse"><path d="M515 850 C535 805 650 810 682 870 C700 970 685 1060 650 1160 L535 1145 C510 1035 500 935 515 850 Z"/></clipPath>
+<clipPath id="clip_muslo_izq" clipPathUnits="userSpaceOnUse"><path d="M350 835 C400 805 505 820 525 875 C515 985 485 1080 435 1165 L315 1145 C300 1025 305 920 350 835 Z"/></clipPath>
+<clipPath id="clip_mano_der" clipPathUnits="userSpaceOnUse"><path d="M675 805 C745 785 830 820 865 900 C890 970 850 1045 785 1065 C715 1070 650 1025 655 950 C655 890 655 840 675 805 Z"/></clipPath>
+<clipPath id="clip_antebrazo_der" clipPathUnits="userSpaceOnUse"><path d="M620 645 C695 635 755 685 785 760 C810 815 845 875 840 930 C820 970 765 990 700 980 C660 915 620 825 605 735 C605 695 610 665 620 645 Z"/></clipPath>
+<clipPath id="clip_brazo_der_superior" clipPathUnits="userSpaceOnUse"><path d="M575 425 C675 415 755 465 775 555 C790 620 800 695 785 745 C765 790 720 815 665 805 C620 790 585 740 585 680 C575 595 555 485 575 425 Z"/></clipPath>
+<clipPath id="clip_mano_izq" clipPathUnits="userSpaceOnUse"><path d="M145 800 C205 785 300 805 345 860 C380 925 350 1025 285 1060 C210 1070 125 1020 120 955 C115 890 120 835 145 800 Z"/></clipPath>
+<clipPath id="clip_antebrazo_izq" clipPathUnits="userSpaceOnUse"><path d="M245 650 C200 665 170 720 150 800 L125 900 L280 970 C315 885 335 790 325 705 Z"/></clipPath>
+<clipPath id="clip_brazo_izq_superior" clipPathUnits="userSpaceOnUse"><path d="M295 455 C240 465 215 525 215 600 C210 660 235 735 280 775 C325 775 350 720 360 655 C375 575 365 490 320 460 Z"/></clipPath>
+<clipPath id="clip_torso" clipPathUnits="userSpaceOnUse"><path d="M285 440 C360 420 415 440 470 465 C520 440 585 445 655 475 L680 965 L305 965 Z"/></clipPath>
+<clipPath id="clip_cuello" clipPathUnits="userSpaceOnUse"><path d="M420 390 L575 400 L580 510 C530 555 445 540 395 485 Z"/></clipPath>
+<clipPath id="clip_cabeza" clipPathUnits="userSpaceOnUse"><path d="M250 0 L780 0 L780 460 L250 460 Z"/></clipPath>
+  </defs>
+  <g id="pie_der" data-pivot-x="595" data-pivot-y="1380" transform-origin="595px 1380px" clip-path="url(#clip_pie_der)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="pie_izq" data-pivot-x="350" data-pivot-y="1380" transform-origin="350px 1380px" clip-path="url(#clip_pie_izq)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="pierna_der" data-pivot-x="615" data-pivot-y="1110" transform-origin="615px 1110px" clip-path="url(#clip_pierna_der)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="pierna_izq" data-pivot-x="380" data-pivot-y="1110" transform-origin="380px 1110px" clip-path="url(#clip_pierna_izq)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="muslo_der" data-pivot-x="575" data-pivot-y="860" transform-origin="575px 860px" clip-path="url(#clip_muslo_der)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="muslo_izq" data-pivot-x="430" data-pivot-y="855" transform-origin="430px 855px" clip-path="url(#clip_muslo_izq)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="mano_der" data-pivot-x="700" data-pivot-y="930" transform-origin="700px 930px" clip-path="url(#clip_mano_der)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="antebrazo_der" data-pivot-x="650" data-pivot-y="720" transform-origin="650px 720px" clip-path="url(#clip_antebrazo_der)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="brazo_der_superior" data-pivot-x="625" data-pivot-y="505" transform-origin="625px 505px" clip-path="url(#clip_brazo_der_superior)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="mano_izq" data-pivot-x="285" data-pivot-y="925" transform-origin="285px 925px" clip-path="url(#clip_mano_izq)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="antebrazo_izq" data-pivot-x="305" data-pivot-y="720" transform-origin="305px 720px" clip-path="url(#clip_antebrazo_izq)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="brazo_izq_superior" data-pivot-x="335" data-pivot-y="510" transform-origin="335px 510px" clip-path="url(#clip_brazo_izq_superior)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="torso" data-pivot-x="480" data-pivot-y="500" transform-origin="480px 500px" clip-path="url(#clip_torso)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="cuello" data-pivot-x="485" data-pivot-y="430" transform-origin="485px 430px" clip-path="url(#clip_cuello)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+  <g id="cabeza" data-pivot-x="485" data-pivot-y="405" transform-origin="485px 405px" clip-path="url(#clip_cabeza)">
+    <use href="#imagen_base" xlink:href="#imagen_base"/>
+  </g>
+</svg>
