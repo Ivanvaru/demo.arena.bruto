@@ -78,3 +78,62 @@
 .life-card.card-right{transform:none;text-align:initial}
 .life-card rect[width]{transition:width .35s ease}
 @media(max-width:720px){.cards-row{left:5px;right:5px;top:8px;grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr);gap:1px}.versus{width:42px;height:42px}.life-card{filter:drop-shadow(0 2px 2px rgba(32,20,9,.35))}.life-stat{display:none}}
+
+/* Escala técnica: el personaje ocupa exactamente el 39% de la altura del escenario */
+.stage{left:12%;right:12%;bottom:4.5%;height:39%;align-items:flex-end}
+.fighter,.fighter.ragnar,.fighter.brakka{height:100%;width:auto;aspect-ratio:979/1606;flex:0 0 auto;margin:0;scale:1}
+.designed-rig{left:0;bottom:0;width:100%;height:100%;transform:none;overflow:visible}
+.fighter.left.attack{transform:none}.fighter.right.attack{transform:scaleX(-1)}
+
+/* Rig coordinado: cadenas completas de brazo y pierna se desplazan juntas */
+.designed-rig .rig-body,.designed-rig .limb-chain,.designed-rig .svg-part{transform-box:view-box;will-change:transform}
+.designed-rig .rig-body{transform-origin:480px 1160px;animation:natural-idle 2.1s ease-in-out infinite}
+.designed-rig .cabeza-svg{transform-origin:485px 405px;animation:natural-head 3s ease-in-out infinite}
+.designed-rig .torso-svg{transform-origin:480px 700px;animation:natural-breathe 2.1s ease-in-out infinite}
+.designed-rig .arm-left{transform-origin:335px 510px;animation:natural-arm-left 2.1s ease-in-out infinite}.designed-rig .arm-right{transform-origin:625px 505px;animation:natural-arm-right 2.1s ease-in-out infinite}
+.designed-rig .leg-left{transform-origin:430px 855px}.designed-rig .leg-right{transform-origin:575px 860px}
+.designed-rig .antebrazo-izq{transform-origin:305px 720px}.designed-rig .mano-izq{transform-origin:285px 925px}.designed-rig .antebrazo-der{transform-origin:650px 720px}.designed-rig .mano-der{transform-origin:700px 930px}
+.designed-rig .pierna-izq{transform-origin:380px 1110px}.designed-rig .pie-izq{transform-origin:350px 1380px}.designed-rig .pierna-der{transform-origin:615px 1110px}.designed-rig .pie-der{transform-origin:595px 1380px}
+@keyframes natural-idle{0%,100%{transform:translateY(0) rotate(-.35deg)}50%{transform:translateY(-5px) rotate(.35deg)}}
+@keyframes natural-breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.012) translateY(-2px)}}
+@keyframes natural-head{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1.5deg) translateY(-2px)}}
+@keyframes natural-arm-left{0%,100%{transform:rotate(1deg)}50%{transform:rotate(-2.5deg)}}@keyframes natural-arm-right{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(2.5deg)}}
+
+/* Puñetazo: carga, transferencia de peso, extensión y recuperación */
+.fighter.attack-punch .rig-body{animation:punch-body .58s cubic-bezier(.22,.7,.25,1)}
+.fighter.attack-punch .torso-svg{animation:punch-torso .58s cubic-bezier(.22,.7,.25,1)}
+.fighter.attack-punch .cabeza-svg{animation:punch-head .58s ease-out}
+.fighter.attack-punch .arm-left{animation:punch-arm .58s cubic-bezier(.2,.8,.25,1)}
+.fighter.attack-punch .arm-left .antebrazo-izq{animation:punch-forearm .58s cubic-bezier(.2,.8,.25,1)}
+.fighter.attack-punch .arm-left .mano-izq{animation:punch-fist .58s ease-out}
+.fighter.attack-punch .arm-right{animation:punch-guard .58s ease-out}
+.fighter.attack-punch .leg-left{animation:punch-front-leg .58s ease-out}.fighter.attack-punch .leg-right{animation:punch-back-leg .58s ease-out}
+@keyframes punch-body{0%,100%{transform:translate(0,0) rotate(0)}18%{transform:translate(-12px,2px) rotate(2deg)}58%{transform:translate(74px,-4px) rotate(-4deg)}76%{transform:translate(61px,-2px) rotate(-2deg)}}
+@keyframes punch-torso{0%,100%{transform:rotate(0)}18%{transform:rotate(6deg)}58%{transform:rotate(-10deg)}76%{transform:rotate(-5deg)}}
+@keyframes punch-head{0%,100%{transform:rotate(0)}18%{transform:rotate(3deg)}58%{transform:rotate(7deg) translateY(3px)}}
+@keyframes punch-arm{0%,100%{transform:rotate(0)}18%{transform:rotate(22deg)}58%,70%{transform:rotate(-76deg) translate(28px,-8px)}}
+@keyframes punch-forearm{0%,20%,100%{transform:rotate(0)}58%,70%{transform:rotate(-58deg) translate(28px,-22px)}}
+@keyframes punch-fist{0%,100%{transform:rotate(0)}58%,70%{transform:rotate(-12deg) translate(16px,-10px) scale(1.04)}}
+@keyframes punch-guard{0%,100%{transform:rotate(0)}35%,68%{transform:rotate(19deg) translate(-5px,-8px)}}
+@keyframes punch-front-leg{0%,100%{transform:rotate(0)}58%,72%{transform:rotate(-5deg) translateX(20px)}}@keyframes punch-back-leg{0%,100%{transform:rotate(0)}58%,72%{transform:rotate(7deg) translateX(-8px)}}
+
+/* Patada: apoyo, rodilla arriba, extensión de la pierna y regreso al suelo */
+.fighter.attack-kick .rig-body{animation:kick-body .72s cubic-bezier(.22,.7,.25,1)}
+.fighter.attack-kick .torso-svg{animation:kick-torso .72s ease-in-out}.fighter.attack-kick .cabeza-svg{animation:kick-head .72s ease-in-out}
+.fighter.attack-kick .leg-left{animation:kick-thigh .72s cubic-bezier(.2,.8,.25,1)}
+.fighter.attack-kick .leg-left .pierna-izq{animation:kick-shin .72s cubic-bezier(.2,.8,.25,1)}
+.fighter.attack-kick .leg-left .pie-izq{animation:kick-foot .72s ease-out}
+.fighter.attack-kick .leg-right{animation:kick-support .72s ease-in-out}
+.fighter.attack-kick .arm-left{animation:kick-arm-front .72s ease-in-out}.fighter.attack-kick .arm-right{animation:kick-arm-back .72s ease-in-out}
+@keyframes kick-body{0%,100%{transform:translate(0,0) rotate(0)}18%{transform:translate(-15px,-4px) rotate(3deg)}48%,62%{transform:translate(32px,-25px) rotate(8deg)}80%{transform:translate(15px,-8px) rotate(3deg)}}
+@keyframes kick-torso{0%,100%{transform:rotate(0)}22%{transform:rotate(-5deg)}48%,64%{transform:rotate(13deg) translate(-8px,-3px)}}
+@keyframes kick-head{0%,100%{transform:rotate(0)}48%,64%{transform:rotate(-9deg) translate(-4px,-2px)}}
+@keyframes kick-thigh{0%,100%{transform:rotate(0)}28%{transform:rotate(-35deg) translate(8px,-10px)}48%,64%{transform:rotate(-72deg) translate(62px,-48px)}}
+@keyframes kick-shin{0%,28%,100%{transform:rotate(0)}48%,64%{transform:rotate(-70deg) translate(70px,-58px)}}
+@keyframes kick-foot{0%,28%,100%{transform:rotate(0)}48%,64%{transform:rotate(18deg) translate(42px,-28px)}}
+@keyframes kick-support{0%,100%{transform:rotate(0)}30%,70%{transform:rotate(7deg) translate(-12px,4px) scaleY(.98)}}
+@keyframes kick-arm-front{0%,100%{transform:rotate(0)}35%,66%{transform:rotate(28deg) translate(-5px,-10px)}}@keyframes kick-arm-back{0%,100%{transform:rotate(0)}35%,66%{transform:rotate(-24deg) translate(8px,-6px)}}
+
+.fighter.hit .designed-rig{animation:natural-hit .36s ease-out}.fighter.hit .cabeza-svg{animation:natural-hit-head .36s ease-out}
+@keyframes natural-hit{30%{transform:translateX(-24px) rotate(7deg);filter:brightness(1.32)}65%{transform:translateX(7px) rotate(-2deg)}}@keyframes natural-hit-head{30%{transform:rotate(17deg) translate(9px,-6px)}}
+@media(max-width:720px){.stage{left:5%;right:5%;bottom:4.5%;height:39%}.fighter,.fighter.ragnar,.fighter.brakka{height:100%;width:auto;scale:1}.designed-rig{height:100%;width:100%}}

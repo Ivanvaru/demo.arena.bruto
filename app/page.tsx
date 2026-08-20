@@ -3,14 +3,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type Fighter={name:string;title:string;hp:number;min:number;max:number;stat:string;variant:"ragnar"|"brakka"};
+type AttackKind="punch"|"kick";
 const INITIAL:Fighter[]=[
   {name:"Ragnar",title:"El Rompemuros",hp:100,min:9,max:18,stat:"Fuerza 12",variant:"ragnar"},
   {name:"Brakka",title:"La Centella",hp:100,min:8,max:20,stat:"Agilidad 14",variant:"brakka"},
 ];
 const wait=(ms:number)=>new Promise(r=>setTimeout(r,ms));
 
-function Brute({side,variant,attacking,hit,defeated}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;hit:boolean;defeated:boolean}){
-  return <div className={`fighter ${side} ${variant} ${attacking?"attack":""} ${hit?"hit":""} ${defeated?"defeated":""}`} aria-hidden="true">
+function Brute({side,variant,attacking,attackKind,hit,defeated}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;attackKind:AttackKind|null;hit:boolean;defeated:boolean}){
+  return <div className={`fighter ${side} ${variant} ${attacking?`attack attack-${attackKind}`:""} ${hit?"hit":""} ${defeated?"defeated":""}`} aria-hidden="true">
     <div className="fighter-aura"/><div className="shadow"/>
     <svg className="brute-rig" viewBox="0 0 240 360" role="presentation">
       <defs>
@@ -54,21 +55,15 @@ function Brute({side,variant,attacking,hit,defeated}:{side:"left"|"right";varian
       </g>
     </svg>
     <svg className="designed-rig" viewBox="0 0 979 1606" role="presentation">
-      <g className="svg-part pie-der"><use href="/characters/base-normal/personaje.svg#pie_der"/></g>
-      <g className="svg-part pie-izq"><use href="/characters/base-normal/personaje.svg#pie_izq"/></g>
-      <g className="svg-part pierna-der"><use href="/characters/base-normal/personaje.svg#pierna_der"/></g>
-      <g className="svg-part pierna-izq"><use href="/characters/base-normal/personaje.svg#pierna_izq"/></g>
-      <g className="svg-part muslo-der"><use href="/characters/base-normal/personaje.svg#muslo_der"/></g>
-      <g className="svg-part muslo-izq"><use href="/characters/base-normal/personaje.svg#muslo_izq"/></g>
-      <g className="svg-part mano-der"><use href="/characters/base-normal/personaje.svg#mano_der"/></g>
-      <g className="svg-part antebrazo-der"><use href="/characters/base-normal/personaje.svg#antebrazo_der"/></g>
-      <g className="svg-part brazo-der"><use href="/characters/base-normal/personaje.svg#brazo_der_superior"/></g>
-      <g className="svg-part mano-izq"><use href="/characters/base-normal/personaje.svg#mano_izq"/></g>
-      <g className="svg-part antebrazo-izq"><use href="/characters/base-normal/personaje.svg#antebrazo_izq"/></g>
-      <g className="svg-part brazo-izq"><use href="/characters/base-normal/personaje.svg#brazo_izq_superior"/></g>
-      <g className="svg-part torso-svg"><use href="/characters/base-normal/personaje.svg#torso"/></g>
-      <g className="svg-part cuello-svg"><use href="/characters/base-normal/personaje.svg#cuello"/></g>
-      <g className="svg-part cabeza-svg"><use href="/characters/base-normal/personaje.svg#cabeza"/></g>
+      <g className="rig-body">
+        <g className="limb-chain leg-chain leg-right"><g className="svg-part muslo-der"><use href="/characters/base-normal/personaje.svg#muslo_der"/></g><g className="svg-part pierna-der"><use href="/characters/base-normal/personaje.svg#pierna_der"/></g><g className="svg-part pie-der"><use href="/characters/base-normal/personaje.svg#pie_der"/></g></g>
+        <g className="limb-chain arm-chain arm-right"><g className="svg-part brazo-der"><use href="/characters/base-normal/personaje.svg#brazo_der_superior"/></g><g className="svg-part antebrazo-der"><use href="/characters/base-normal/personaje.svg#antebrazo_der"/></g><g className="svg-part mano-der"><use href="/characters/base-normal/personaje.svg#mano_der"/></g></g>
+        <g className="svg-part torso-svg"><use href="/characters/base-normal/personaje.svg#torso"/></g>
+        <g className="limb-chain leg-chain leg-left"><g className="svg-part muslo-izq"><use href="/characters/base-normal/personaje.svg#muslo_izq"/></g><g className="svg-part pierna-izq"><use href="/characters/base-normal/personaje.svg#pierna_izq"/></g><g className="svg-part pie-izq"><use href="/characters/base-normal/personaje.svg#pie_izq"/></g></g>
+        <g className="limb-chain arm-chain arm-left"><g className="svg-part brazo-izq"><use href="/characters/base-normal/personaje.svg#brazo_izq_superior"/></g><g className="svg-part antebrazo-izq"><use href="/characters/base-normal/personaje.svg#antebrazo_izq"/></g><g className="svg-part mano-izq"><use href="/characters/base-normal/personaje.svg#mano_izq"/></g></g>
+        <g className="svg-part cuello-svg"><use href="/characters/base-normal/personaje.svg#cuello"/></g>
+        <g className="svg-part cabeza-svg"><use href="/characters/base-normal/personaje.svg#cabeza"/></g>
+      </g>
     </svg>
   </div>;
 }
@@ -107,10 +102,10 @@ function FighterCard({fighter,side}:{fighter:Fighter;side:"left"|"right"}){
 }
 
 export default function Home(){
-  const [fighters,setFighters]=useState(INITIAL);const [active,setActive]=useState<number|null>(null);const [hit,setHit]=useState<number|null>(null);const [running,setRunning]=useState(false);const [winner,setWinner]=useState<string|null>(null);const [message,setMessage]=useState("Los brutos ocupan sus posiciones");const [damage,setDamage]=useState<number|null>(null);const [round,setRound]=useState(0);const run=useRef(0);
+  const [fighters,setFighters]=useState(INITIAL);const [active,setActive]=useState<number|null>(null);const [attackKind,setAttackKind]=useState<AttackKind|null>(null);const [hit,setHit]=useState<number|null>(null);const [running,setRunning]=useState(false);const [winner,setWinner]=useState<string|null>(null);const [message,setMessage]=useState("Los brutos ocupan sus posiciones");const [damage,setDamage]=useState<number|null>(null);const [round,setRound]=useState(0);const run=useRef(0);
   const fight=useCallback(async()=>{
-    const id=++run.current;let current=INITIAL.map(x=>({...x}));setFighters(current);setWinner(null);setRunning(true);setActive(null);setHit(null);setDamage(null);setRound(0);setMessage("¡Que ruja la arena!");await wait(850);let attacker=Math.random()<.5?0:1;let turn=0;
-    while(current[0].hp>0&&current[1].hp>0&&run.current===id){const defender=attacker?0:1,source=current[attacker],amount=Math.floor(Math.random()*(source.max-source.min+1))+source.min;turn+=1;setRound(turn);setActive(attacker);setMessage(`${source.name} prepara su ataque`);await wait(430);if(run.current!==id)return;current=current.map((x,i)=>i===defender?{...x,hp:Math.max(0,x.hp-amount)}:x);setFighters(current);setHit(defender);setDamage(amount);setMessage(`${source.name} golpea con fuerza`);await wait(620);setHit(null);setDamage(null);setActive(null);if(current[defender].hp<=0)break;attacker=defender;await wait(180)}
+    const id=++run.current;let current=INITIAL.map(x=>({...x}));setFighters(current);setWinner(null);setRunning(true);setActive(null);setAttackKind(null);setHit(null);setDamage(null);setRound(0);setMessage("¡Que ruja la arena!");await wait(850);let attacker=Math.random()<.5?0:1;let turn=0;
+    while(current[0].hp>0&&current[1].hp>0&&run.current===id){const defender=attacker?0:1,source=current[attacker],amount=Math.floor(Math.random()*(source.max-source.min+1))+source.min;turn+=1;const kind:AttackKind=turn%2?"punch":"kick";setRound(turn);setAttackKind(kind);setActive(attacker);setMessage(`${source.name} prepara ${kind==="punch"?"el puño":"una patada"}`);await wait(520);if(run.current!==id)return;current=current.map((x,i)=>i===defender?{...x,hp:Math.max(0,x.hp-amount)}:x);setFighters(current);setHit(defender);setDamage(amount);setMessage(`${source.name} conecta ${kind==="punch"?"el puñetazo":"la patada"}`);await wait(650);setHit(null);setDamage(null);setActive(null);setAttackKind(null);if(current[defender].hp<=0)break;attacker=defender;await wait(210)}
     if(run.current!==id)return;const champion=current[0].hp>0?current[0].name:current[1].name;setWinner(champion);setMessage(`¡${champion} domina la arena!`);setRunning(false);
   },[]);
   useEffect(()=>{fight();return()=>{run.current+=1}},[fight]);
@@ -122,7 +117,7 @@ export default function Home(){
         <div className="sky"><div className="sun"/><div className="cloud cloud-a"/><div className="cloud cloud-b"/><div className="mountains"/></div>
         <div className="banners"><span>AB</span><span>AB</span><span>AB</span><span>AB</span><span>AB</span></div><div className="crowd"/>
         <div className="cards-row"><FighterCard fighter={fighters[0]} side="left"/><div className="versus"><small>RONDA</small><strong>{round||"—"}</strong><b>VS</b></div><FighterCard fighter={fighters[1]} side="right"/></div>
-        <div className="stage"><Brute side="left" variant="ragnar" attacking={active===0} hit={hit===0} defeated={fighters[0].hp===0}/><div className={`impact ${hit!==null?"show":""}`}><span>{damage}</span><i>¡PUM!</i></div><Brute side="right" variant="brakka" attacking={active===1} hit={hit===1} defeated={fighters[1].hp===0}/></div>
+        <div className="stage"><Brute side="left" variant="ragnar" attacking={active===0} attackKind={active===0?attackKind:null} hit={hit===0} defeated={fighters[0].hp===0}/><div className={`impact ${hit!==null?"show":""}`}><span>{damage}</span><i>¡PUM!</i></div><Brute side="right" variant="brakka" attacking={active===1} attackKind={active===1?attackKind:null} hit={hit===1} defeated={fighters[1].hp===0}/></div>
         <div className="floor"><div className="arena-mark">AB</div><i/><i/><i/></div>
       </div>
       <div className="commentary"><div className="announcer"><span>📣</span><div><small>EL HERALDO DE LA ARENA</small><strong aria-live="polite">{message}</strong></div></div><button onClick={fight} disabled={running}><span>{running?"⚔":"↻"}</span>{running?"Combate en curso":"Repetir combate"}</button></div>
