@@ -91,7 +91,7 @@
 
 /* Rig coordinado: cadenas completas de brazo y pierna se desplazan juntas */
 .designed-rig .rig-body,.designed-rig .limb-chain,.designed-rig .svg-part{transform-box:view-box;will-change:transform}
-.designed-rig .rig-visible-base{display:block;width:979px;height:1606px;pointer-events:none}.designed-rig[data-rig="43-capas"] .svg-part{display:none}
+.rig-visible-image{position:absolute;z-index:4;left:50%;bottom:0;width:auto;height:100%;max-width:none;object-fit:contain;transform:translateX(-50%);pointer-events:none;user-select:none;filter:drop-shadow(0 3px 1px rgba(36,27,18,.22))}.designed-rig[data-rig="43-capas"]{display:none}
 .designed-rig .rig-body{transform-origin:480px 1160px;animation:natural-idle 2.1s ease-in-out infinite}
 .designed-rig .cabeza-svg{transform-origin:485px 405px;animation:natural-head 3s ease-in-out infinite}
 .designed-rig .torso-svg{transform-origin:480px 700px;animation:natural-breathe 2.1s ease-in-out infinite}

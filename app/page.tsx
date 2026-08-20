@@ -15,6 +15,7 @@ function CharacterLayer({id,className=""}:{id:string;className?:string}){return 
 function Brute({side,variant,attacking,attackKind,hit,critical,reaction,defeated}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;attackKind:AttackKind|null;hit:boolean;critical:boolean;reaction:DefenseReaction|null;defeated:boolean}){
   return <div className={`fighter ${side} ${variant} ${attacking?`attack attack-${attackKind}`:""} ${critical?"critical":""} ${hit?"hit":""} ${reaction?`defense-${reaction}`:""} ${defeated?"defeated":""}`} aria-hidden="true">
     <div className="fighter-aura"/><div className="shadow"/>
+    <img className="rig-visible-image" src={CHARACTER_SVG} alt="" draggable={false}/>
     <svg className="brute-rig" viewBox="0 0 240 360" role="presentation">
       <defs>
         <linearGradient id={`skin-${side}`} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#ffd08a"/><stop offset=".58" stopColor="#f3a85f"/><stop offset="1" stopColor="#c8753f"/></linearGradient>
@@ -58,7 +59,6 @@ function Brute({side,variant,attacking,attackKind,hit,critical,reaction,defeated
     </svg>
     <svg className="designed-rig" viewBox="0 0 979 1606" role="presentation" data-rig="43-capas">
       <g className="rig-body">
-        <image className="rig-visible-base" href={CHARACTER_SVG} width="979" height="1606" preserveAspectRatio="xMidYMax meet"/>
         <g className="limb-chain leg-chain leg-right">
           <CharacterLayer id="dedos_pie_der"/><CharacterLayer id="pie_der" className="pie-der"/><CharacterLayer id="tobillo_der"/><CharacterLayer id="pantorrilla_der_inferior" className="pierna-der"/><CharacterLayer id="pantorrilla_der_superior"/><CharacterLayer id="rodilla_der"/><CharacterLayer id="muslo_der_inferior"/><CharacterLayer id="muslo_der_superior" className="muslo-der"/><CharacterLayer id="cadera_der"/>
         </g>
