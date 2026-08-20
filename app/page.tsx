@@ -9,6 +9,8 @@ type DefenseReaction="dodge"|"block"|"perfect-block";
 const wait=(ms:number)=>new Promise(r=>setTimeout(r,ms));
 const fresh=(name:string,className:FighterClass):BattleFighter=>{const profile=makeProfile(name,className);const life=maxHp(profile);return{...profile,hp:life,maxHp:life}};
 const INITIAL:[BattleFighter,BattleFighter]=[fresh("Ragnar","Luchador"),fresh("Brakka","Atleta")];
+const CHARACTER_SVG="/characters/base-normal/personaje-43-capas.svg";
+function CharacterLayer({id,className=""}:{id:string;className?:string}){return <g className={`svg-part part-${id} ${className}`}><use href={`${CHARACTER_SVG}#${id}`}/></g>}
 
 function Brute({side,variant,attacking,attackKind,hit,critical,reaction,defeated}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;attackKind:AttackKind|null;hit:boolean;critical:boolean;reaction:DefenseReaction|null;defeated:boolean}){
   return <div className={`fighter ${side} ${variant} ${attacking?`attack attack-${attackKind}`:""} ${critical?"critical":""} ${hit?"hit":""} ${reaction?`defense-${reaction}`:""} ${defeated?"defeated":""}`} aria-hidden="true">
@@ -54,15 +56,23 @@ function Brute({side,variant,attacking,attackKind,hit,critical,reaction,defeated
         </g>
       </g>
     </svg>
-    <svg className="designed-rig" viewBox="0 0 979 1606" role="presentation">
+    <svg className="designed-rig" viewBox="0 0 979 1606" role="presentation" data-rig="43-capas">
       <g className="rig-body">
-        <g className="limb-chain leg-chain leg-right"><g className="svg-part muslo-der"><use href="/characters/base-normal/personaje.svg#muslo_der"/></g><g className="svg-part pierna-der"><use href="/characters/base-normal/personaje.svg#pierna_der"/></g><g className="svg-part pie-der"><use href="/characters/base-normal/personaje.svg#pie_der"/></g></g>
-        <g className="limb-chain arm-chain arm-right"><g className="svg-part brazo-der"><use href="/characters/base-normal/personaje.svg#brazo_der_superior"/></g><g className="svg-part antebrazo-der"><use href="/characters/base-normal/personaje.svg#antebrazo_der"/></g><g className="svg-part mano-der"><use href="/characters/base-normal/personaje.svg#mano_der"/></g></g>
-        <g className="svg-part torso-svg"><use href="/characters/base-normal/personaje.svg#torso"/></g>
-        <g className="limb-chain leg-chain leg-left"><g className="svg-part muslo-izq"><use href="/characters/base-normal/personaje.svg#muslo_izq"/></g><g className="svg-part pierna-izq"><use href="/characters/base-normal/personaje.svg#pierna_izq"/></g><g className="svg-part pie-izq"><use href="/characters/base-normal/personaje.svg#pie_izq"/></g></g>
-        <g className="limb-chain arm-chain arm-left"><g className="svg-part brazo-izq"><use href="/characters/base-normal/personaje.svg#brazo_izq_superior"/></g><g className="svg-part antebrazo-izq"><use href="/characters/base-normal/personaje.svg#antebrazo_izq"/></g><g className="svg-part mano-izq"><use href="/characters/base-normal/personaje.svg#mano_izq"/></g></g>
-        <g className="svg-part cuello-svg"><use href="/characters/base-normal/personaje.svg#cuello"/></g>
-        <g className="svg-part cabeza-svg"><use href="/characters/base-normal/personaje.svg#cabeza"/></g>
+        <g className="limb-chain leg-chain leg-right">
+          <CharacterLayer id="dedos_pie_der"/><CharacterLayer id="pie_der" className="pie-der"/><CharacterLayer id="tobillo_der"/><CharacterLayer id="pantorrilla_der_inferior" className="pierna-der"/><CharacterLayer id="pantorrilla_der_superior"/><CharacterLayer id="rodilla_der"/><CharacterLayer id="muslo_der_inferior"/><CharacterLayer id="muslo_der_superior" className="muslo-der"/><CharacterLayer id="cadera_der"/>
+        </g>
+        <g className="limb-chain leg-chain leg-left">
+          <CharacterLayer id="dedos_pie_izq"/><CharacterLayer id="pie_izq" className="pie-izq"/><CharacterLayer id="tobillo_izq"/><CharacterLayer id="pantorrilla_izq_inferior" className="pierna-izq"/><CharacterLayer id="pantorrilla_izq_superior"/><CharacterLayer id="rodilla_izq"/><CharacterLayer id="muslo_izq_inferior"/><CharacterLayer id="muslo_izq_superior" className="muslo-izq"/><CharacterLayer id="cadera_izq"/>
+        </g>
+        <g className="limb-chain arm-chain arm-right">
+          <CharacterLayer id="dedos_der"/><CharacterLayer id="mano_der" className="mano-der"/><CharacterLayer id="muneca_der"/><CharacterLayer id="antebrazo_der" className="antebrazo-der"/><CharacterLayer id="codo_der"/><CharacterLayer id="brazo_der_superior" className="brazo-der"/><CharacterLayer id="hombro_der"/><CharacterLayer id="clavicula_der"/>
+        </g>
+        <g className="limb-chain arm-chain arm-left">
+          <CharacterLayer id="dedos_izq"/><CharacterLayer id="mano_izq" className="mano-izq"/><CharacterLayer id="muneca_izq"/><CharacterLayer id="antebrazo_izq" className="antebrazo-izq"/><CharacterLayer id="codo_izq"/><CharacterLayer id="brazo_izq_superior" className="brazo-izq"/><CharacterLayer id="hombro_izq"/><CharacterLayer id="clavicula_izq"/>
+        </g>
+        <g className="torso-svg"><CharacterLayer id="pelvis"/><CharacterLayer id="abdomen_inferior"/><CharacterLayer id="abdomen_superior"/><CharacterLayer id="caja_toracica"/><CharacterLayer id="pecho_superior"/></g>
+        <g className="cuello-svg"><CharacterLayer id="cuello_inferior"/><CharacterLayer id="cuello_superior"/></g>
+        <g className="cabeza-svg"><CharacterLayer id="rostro_mandibula"/><CharacterLayer id="craneo"/></g>
       </g>
     </svg>
   </div>;
