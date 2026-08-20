@@ -98,10 +98,10 @@
 .fighter.character-clean{background:none;overflow:visible}
 .character-clean-image{position:absolute;z-index:4;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center bottom;max-width:none;pointer-events:none;user-select:none;filter:drop-shadow(0 3px 1px rgba(36,27,18,.22))}
 .svg-character-rig{position:absolute;z-index:4;inset:0;overflow:visible;pointer-events:none;user-select:none;filter:drop-shadow(0 3px 1px rgba(36,27,18,.22));transform-origin:50% 76%;animation:layered-rig-idle 2.2s ease-in-out infinite}
-.rig-inline-svg,.character-rig-svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+.character-rig-svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
 .rig-loading-fallback{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center bottom;opacity:1;transition:opacity .12s linear}
 .svg-character-rig.rig-ready .rig-loading-fallback{opacity:0}
-.rig-svg-part{will-change:transform}
+.rig-svg-part{transform-box:view-box;will-change:transform}
 @keyframes layered-rig-idle{0%,100%{transform:translateY(0) rotate(-.2deg)}50%{transform:translateY(-4px) rotate(.2deg)}}
 .fighter.attack-punch .rig-part-pecho_superior,.fighter.attack-punch .rig-part-caja_toracica,.fighter.attack-punch .rig-part-abdomen_superior{animation:layered-punch-core .58s cubic-bezier(.22,.7,.25,1)}
 .fighter.attack-punch .rig-part-brazo_izq_superior,.fighter.attack-punch .rig-part-codo_izq{animation:layered-punch-upper .58s cubic-bezier(.2,.8,.25,1)}
@@ -208,3 +208,80 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 .encounter-screen{padding-top:44px}.encounter-screen .screen-heading small{border:0;background:none;color:#8a5b2a;box-shadow:none;padding:0;font-size:13px}.encounter-screen .screen-heading h2{margin-top:16px}.matchup{grid-template-columns:minmax(360px,1fr) 250px minmax(360px,1fr);gap:34px;margin:38px auto 42px}.match-card{position:relative;min-height:440px;padding:42px 30px 28px;overflow:hidden}.match-card>small,.match-card>h3,.match-card>b,.match-card>p,.match-card>.stats-panel{position:relative;z-index:3}.player-card>small,.player-card>h3,.player-card>b,.player-card>p,.player-card>.stats-panel{margin-left:38%}.rival-card>small,.rival-card>h3,.rival-card>b,.rival-card>p,.rival-card>.stats-panel{margin-right:38%}.match-card>small{color:#6a4321;font:900 12px Georgia,serif}.match-card>b{background:#21150d;color:#ffc347;font:900 10px Georgia,serif}.match-character{position:absolute;z-index:2;left:12px;bottom:20px;width:38%;height:72%;display:flex;align-items:flex-end;justify-content:center}.rival-card .match-character{left:auto;right:12px}.match-character .fighter{height:100%;width:auto}.match-versus{align-self:center;gap:20px}.match-versus>span{width:210px;height:190px;border:0;border-radius:0;background:linear-gradient(145deg,#ffd12f,#f26a0a 60%,#b4200f);color:#fff0a5;clip-path:polygon(9% 19%,35% 23%,48% 0,59% 24%,89% 11%,77% 38%,100% 52%,76% 62%,89% 92%,58% 78%,43% 100%,35% 73%,4% 88%,19% 60%,0 44%,25% 38%);box-shadow:none;text-shadow:-4px 0 #28140a,0 4px #28140a,4px 0 #28140a,0 -4px #28140a;font:italic 900 68px Georgia,serif;transform:rotate(-7deg);filter:drop-shadow(8px 10px 0 #2b160b)}.match-versus small{color:#3a2515;font:900 13px Georgia,serif;letter-spacing:.05em}.encounter-actions{gap:45px}.encounter-actions .primary-game-button{min-width:390px}.encounter-actions .secondary-game-button{min-width:230px}
 @media(max-width:980px){.topbar{padding:0 24px}.flow-screen{padding:52px 25px 46px}.locker-layout{grid-template-columns:1fr}.locker-character{height:420px}.matchup{grid-template-columns:1fr}.match-versus{grid-row:2}.match-versus>span{width:150px;height:130px;font-size:48px}.match-card{min-height:390px}.rival-card{text-align:right}}
 @media(max-width:620px){.topbar{height:76px;padding:0 14px}.flow-screen{width:calc(100% - 18px);padding:42px 14px 35px;border-width:7px}.screen-heading small{min-width:0;width:70%;box-sizing:border-box}.screen-heading h2{font-size:34px}.locker-character{height:345px}.locker-sheet{padding:20px 15px}.sheet-title h3,.match-card h3{font-size:29px}.stat-row{grid-template-columns:86px 1fr 24px}.class-picker button{flex:1 1 42%;padding:9px 6px}.locker-screen>.primary-game-button{min-width:230px}.matchup{gap:23px}.match-card{min-height:440px;padding:30px 15px 20px}.player-card>small,.player-card>h3,.player-card>b,.player-card>p,.player-card>.stats-panel{margin-left:0;margin-right:0}.rival-card>small,.rival-card>h3,.rival-card>b,.rival-card>p,.rival-card>.stats-panel{margin-left:0;margin-right:0}.match-character{opacity:.24;width:58%;height:62%;left:-2%;}.rival-card .match-character{right:-2%}.encounter-actions .primary-game-button,.encounter-actions .secondary-game-button{min-width:0}}
+
+/* Movimiento definitivo del rig de 43 capas */
+.svg-character-rig{animation:rig43-idle-root 2.35s cubic-bezier(.45,0,.55,1) infinite}
+.rig-part-pecho_superior,.rig-part-caja_toracica,.rig-part-abdomen_superior{animation:rig43-breathe 2.35s cubic-bezier(.45,0,.55,1) infinite}
+.rig-part-craneo,.rig-part-rostro_mandibula,.rig-part-cuello_superior{animation:rig43-idle-head 3.1s ease-in-out infinite}
+.rig-part-brazo_izq_superior,.rig-part-antebrazo_izq,.rig-part-mano_izq{animation:rig43-idle-arm-front 2.35s ease-in-out infinite}
+.rig-part-brazo_der_superior,.rig-part-antebrazo_der,.rig-part-mano_der{animation:rig43-idle-arm-back 2.35s ease-in-out infinite}
+@keyframes rig43-idle-root{0%,100%{transform:translateY(0) rotate(-.18deg)}50%{transform:translateY(-3px) rotate(.18deg)}}
+@keyframes rig43-breathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.008,1.014)}}
+@keyframes rig43-idle-head{0%,100%{transform:rotate(-.8deg)}50%{transform:translateY(-3px) rotate(1.1deg)}}
+@keyframes rig43-idle-arm-front{0%,100%{transform:rotate(.7deg)}50%{transform:rotate(-1.5deg)}}
+@keyframes rig43-idle-arm-back{0%,100%{transform:rotate(-.5deg)}50%{transform:rotate(1.2deg)}}
+
+/* Aproximación: salto corto, contacto y regreso a la guardia */
+.fighter.left.attack{animation:rig43-advance-left .86s cubic-bezier(.2,.72,.22,1)}
+.fighter.right.attack{animation:rig43-advance-right .86s cubic-bezier(.2,.72,.22,1)}
+@keyframes rig43-advance-left{0%{transform:translate(0,0)}14%{transform:translate(calc(var(--advance-distance)*.16),-18px) rotate(-1.5deg)}36%,62%{transform:translate(var(--advance-distance),-4px) rotate(-1deg)}76%{transform:translate(calc(var(--advance-distance)*.68),-16px) rotate(.8deg)}100%{transform:translate(0,0)}}
+@keyframes rig43-advance-right{0%{transform:scaleX(-1) translate(0,0)}14%{transform:scaleX(-1) translate(calc(var(--advance-distance)*.16),-18px) rotate(-1.5deg)}36%,62%{transform:scaleX(-1) translate(var(--advance-distance),-4px) rotate(-1deg)}76%{transform:scaleX(-1) translate(calc(var(--advance-distance)*.68),-16px) rotate(.8deg)}100%{transform:scaleX(-1) translate(0,0)}}
+
+/* Puñetazo: carga de cadera, giro de torso, extensión y recuperación */
+.fighter.attack-punch .svg-character-rig{animation:rig43-punch-root .86s cubic-bezier(.2,.72,.22,1)}
+.fighter.attack-punch :is(.rig-part-pelvis,.rig-part-abdomen_inferior,.rig-part-abdomen_superior,.rig-part-caja_toracica,.rig-part-pecho_superior){animation:rig43-punch-core .86s cubic-bezier(.2,.78,.2,1)}
+.fighter.attack-punch :is(.rig-part-craneo,.rig-part-rostro_mandibula,.rig-part-cuello_superior,.rig-part-cuello_inferior){animation:rig43-punch-head .86s ease-in-out}
+.fighter.attack-punch :is(.rig-part-clavicula_izq,.rig-part-hombro_izq,.rig-part-brazo_izq_superior,.rig-part-codo_izq){animation:rig43-punch-upper .86s cubic-bezier(.18,.82,.2,1)}
+.fighter.attack-punch :is(.rig-part-antebrazo_izq,.rig-part-muneca_izq,.rig-part-mano_izq,.rig-part-dedos_izq){animation:rig43-punch-lower .86s cubic-bezier(.16,.86,.18,1)}
+.fighter.attack-punch :is(.rig-part-clavicula_der,.rig-part-hombro_der,.rig-part-brazo_der_superior,.rig-part-codo_der,.rig-part-antebrazo_der,.rig-part-muneca_der,.rig-part-mano_der,.rig-part-dedos_der){animation:rig43-punch-guard .86s ease-in-out}
+.fighter.attack-punch :is(.rig-part-cadera_izq,.rig-part-muslo_izq_superior,.rig-part-muslo_izq_inferior,.rig-part-rodilla_izq){animation:rig43-punch-front-leg .86s ease-in-out}
+.fighter.attack-punch :is(.rig-part-cadera_der,.rig-part-muslo_der_superior,.rig-part-muslo_der_inferior,.rig-part-rodilla_der,.rig-part-pantorrilla_der_superior,.rig-part-pantorrilla_der_inferior,.rig-part-tobillo_der,.rig-part-pie_der,.rig-part-dedos_pie_der){animation:rig43-punch-support .86s ease-in-out}
+@keyframes rig43-punch-root{0%,100%{transform:none}18%{transform:translate(-5px,2px) rotate(1.5deg)}48%,62%{transform:translate(12px,-3px) rotate(-2deg)}78%{transform:translate(5px,-1px) rotate(-.6deg)}}
+@keyframes rig43-punch-core{0%,100%{transform:none}18%{transform:translateX(-12px) rotate(4deg)}48%,62%{transform:translate(34px,-3px) rotate(-8deg)}78%{transform:translateX(14px) rotate(-2deg)}}
+@keyframes rig43-punch-head{0%,100%{transform:none}18%{transform:rotate(2deg)}48%,62%{transform:translate(20px,3px) rotate(5deg)}78%{transform:translateX(7px) rotate(1deg)}}
+@keyframes rig43-punch-upper{0%,100%{transform:none}18%{transform:translate(-10px,5px) rotate(15deg)}48%,62%{transform:translate(62px,-12px) rotate(-38deg)}78%{transform:translate(20px,-4px) rotate(-10deg)}}
+@keyframes rig43-punch-lower{0%,100%{transform:none}18%{transform:translate(-15px,8px) rotate(17deg)}48%,62%{transform:translate(142px,-25px) rotate(-55deg) scale(1.025)}78%{transform:translate(42px,-8px) rotate(-15deg)}}
+@keyframes rig43-punch-guard{0%,100%{transform:none}24%,65%{transform:translate(-14px,-25px) rotate(17deg)}80%{transform:translate(-5px,-8px) rotate(5deg)}}
+@keyframes rig43-punch-front-leg{0%,100%{transform:none}48%,65%{transform:translate(24px,-2px) rotate(-4deg)}}
+@keyframes rig43-punch-support{0%,100%{transform:none}48%,65%{transform:translate(-10px,4px) rotate(3deg)}}
+
+/* Patada: apoyo, rodilla, extensión, impacto y recogida */
+.fighter.attack-kick .svg-character-rig{animation:rig43-kick-root .86s cubic-bezier(.2,.74,.22,1)}
+.fighter.attack-kick :is(.rig-part-pelvis,.rig-part-abdomen_inferior,.rig-part-abdomen_superior,.rig-part-caja_toracica,.rig-part-pecho_superior){animation:rig43-kick-core .86s ease-in-out}
+.fighter.attack-kick :is(.rig-part-craneo,.rig-part-rostro_mandibula,.rig-part-cuello_superior,.rig-part-cuello_inferior){animation:rig43-kick-head .86s ease-in-out}
+.fighter.attack-kick :is(.rig-part-cadera_izq,.rig-part-muslo_izq_superior,.rig-part-muslo_izq_inferior,.rig-part-rodilla_izq){animation:rig43-kick-thigh .86s cubic-bezier(.18,.82,.2,1)}
+.fighter.attack-kick :is(.rig-part-pantorrilla_izq_superior,.rig-part-pantorrilla_izq_inferior,.rig-part-tobillo_izq,.rig-part-pie_izq,.rig-part-dedos_pie_izq){animation:rig43-kick-shin .86s cubic-bezier(.16,.86,.18,1)}
+.fighter.attack-kick :is(.rig-part-cadera_der,.rig-part-muslo_der_superior,.rig-part-muslo_der_inferior,.rig-part-rodilla_der,.rig-part-pantorrilla_der_superior,.rig-part-pantorrilla_der_inferior,.rig-part-tobillo_der,.rig-part-pie_der,.rig-part-dedos_pie_der){animation:rig43-kick-support .86s ease-in-out}
+.fighter.attack-kick :is(.rig-part-clavicula_izq,.rig-part-hombro_izq,.rig-part-brazo_izq_superior,.rig-part-codo_izq,.rig-part-antebrazo_izq,.rig-part-muneca_izq,.rig-part-mano_izq,.rig-part-dedos_izq){animation:rig43-kick-arm-front .86s ease-in-out}
+.fighter.attack-kick :is(.rig-part-clavicula_der,.rig-part-hombro_der,.rig-part-brazo_der_superior,.rig-part-codo_der,.rig-part-antebrazo_der,.rig-part-muneca_der,.rig-part-mano_der,.rig-part-dedos_der){animation:rig43-kick-arm-back .86s ease-in-out}
+@keyframes rig43-kick-root{0%,100%{transform:none}20%{transform:translate(-7px,-3px) rotate(2deg)}43%,63%{transform:translate(13px,-17px) rotate(4deg)}80%{transform:translate(4px,-5px) rotate(1deg)}}
+@keyframes rig43-kick-core{0%,100%{transform:none}20%{transform:translate(-12px,-2px) rotate(-4deg)}43%,63%{transform:translate(8px,-22px) rotate(10deg)}80%{transform:translate(3px,-6px) rotate(3deg)}}
+@keyframes rig43-kick-head{0%,100%{transform:none}43%,63%{transform:translate(-8px,-15px) rotate(-7deg)}}
+@keyframes rig43-kick-thigh{0%,100%{transform:none}25%{transform:translate(15px,-30px) rotate(-25deg)}43%,63%{transform:translate(105px,-95px) rotate(-67deg)}80%{transform:translate(30px,-24px) rotate(-20deg)}}
+@keyframes rig43-kick-shin{0%,100%{transform:none}25%{transform:translate(4px,-45px) rotate(26deg)}43%,63%{transform:translate(220px,-118px) rotate(-73deg)}80%{transform:translate(38px,-31px) rotate(-18deg)}}
+@keyframes rig43-kick-support{0%,100%{transform:none}30%,68%{transform:translate(-17px,5px) rotate(5deg) scaleY(.985)}}
+@keyframes rig43-kick-arm-front{0%,100%{transform:none}35%,66%{transform:translate(-18px,-30px) rotate(23deg)}}
+@keyframes rig43-kick-arm-back{0%,100%{transform:none}35%,66%{transform:translate(17px,-18px) rotate(-20deg)}}
+
+/* Impacto, bloqueo, esquiva, crítico y derrota */
+.fighter.hit .svg-character-rig{animation:rig43-hit-root .36s cubic-bezier(.2,.72,.25,1)}
+.fighter.hit :is(.rig-part-craneo,.rig-part-rostro_mandibula,.rig-part-cuello_superior){animation:rig43-hit-head .36s ease-out}
+.fighter.hit :is(.rig-part-pecho_superior,.rig-part-caja_toracica,.rig-part-abdomen_superior){animation:rig43-hit-chest .36s ease-out}
+@keyframes rig43-hit-root{0%,100%{transform:none}28%{transform:translate(-22px,-5px) rotate(6deg)}62%{transform:translate(7px,1px) rotate(-1.5deg)}}
+@keyframes rig43-hit-head{0%,100%{transform:none}28%{transform:translate(-24px,-10px) rotate(15deg)}62%{transform:translate(5px,2px) rotate(-3deg)}}
+@keyframes rig43-hit-chest{0%,100%{transform:none}28%{transform:translate(-15px,3px) rotate(7deg)}62%{transform:translate(4px,0) rotate(-2deg)}}
+.fighter.defense-block .svg-character-rig,.fighter.defense-perfect-block .svg-character-rig{animation:rig43-block-root .52s ease-out}
+.fighter.defense-block :is(.rig-part-hombro_izq,.rig-part-brazo_izq_superior,.rig-part-codo_izq,.rig-part-antebrazo_izq,.rig-part-muneca_izq,.rig-part-mano_izq,.rig-part-dedos_izq),.fighter.defense-perfect-block :is(.rig-part-hombro_izq,.rig-part-brazo_izq_superior,.rig-part-codo_izq,.rig-part-antebrazo_izq,.rig-part-muneca_izq,.rig-part-mano_izq,.rig-part-dedos_izq){animation:rig43-block-front .52s ease-out}
+.fighter.defense-block :is(.rig-part-hombro_der,.rig-part-brazo_der_superior,.rig-part-codo_der,.rig-part-antebrazo_der,.rig-part-muneca_der,.rig-part-mano_der,.rig-part-dedos_der),.fighter.defense-perfect-block :is(.rig-part-hombro_der,.rig-part-brazo_der_superior,.rig-part-codo_der,.rig-part-antebrazo_der,.rig-part-muneca_der,.rig-part-mano_der,.rig-part-dedos_der){animation:rig43-block-back .52s ease-out}
+.fighter.defense-perfect-block .svg-character-rig{filter:drop-shadow(0 0 12px #ffd44d) brightness(1.08)}
+@keyframes rig43-block-root{0%,100%{transform:none}28%,72%{transform:translate(-9px,7px) rotate(3deg) scale(.985,1.01)}}
+@keyframes rig43-block-front{0%,100%{transform:none}28%,72%{transform:translate(48px,-85px) rotate(-38deg)}}
+@keyframes rig43-block-back{0%,100%{transform:none}28%,72%{transform:translate(-34px,-72px) rotate(31deg)}}
+.fighter.defense-dodge .svg-character-rig{animation:rig43-dodge-body .52s cubic-bezier(.18,.82,.28,1)}
+.fighter.defense-dodge :is(.rig-part-craneo,.rig-part-rostro_mandibula,.rig-part-cuello_superior,.rig-part-pecho_superior,.rig-part-caja_toracica){animation:rig43-dodge-upper .52s ease-out}
+@keyframes rig43-dodge-body{0%,100%{transform:none}28%,68%{transform:translate(-16px,-8px) rotate(-7deg)}}
+@keyframes rig43-dodge-upper{0%,100%{transform:none}28%,68%{transform:translate(-22px,-9px) rotate(-9deg)}}
+.fighter.critical .svg-character-rig{filter:drop-shadow(0 0 10px #ffd33d) saturate(1.22) brightness(1.06)}
+.fighter.defeated .svg-character-rig{animation:rig43-defeat .72s cubic-bezier(.35,.05,.55,1) both}
+@keyframes rig43-defeat{0%{transform:none}45%{transform:translate(-10px,-5px) rotate(7deg)}100%{transform:translate(-25px,13px) rotate(18deg) scaleY(.96)}}
+@media(prefers-reduced-motion:reduce){.svg-character-rig,.rig-svg-part,.fighter{animation-duration:.01ms!important;animation-iteration-count:1!important}}
