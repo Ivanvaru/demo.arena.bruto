@@ -1,14 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import {CLASS_NAMES,describeAttack,makeProfile,maxHp,simulateBattle,type AttackKind as EngineAttack,type BattleFighter,type FighterClass,type Outcome} from "./game/engine";
 
-type Fighter={name:string;title:string;hp:number;min:number;max:number;stat:string;variant:"ragnar"|"brakka"};
 type AttackKind="punch"|"kick";
-const INITIAL:Fighter[]=[
-  {name:"Ragnar",title:"El Rompemuros",hp:100,min:9,max:18,stat:"Fuerza 12",variant:"ragnar"},
-  {name:"Brakka",title:"La Centella",hp:100,min:8,max:20,stat:"Agilidad 14",variant:"brakka"},
-];
 const wait=(ms:number)=>new Promise(r=>setTimeout(r,ms));
+const NAMES:Record<FighterClass,string[]>={Luchador:["Ragnar","Drago"],Aventurero:["Kairos","Nara"],Atleta:["Brakka","Lyn"],Coloso:["Grom","Ursak"]};
+const fresh=(name:string,className:FighterClass):BattleFighter=>{const profile=makeProfile(name,className);const life=maxHp(profile);return{...profile,hp:life,maxHp:life}};
+const INITIAL:[BattleFighter,BattleFighter]=[fresh("Ragnar","Luchador"),fresh("Brakka","Atleta")];
 
 function Brute({side,variant,attacking,attackKind,hit,defeated}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;attackKind:AttackKind|null;hit:boolean;defeated:boolean}){
   return <div className={`fighter ${side} ${variant} ${attacking?`attack attack-${attackKind}`:""} ${hit?"hit":""} ${defeated?"defeated":""}`} aria-hidden="true">
@@ -68,10 +67,11 @@ function Brute({side,variant,attacking,attackKind,hit,defeated}:{side:"left"|"ri
   </div>;
 }
 
-function FighterCard({fighter,side}:{fighter:Fighter;side:"left"|"right"}){
+function FighterCard({fighter,side}:{fighter:BattleFighter;side:"left"|"right"}){
   const suffix=`life-${side}`;
-  const fillWidth=1293*Math.max(0,Math.min(100,fighter.hp))/100;
-  return <div className={`life-card card-${side}`} aria-label={`${fighter.name}: ${fighter.hp} puntos de vida`}>
+  const percent=Math.max(0,Math.min(100,fighter.hp/fighter.maxHp*100));
+  const fillWidth=1293*percent/100;
+  return <div className={`life-card card-${side}`} aria-label={`${fighter.name}: ${fighter.hp} de ${fighter.maxHp} puntos de vida`}>
     <svg viewBox="0 0 1600 300" role="img" aria-hidden="true">
       <defs>
         <linearGradient id={`life-green-${suffix}`} x1="0" y1="0" x2="0" y2="1"><stop stopColor="#91ee37"/><stop offset=".46" stopColor="#47c923"/><stop offset="1" stopColor="#168c16"/></linearGradient>
@@ -95,23 +95,24 @@ function FighterCard({fighter,side}:{fighter:Fighter;side:"left"|"right"}){
         <rect x="281" y="127" width="1293" height="31" rx="16" fill={`url(#life-shine-${suffix})`}/>
         <path d="M288 192 Q620 174 945 192 T1566 191" fill="none" stroke="#0d6514" strokeOpacity=".55" strokeWidth="8"/>
       </g>
-      <text x="286" y="270" className="life-count"><tspan>{fighter.hp}</tspan><tspan className="life-total"> / 100 PV</tspan></text>
+      <text x="286" y="270" className="life-count"><tspan>{fighter.hp}</tspan><tspan className="life-total"> / {fighter.maxHp} PV</tspan></text>
       <text x="1568" y="270" textAnchor="end" className="life-stat">{fighter.stat.toUpperCase()}</text>
     </svg>
   </div>;
 }
 
 export default function Home(){
-  const [fighters,setFighters]=useState(INITIAL);const [active,setActive]=useState<number|null>(null);const [attackKind,setAttackKind]=useState<AttackKind|null>(null);const [hit,setHit]=useState<number|null>(null);const [running,setRunning]=useState(false);const [winner,setWinner]=useState<string|null>(null);const [message,setMessage]=useState("Los brutos ocupan sus posiciones");const [damage,setDamage]=useState<number|null>(null);const [round,setRound]=useState(0);const run=useRef(0);
+  const [playerClass,setPlayerClass]=useState<FighterClass>("Luchador");const [fighters,setFighters]=useState<[BattleFighter,BattleFighter]>(INITIAL);const [active,setActive]=useState<number|null>(null);const [attackKind,setAttackKind]=useState<AttackKind|null>(null);const [hit,setHit]=useState<number|null>(null);const [running,setRunning]=useState(false);const [winner,setWinner]=useState<string|null>(null);const [message,setMessage]=useState("Los brutos ocupan sus posiciones");const [damage,setDamage]=useState<number|null>(null);const [round,setRound]=useState(0);const [seed,setSeed]=useState<number|null>(null);const run=useRef(0);
   const fight=useCallback(async()=>{
-    const id=++run.current;let current=INITIAL.map(x=>({...x}));setFighters(current);setWinner(null);setRunning(true);setActive(null);setAttackKind(null);setHit(null);setDamage(null);setRound(0);setMessage("¡Que ruja la arena!");await wait(850);let attacker=Math.random()<.5?0:1;let turn=0;
-    while(current[0].hp>0&&current[1].hp>0&&run.current===id){const defender=attacker?0:1,source=current[attacker],amount=Math.floor(Math.random()*(source.max-source.min+1))+source.min;turn+=1;const kind:AttackKind=turn%2?"punch":"kick";setRound(turn);setAttackKind(kind);setActive(attacker);setMessage(`${source.name} prepara ${kind==="punch"?"el puño":"una patada"}`);await wait(520);if(run.current!==id)return;current=current.map((x,i)=>i===defender?{...x,hp:Math.max(0,x.hp-amount)}:x);setFighters(current);setHit(defender);setDamage(amount);setMessage(`${source.name} conecta ${kind==="punch"?"el puñetazo":"la patada"}`);await wait(650);setHit(null);setDamage(null);setActive(null);setAttackKind(null);if(current[defender].hp<=0)break;attacker=defender;await wait(210)}
-    if(run.current!==id)return;const champion=current[0].hp>0?current[0].name:current[1].name;setWinner(champion);setMessage(`¡${champion} domina la arena!`);setRunning(false);
-  },[]);
+    const id=++run.current;const rivalClass=CLASS_NAMES[Math.floor(Math.random()*CLASS_NAMES.length)],rivalNames=NAMES[rivalClass],rivalName=rivalNames[Math.floor(Math.random()*rivalNames.length)];const result=simulateBattle(makeProfile("Ragnar",playerClass),makeProfile(rivalName,rivalClass));setSeed(result.seed);let current:[BattleFighter,BattleFighter]=result.fighters.map(f=>({...f,hp:f.maxHp})) as [BattleFighter,BattleFighter];setFighters(current);setWinner(null);setRunning(true);setActive(null);setAttackKind(null);setHit(null);setDamage(null);setRound(0);setMessage("¡Que ruja la arena!");await wait(650);
+    const outcomeText=(outcome:Outcome,actor:string,target:string,attack:EngineAttack,critical:boolean)=>{if(outcome==="miss")return `¡${actor} falla ${describeAttack(attack)}!`;if(outcome==="dodge")return `${target} esquiva el ataque`;if(outcome==="perfect-block")return `¡Bloqueo perfecto de ${target}!`;if(outcome==="block")return `${target} bloquea gran parte del golpe`;return `${actor} conecta ${critical?"un crítico":"su ataque"}`};
+    for(let index=0;index<result.turns.length;index++){if(run.current!==id)return;const turn=result.turns[index],source=current[turn.actor],target=current[turn.target],visual:AttackKind=turn.attack==="kick"?"kick":"punch";setRound(index+1);setAttackKind(visual);setActive(turn.actor);setMessage(`${source.name} prepara ${describeAttack(turn.attack)}`);await wait(300);if(run.current!==id)return;current=current.map((f,i)=>i===turn.target?{...f,hp:turn.hpAfter}:f) as [BattleFighter,BattleFighter];setFighters(current);setHit(turn.damage>0?turn.target:null);setDamage(turn.damage||null);setMessage(outcomeText(turn.outcome,source.name,target.name,turn.attack,turn.critical));await wait(turn.knockdown||turn.stun?520:410);setHit(null);setDamage(null);setActive(null);setAttackKind(null);if(turn.knockdown){setMessage(`${target.name} cae y debe recomponerse`);await wait(260)}else if(turn.stun){setMessage(`${target.name} queda aturdido`);await wait(180)}}
+    if(run.current!==id)return;const champion=result.fighters[result.winner].name;setWinner(champion);setMessage(`¡${champion} domina la arena!`);setRunning(false);
+  },[playerClass]);
   useEffect(()=>{fight();return()=>{run.current+=1}},[fight]);
   return <main>
     <header className="topbar"><a className="brand" href="#arena" aria-label="Arena de Brutos"><span>AB</span><div><small>COMBATES AUTOMÁTICOS</small><h1>Arena de Brutos</h1></div></a><div className="top-actions"><span className="season">TEMPORADA I</span><span className="live"><i/> EN DIRECTO</span></div></header>
-    <section className="hero" id="arena"><div className="eyebrow"><span/>COMBATE DE EXHIBICIÓN<span/></div><h2>{winner?`${winner} es el vencedor`:"Dos brutos. Un solo vencedor."}</h2><p>La suerte elige el golpe. La arena recuerda al campeón.</p></section>
+    <section className="hero" id="arena"><div className="eyebrow"><span/>COMBATE DE EXHIBICIÓN<span/></div><h2>{winner?`${winner} es el vencedor`:"Dos brutos. Un solo vencedor."}</h2><p>La suerte elige el golpe. Las estadísticas inclinan la balanza.</p><div className="class-picker" aria-label="Clase del jugador">{CLASS_NAMES.map(name=><button key={name} className={name===playerClass?"selected":""} onClick={()=>setPlayerClass(name)} disabled={running}>{name}</button>)}</div></section>
     <section className="battle-wrap">
       <div className="battle-frame"><div className="frame-rivets"><i/><i/><i/><i/></div>
         <div className="sky"><div className="sun"/><div className="cloud cloud-a"/><div className="cloud cloud-b"/><div className="mountains"/></div>
@@ -120,7 +121,7 @@ export default function Home(){
         <div className="stage"><Brute side="left" variant="ragnar" attacking={active===0} attackKind={active===0?attackKind:null} hit={hit===0} defeated={fighters[0].hp===0}/><div className={`impact ${hit!==null?"show":""}`}><span>{damage}</span><i>¡PUM!</i></div><Brute side="right" variant="brakka" attacking={active===1} attackKind={active===1?attackKind:null} hit={hit===1} defeated={fighters[1].hp===0}/></div>
         <div className="floor"><div className="arena-mark">AB</div><i/><i/><i/></div>
       </div>
-      <div className="commentary"><div className="announcer"><span>📣</span><div><small>EL HERALDO DE LA ARENA</small><strong aria-live="polite">{message}</strong></div></div><button onClick={fight} disabled={running}><span>{running?"⚔":"↻"}</span>{running?"Combate en curso":"Repetir combate"}</button></div>
+      <div className="commentary"><div className="announcer"><span>📣</span><div><small>EL HERALDO DE LA ARENA · {seed?`COMBATE ${String(seed).slice(-6)}`:"PREPARANDO"}</small><strong aria-live="polite">{message}</strong></div></div><button onClick={fight} disabled={running}><span>{running?"⚔":"↻"}</span>{running?"Combate en curso":"Nuevo rival"}</button></div>
     </section>
     <section className="feature-strip"><div><b>⚔</b><span><strong>Combate automático</strong><small>Cada duelo es diferente</small></span></div><div><b>◆</b><span><strong>Estadísticas únicas</strong><small>Fuerza contra agilidad</small></span></div><div><b>★</b><span><strong>Victoria aleatoria</strong><small>La arena decide</small></span></div></section>
     <footer><span>ARENA DE BRUTOS · PROTOTIPO JUGABLE</span><b>Hecho para la gloria</b><span>SIN REGISTRO · SIN PAGOS</span></footer>

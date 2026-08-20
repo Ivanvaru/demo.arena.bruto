@@ -137,3 +137,7 @@
 .fighter.hit .designed-rig{animation:natural-hit .36s ease-out}.fighter.hit .cabeza-svg{animation:natural-hit-head .36s ease-out}
 @keyframes natural-hit{30%{transform:translateX(-24px) rotate(7deg);filter:brightness(1.32)}65%{transform:translateX(7px) rotate(-2deg)}}@keyframes natural-hit-head{30%{transform:rotate(17deg) translate(9px,-6px)}}
 @media(max-width:720px){.stage{left:5%;right:5%;bottom:4.5%;height:39%}.fighter,.fighter.ragnar,.fighter.brakka{height:100%;width:auto;scale:1}.designed-rig{height:100%;width:100%}}
+
+/* Selector compacto de clase para el primer motor de combate */
+.class-picker{display:flex;justify-content:center;gap:7px;margin:15px auto -7px}.class-picker button{padding:7px 11px;border:2px solid #5a4125;border-radius:99px;background:#fff7e5;color:#6d5534;font-size:8px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:.15s}.class-picker button:hover:not(:disabled),.class-picker button.selected{background:var(--ink);color:var(--gold);transform:translateY(-1px)}.class-picker button:disabled{cursor:not-allowed;opacity:.62}.class-picker button:focus-visible,.commentary button:focus-visible,.brand:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media(max-width:720px){.class-picker{max-width:340px;flex-wrap:wrap;margin-top:12px}.class-picker button{flex:1 1 42%;padding:6px 8px}.hero{padding-bottom:22px}}
