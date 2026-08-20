@@ -25,3 +25,26 @@
 .fighter .shadow{left:50%;bottom:-3px;width:145px;transform:translateX(-50%)}
 .fighter .fighter-aura{left:50%;bottom:7px;transform:translateX(-50%)}
 @media(max-width:720px){.fighter.ragnar,.fighter.brakka{scale:.82}.fighter{margin:-10px}}
+
+/* Rig SVG articulado: cada grupo gira desde su articulación */
+.fighter{--cloth:#2d6f91;--cloth-light:#54a4c3;width:198px;height:300px}
+.fighter.brakka{--cloth:#a83b32;--cloth-light:#dc6550}
+.fighter-skin{display:none}
+.brute-rig{position:absolute;z-index:4;left:50%;bottom:0;width:200px;height:300px;overflow:visible;transform:translateX(-50%);filter:drop-shadow(0 3px 1px rgba(36,27,18,.22))}
+.brute-rig .skin{fill:url(#skin-left);stroke:var(--ink);stroke-width:5;stroke-linejoin:round;stroke-linecap:round}.fighter.right .brute-rig .skin{fill:url(#skin-right)}
+.brute-rig .shade{fill:#a95c36;opacity:.55}.brute-rig .detail{fill:none;stroke:#6f351f;stroke-width:2.3;stroke-linecap:round}.brute-rig .briefs{stroke:var(--ink);stroke-width:5;stroke-linejoin:round}
+.rig-root,.torso-rig,.head-rig,.limb,.joint{transform-box:fill-box;transform-origin:center}
+.rig-root{transform-origin:50% 82%;animation:rig-breathe 1.8s ease-in-out infinite}
+.head-rig{transform-origin:50% 88%;animation:rig-head 2.5s ease-in-out infinite}
+.arm-back-rig{transform-origin:30% 8%;animation:rig-arm-back 1.8s ease-in-out infinite}.arm-front-rig{transform-origin:70% 8%;animation:rig-arm-front 1.8s ease-in-out infinite}
+.forearm{transform-origin:50% 8%}.fist{transform-origin:50% 15%}.leg{transform-origin:50% 8%}.foot{transform-origin:50% 16%}
+.fighter.attack .rig-root{animation:rig-lunge .42s ease-out}.fighter.attack .arm-front-rig{animation:rig-punch-upper .42s ease-out}.fighter.attack .arm-front-rig .forearm{animation:rig-punch-lower .42s ease-out}.fighter.attack .head-rig{animation:rig-attack-head .42s ease-out}.fighter.attack .leg-front{animation:rig-step .42s ease-out}
+.fighter.hit .rig-root{animation:rig-hit .34s ease-out}.fighter.hit .head-rig{animation:rig-hit-head .34s ease-out}.fighter.defeated .rig-root{animation:none}
+@keyframes rig-breathe{0%,100%{transform:translateY(0) rotate(-.5deg)}50%{transform:translateY(-4px) rotate(.5deg)}}
+@keyframes rig-head{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(2deg) translateY(-1px)}}
+@keyframes rig-arm-back{0%,100%{transform:rotate(2deg)}50%{transform:rotate(-3deg)}}@keyframes rig-arm-front{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(3deg)}}
+@keyframes rig-lunge{0%{transform:rotate(0)}45%{transform:rotate(-10deg) translate(8px,-3px)}100%{transform:rotate(0)}}
+@keyframes rig-punch-upper{0%{transform:rotate(0)}45%{transform:rotate(-58deg)}100%{transform:rotate(0)}}@keyframes rig-punch-lower{0%{transform:rotate(0)}45%{transform:rotate(-48deg) translateY(-4px)}100%{transform:rotate(0)}}
+@keyframes rig-attack-head{45%{transform:rotate(-8deg) translateY(2px)}}@keyframes rig-step{45%{transform:rotate(-9deg) translateX(5px)}}
+@keyframes rig-hit{35%{transform:rotate(13deg) translateX(-9px);filter:brightness(1.3)}100%{transform:rotate(0)}}@keyframes rig-hit-head{35%{transform:rotate(18deg) translate(5px,-4px)}100%{transform:rotate(0)}}
+@media(max-width:720px){.fighter{width:175px;height:270px}.brute-rig{width:180px;height:270px}.fighter.ragnar,.fighter.brakka{scale:.78}}
