@@ -10,3 +10,10 @@
 @keyframes pulse{50%{opacity:.35;transform:scale(.8)}}@keyframes shake{25%{translate:-8px}75%{translate:8px}}
 @media(max-width:720px){.topbar{height:74px;width:calc(100% - 24px)}.brand>span{width:43px;height:43px}.brand h1{font-size:19px}.brand small,.season{display:none}.hero{padding:25px 15px 18px}.hero h2{font-size:31px}.battle-frame{min-height:565px}.cards-row{left:10px;right:10px;top:13px;grid-template-columns:1fr 52px 1fr;gap:6px}.fighter-card{min-height:83px;padding:8px;gap:6px;border-width:3px}.portrait-token{display:none}.fighter-info strong{font-size:16px}.fighter-info small{font-size:6px}.health-meta em{display:none}.versus{width:50px;height:50px;border-width:3px}.versus strong{font-size:17px}.versus b{bottom:-9px}.stage{left:0;right:0;bottom:58px;height:320px}.fighter{scale:.77;margin:-13px}.fighter.ragnar{scale:.84}.fighter.brakka{scale:.72}.fighter.left.attack{transform:translateX(35px) rotate(-5deg)}.fighter.right.attack{transform:scaleX(-1) translateX(35px) rotate(-5deg)}.banners{top:48%}.commentary{width:calc(100% - 18px);flex-direction:column;text-align:center;padding:14px}.announcer{flex-direction:column;gap:3px}.commentary button{width:100%;justify-content:center}.feature-strip{grid-template-columns:1fr;margin-top:32px}.feature-strip>div{justify-content:flex-start;padding-left:25%}footer{flex-direction:column;gap:8px;text-align:center}.top-actions .live{font-size:0}.top-actions .live i{margin:0}.impact{top:48%}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Escenario ilustrado aportado para la arena */
+.battle-frame{background-color:#a56836;background-image:linear-gradient(180deg,rgba(255,224,166,.05),rgba(46,20,7,.12)),url("/arena-dojo.webp");background-size:cover;background-position:center;background-repeat:no-repeat}
+.battle-frame:before{content:"";position:absolute;z-index:1;inset:0;background:linear-gradient(180deg,rgba(43,20,8,.06),transparent 35%,rgba(43,20,8,.12));pointer-events:none}
+.sky,.banners,.crowd{display:none}
+.floor{border-top:0;background:linear-gradient(180deg,transparent,rgba(69,31,10,.07))}
+.arena-mark,.floor>i{display:none}
