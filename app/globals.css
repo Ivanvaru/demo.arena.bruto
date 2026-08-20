@@ -137,9 +137,3 @@
 .fighter.hit .designed-rig{animation:natural-hit .36s ease-out}.fighter.hit .cabeza-svg{animation:natural-hit-head .36s ease-out}
 @keyframes natural-hit{30%{transform:translateX(-24px) rotate(7deg);filter:brightness(1.32)}65%{transform:translateX(7px) rotate(-2deg)}}@keyframes natural-hit-head{30%{transform:rotate(17deg) translate(9px,-6px)}}
 @media(max-width:720px){.stage{left:5%;right:5%;bottom:4.5%;height:39%}.fighter,.fighter.ragnar,.fighter.brakka{height:100%;width:auto;scale:1}.designed-rig{height:100%;width:100%}}
-
-/* Rig maestro v2: Web Animations controla el movimiento; CSS solo define pivotes y uniones */
-.rig-js .rig-body,.rig-js .torso-svg,.rig-js .cabeza-svg,.rig-js .arm-left,.rig-js .arm-right{animation:none}
-.rig-js .joint-cover{fill:#f3ad68;stroke:#20170f;stroke-width:8;vector-effect:non-scaling-stroke}
-.fighter.left.defeated{transform:none}.fighter.right.defeated{transform:scaleX(-1)}
-.fighter.hit{animation:none}

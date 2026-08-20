@@ -10,61 +10,7 @@ const INITIAL:Fighter[]=[
 ];
 const wait=(ms:number)=>new Promise(r=>setTimeout(r,ms));
 
-type RigMotion="punch"|"kick"|"hit"|"defeat";
-const motion=(node:Element|null,frames:Keyframe[],duration:number,fill:FillMode="none")=>node?.animate(frames,{duration,easing:"linear",fill});
-
-function playRigMotion(svg:SVGSVGElement,kind:RigMotion){
-  const q=(selector:string)=>svg.querySelector(selector);
-  const run=(selector:string,frames:Keyframe[],duration:number,fill:FillMode="none")=>motion(q(selector),frames,duration,fill);
-  const smooth=(transform:string,offset:number,easing="cubic-bezier(.22,.72,.24,1)")=>({transform,offset,easing});
-  if(kind==="punch") return [
-    run(".rig-body",[smooth("translate(0,0) rotate(0deg)",0),smooth("translate(-10px,3px) rotate(2deg)",.18),smooth("translate(26px,-3px) rotate(-2deg)",.42),smooth("translate(76px,-5px) rotate(-4deg)",.58,"cubic-bezier(.1,.9,.2,1)"),smooth("translate(58px,-2px) rotate(-2deg)",.72),smooth("translate(0,0) rotate(0deg)",1,"cubic-bezier(.3,0,.4,1)")],680),
-    run(".torso-svg",[smooth("rotate(0deg)",0),smooth("rotate(7deg)",.2),smooth("rotate(-11deg)",.58),smooth("rotate(-5deg)",.72),smooth("rotate(0deg)",1)],680),
-    run(".cabeza-svg",[smooth("rotate(0deg)",0),smooth("rotate(-2deg)",.2),smooth("rotate(7deg) translateY(4px)",.58),smooth("rotate(2deg)",.78),smooth("rotate(0deg)",1)],680),
-    run(".arm-left",[smooth("rotate(0deg)",0),smooth("rotate(25deg) translate(-8px,5px)",.2),smooth("rotate(-30deg) translate(20px,-8px)",.42),smooth("rotate(-78deg) translate(54px,-18px)",.58,"cubic-bezier(.08,.9,.16,1)"),smooth("rotate(-58deg) translate(42px,-12px)",.7),smooth("rotate(0deg)",1)],680),
-    run(".arm-left .antebrazo-izq",[smooth("rotate(10deg)",0),smooth("rotate(32deg)",.2),smooth("rotate(-28deg) translate(16px,-8px)",.42),smooth("rotate(-72deg) translate(74px,-40px)",.58),smooth("rotate(-48deg) translate(48px,-24px)",.7),smooth("rotate(0deg)",1)],680),
-    run(".arm-left .mano-izq",[smooth("rotate(0deg)",0),smooth("rotate(-14deg) translate(25px,-12px) scale(1.04)",.58),smooth("rotate(-8deg) translate(14px,-6px)",.72),smooth("rotate(0deg)",1)],680),
-    run(".arm-right",[smooth("rotate(0deg)",0),smooth("rotate(18deg) translate(-8px,-9px)",.32),smooth("rotate(24deg) translate(-10px,-13px)",.62),smooth("rotate(0deg)",1)],680),
-    run(".leg-left",[smooth("rotate(0deg)",0),smooth("rotate(-6deg) translate(18px,0)",.58),smooth("rotate(0deg)",1)],680),
-    run(".leg-right",[smooth("rotate(0deg)",0),smooth("rotate(8deg) translate(-9px,3px)",.58),smooth("rotate(0deg)",1)],680)
-  ];
-  if(kind==="kick") return [
-    run(".rig-body",[smooth("translate(0,0) rotate(0deg)",0),smooth("translate(-16px,-3px) rotate(2deg)",.16),smooth("translate(8px,-17px) rotate(5deg)",.34),smooth("translate(38px,-31px) rotate(8deg)",.56),smooth("translate(24px,-18px) rotate(5deg)",.72),smooth("translate(0,0) rotate(0deg)",1)],820),
-    run(".torso-svg",[smooth("rotate(0deg)",0),smooth("rotate(-7deg)",.2),smooth("rotate(14deg) translate(-10px,-4px)",.52),smooth("rotate(9deg)",.7),smooth("rotate(0deg)",1)],820),
-    run(".cabeza-svg",[smooth("rotate(0deg)",0),smooth("rotate(4deg)",.2),smooth("rotate(-10deg) translate(-5px,-2px)",.52),smooth("rotate(-4deg)",.72),smooth("rotate(0deg)",1)],820),
-    run(".leg-left",[smooth("rotate(0deg)",0),smooth("rotate(-18deg) translate(12px,-14px)",.22),smooth("rotate(-48deg) translate(43px,-48px)",.38),smooth("rotate(-82deg) translate(98px,-77px)",.56,"cubic-bezier(.08,.9,.18,1)"),smooth("rotate(-60deg) translate(66px,-54px)",.68),smooth("rotate(-18deg) translate(14px,-12px)",.84),smooth("rotate(0deg)",1)],820),
-    run(".leg-left .pierna-izq",[smooth("rotate(0deg)",0),smooth("rotate(42deg) translate(-18px,-5px)",.3),smooth("rotate(-18deg) translate(38px,-35px)",.43),smooth("rotate(-76deg) translate(105px,-75px)",.56),smooth("rotate(-44deg) translate(65px,-48px)",.7),smooth("rotate(18deg)",.84),smooth("rotate(0deg)",1)],820),
-    run(".leg-left .pie-izq",[smooth("rotate(0deg)",0),smooth("rotate(-18deg)",.38),smooth("rotate(16deg) translate(50px,-25px)",.56),smooth("rotate(8deg)",.72),smooth("rotate(0deg)",1)],820),
-    run(".leg-right",[smooth("rotate(0deg)",0),smooth("rotate(7deg) translate(-14px,5px) scaleY(.98)",.35),smooth("rotate(10deg) translate(-17px,7px) scaleY(.96)",.58),smooth("rotate(0deg)",1)],820),
-    run(".arm-left",[smooth("rotate(0deg)",0),smooth("rotate(30deg) translate(-7px,-12px)",.46),smooth("rotate(20deg)",.7),smooth("rotate(0deg)",1)],820),
-    run(".arm-right",[smooth("rotate(0deg)",0),smooth("rotate(-27deg) translate(9px,-8px)",.46),smooth("rotate(-16deg)",.7),smooth("rotate(0deg)",1)],820)
-  ];
-  if(kind==="hit") return [
-    run(".rig-body",[smooth("translate(0,0) rotate(0deg)",0),smooth("translate(-34px,-4px) rotate(9deg)",.2,"cubic-bezier(.1,.9,.2,1)"),smooth("translate(12px,1px) rotate(-3deg)",.48),smooth("translate(-5px,0) rotate(1deg)",.72),smooth("translate(0,0) rotate(0deg)",1)],430),
-    run(".cabeza-svg",[smooth("rotate(0deg)",0),smooth("rotate(21deg) translate(12px,-8px)",.2),smooth("rotate(-6deg)",.5),smooth("rotate(0deg)",1)],430),
-    run(".arm-left",[smooth("rotate(0deg)",0),smooth("rotate(13deg)",.25),smooth("rotate(0deg)",1)],430),
-    run(".arm-right",[smooth("rotate(0deg)",0),smooth("rotate(-13deg)",.25),smooth("rotate(0deg)",1)],430)
-  ];
-  return [
-    run(".rig-body",[smooth("translate(0,0) rotate(0deg)",0),smooth("translate(-15px,-5px) rotate(5deg)",.18),smooth("translate(-68px,110px) rotate(-38deg)",.55),smooth("translate(-115px,310px) rotate(-82deg)",.82),smooth("translate(-122px,338px) rotate(-88deg)",1,"cubic-bezier(.2,.8,.2,1)")],850,"forwards"),
-    run(".arm-left",[smooth("rotate(0deg)",0),smooth("rotate(38deg)",.55),smooth("rotate(62deg)",1)],850,"forwards"),
-    run(".arm-right",[smooth("rotate(0deg)",0),smooth("rotate(-32deg)",.55),smooth("rotate(-48deg)",1)],850,"forwards"),
-    run(".cabeza-svg",[smooth("rotate(0deg)",0),smooth("rotate(18deg)",.5),smooth("rotate(32deg)",1)],850,"forwards")
-  ];
-}
-
 function Brute({side,variant,attacking,attackKind,hit,defeated}:{side:"left"|"right";variant:"ragnar"|"brakka";attacking:boolean;attackKind:AttackKind|null;hit:boolean;defeated:boolean}){
-  const rigRef=useRef<SVGSVGElement>(null);
-  useEffect(()=>{const svg=rigRef.current;if(!svg)return;const idle=[
-    motion(svg.querySelector(".rig-body"),[{transform:"translateY(0) rotate(-.3deg)"},{transform:"translateY(-5px) rotate(.35deg)"},{transform:"translateY(0) rotate(-.3deg)"}],2100),
-    motion(svg.querySelector(".torso-svg"),[{transform:"scaleY(1)"},{transform:"scaleY(1.012) translateY(-2px)"},{transform:"scaleY(1)"}],2100),
-    motion(svg.querySelector(".cabeza-svg"),[{transform:"rotate(-1deg)"},{transform:"rotate(1.5deg) translateY(-2px)"},{transform:"rotate(-1deg)"}],3000),
-    motion(svg.querySelector(".arm-left"),[{transform:"rotate(1deg)"},{transform:"rotate(-2.5deg)"},{transform:"rotate(1deg)"}],2100),
-    motion(svg.querySelector(".arm-right"),[{transform:"rotate(-1deg)"},{transform:"rotate(2.5deg)"},{transform:"rotate(-1deg)"}],2100)
-  ].filter(Boolean) as Animation[];idle.forEach(a=>{a.effect&&a.updatePlaybackRate(1);(a.effect as KeyframeEffect).updateTiming({iterations:Infinity,easing:"ease-in-out"})});return()=>idle.forEach(a=>a.cancel())},[]);
-  useEffect(()=>{if(!attacking||!attackKind||!rigRef.current)return;const animations=playRigMotion(rigRef.current,attackKind);return()=>animations.forEach(a=>a?.cancel())},[attacking,attackKind]);
-  useEffect(()=>{if(!hit||!rigRef.current)return;const animations=playRigMotion(rigRef.current,"hit");return()=>animations.forEach(a=>a?.cancel())},[hit]);
-  useEffect(()=>{if(!defeated||!rigRef.current)return;playRigMotion(rigRef.current,"defeat")},[defeated]);
   return <div className={`fighter ${side} ${variant} ${attacking?`attack attack-${attackKind}`:""} ${hit?"hit":""} ${defeated?"defeated":""}`} aria-hidden="true">
     <div className="fighter-aura"/><div className="shadow"/>
     <svg className="brute-rig" viewBox="0 0 240 360" role="presentation">
@@ -108,13 +54,13 @@ function Brute({side,variant,attacking,attackKind,hit,defeated}:{side:"left"|"ri
         </g>
       </g>
     </svg>
-    <svg ref={rigRef} className="designed-rig rig-js" viewBox="0 0 979 1606" role="presentation">
+    <svg className="designed-rig" viewBox="0 0 979 1606" role="presentation">
       <g className="rig-body">
-        <g className="limb-chain leg-chain leg-right"><g className="svg-part muslo-der"><use href="/characters/base-normal/personaje.svg#muslo_der"/></g><ellipse className="joint-cover" cx="615" cy="1110" rx="49" ry="42"/><g className="svg-part pierna-der"><use href="/characters/base-normal/personaje.svg#pierna_der"/></g><ellipse className="joint-cover" cx="595" cy="1380" rx="43" ry="35"/><g className="svg-part pie-der"><use href="/characters/base-normal/personaje.svg#pie_der"/></g></g>
-        <g className="limb-chain arm-chain arm-right"><g className="svg-part brazo-der"><use href="/characters/base-normal/personaje.svg#brazo_der_superior"/></g><ellipse className="joint-cover" cx="650" cy="720" rx="43" ry="37"/><g className="svg-part antebrazo-der"><use href="/characters/base-normal/personaje.svg#antebrazo_der"/></g><ellipse className="joint-cover" cx="700" cy="930" rx="38" ry="32"/><g className="svg-part mano-der"><use href="/characters/base-normal/personaje.svg#mano_der"/></g></g>
+        <g className="limb-chain leg-chain leg-right"><g className="svg-part muslo-der"><use href="/characters/base-normal/personaje.svg#muslo_der"/></g><g className="svg-part pierna-der"><use href="/characters/base-normal/personaje.svg#pierna_der"/></g><g className="svg-part pie-der"><use href="/characters/base-normal/personaje.svg#pie_der"/></g></g>
+        <g className="limb-chain arm-chain arm-right"><g className="svg-part brazo-der"><use href="/characters/base-normal/personaje.svg#brazo_der_superior"/></g><g className="svg-part antebrazo-der"><use href="/characters/base-normal/personaje.svg#antebrazo_der"/></g><g className="svg-part mano-der"><use href="/characters/base-normal/personaje.svg#mano_der"/></g></g>
         <g className="svg-part torso-svg"><use href="/characters/base-normal/personaje.svg#torso"/></g>
-        <g className="limb-chain leg-chain leg-left"><g className="svg-part muslo-izq"><use href="/characters/base-normal/personaje.svg#muslo_izq"/></g><ellipse className="joint-cover" cx="380" cy="1110" rx="49" ry="42"/><g className="svg-part pierna-izq"><use href="/characters/base-normal/personaje.svg#pierna_izq"/></g><ellipse className="joint-cover" cx="350" cy="1380" rx="43" ry="35"/><g className="svg-part pie-izq"><use href="/characters/base-normal/personaje.svg#pie_izq"/></g></g>
-        <g className="limb-chain arm-chain arm-left"><g className="svg-part brazo-izq"><use href="/characters/base-normal/personaje.svg#brazo_izq_superior"/></g><ellipse className="joint-cover" cx="305" cy="720" rx="43" ry="37"/><g className="svg-part antebrazo-izq"><use href="/characters/base-normal/personaje.svg#antebrazo_izq"/></g><ellipse className="joint-cover" cx="285" cy="925" rx="38" ry="32"/><g className="svg-part mano-izq"><use href="/characters/base-normal/personaje.svg#mano_izq"/></g></g>
+        <g className="limb-chain leg-chain leg-left"><g className="svg-part muslo-izq"><use href="/characters/base-normal/personaje.svg#muslo_izq"/></g><g className="svg-part pierna-izq"><use href="/characters/base-normal/personaje.svg#pierna_izq"/></g><g className="svg-part pie-izq"><use href="/characters/base-normal/personaje.svg#pie_izq"/></g></g>
+        <g className="limb-chain arm-chain arm-left"><g className="svg-part brazo-izq"><use href="/characters/base-normal/personaje.svg#brazo_izq_superior"/></g><g className="svg-part antebrazo-izq"><use href="/characters/base-normal/personaje.svg#antebrazo_izq"/></g><g className="svg-part mano-izq"><use href="/characters/base-normal/personaje.svg#mano_izq"/></g></g>
         <g className="svg-part cuello-svg"><use href="/characters/base-normal/personaje.svg#cuello"/></g>
         <g className="svg-part cabeza-svg"><use href="/characters/base-normal/personaje.svg#cabeza"/></g>
       </g>
@@ -159,7 +105,7 @@ export default function Home(){
   const [fighters,setFighters]=useState(INITIAL);const [active,setActive]=useState<number|null>(null);const [attackKind,setAttackKind]=useState<AttackKind|null>(null);const [hit,setHit]=useState<number|null>(null);const [running,setRunning]=useState(false);const [winner,setWinner]=useState<string|null>(null);const [message,setMessage]=useState("Los brutos ocupan sus posiciones");const [damage,setDamage]=useState<number|null>(null);const [round,setRound]=useState(0);const run=useRef(0);
   const fight=useCallback(async()=>{
     const id=++run.current;let current=INITIAL.map(x=>({...x}));setFighters(current);setWinner(null);setRunning(true);setActive(null);setAttackKind(null);setHit(null);setDamage(null);setRound(0);setMessage("¡Que ruja la arena!");await wait(850);let attacker=Math.random()<.5?0:1;let turn=0;
-    while(current[0].hp>0&&current[1].hp>0&&run.current===id){const defender=attacker?0:1,source=current[attacker],amount=Math.floor(Math.random()*(source.max-source.min+1))+source.min;turn+=1;const kind:AttackKind=turn%2?"punch":"kick";setRound(turn);setAttackKind(kind);setActive(attacker);setMessage(`${source.name} prepara ${kind==="punch"?"el puño":"una patada"}`);await wait(kind==="punch"?395:460);if(run.current!==id)return;current=current.map((x,i)=>i===defender?{...x,hp:Math.max(0,x.hp-amount)}:x);setFighters(current);setHit(defender);setDamage(amount);setMessage(`${source.name} conecta ${kind==="punch"?"el puñetazo":"la patada"}`);await wait(kind==="punch"?500:570);setHit(null);setDamage(null);setActive(null);setAttackKind(null);if(current[defender].hp<=0)break;attacker=defender;await wait(240)}
+    while(current[0].hp>0&&current[1].hp>0&&run.current===id){const defender=attacker?0:1,source=current[attacker],amount=Math.floor(Math.random()*(source.max-source.min+1))+source.min;turn+=1;const kind:AttackKind=turn%2?"punch":"kick";setRound(turn);setAttackKind(kind);setActive(attacker);setMessage(`${source.name} prepara ${kind==="punch"?"el puño":"una patada"}`);await wait(520);if(run.current!==id)return;current=current.map((x,i)=>i===defender?{...x,hp:Math.max(0,x.hp-amount)}:x);setFighters(current);setHit(defender);setDamage(amount);setMessage(`${source.name} conecta ${kind==="punch"?"el puñetazo":"la patada"}`);await wait(650);setHit(null);setDamage(null);setActive(null);setAttackKind(null);if(current[defender].hp<=0)break;attacker=defender;await wait(210)}
     if(run.current!==id)return;const champion=current[0].hp>0?current[0].name:current[1].name;setWinner(champion);setMessage(`¡${champion} domina la arena!`);setRunning(false);
   },[]);
   useEffect(()=>{fight();return()=>{run.current+=1}},[fight]);
