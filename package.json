@@ -7,14 +7,14 @@
   },
   "scripts": {
     "install:ci": "bash scripts/install-ci.sh",
-    "dev": "vinext dev",
-    "build": "vinext build",
+    "dev": "next dev",
+    "build": "next build",
     "deploy": "wrangler deploy",
-    "preview": "vite preview",
-    "start": "vinext start",
+    "preview": "wrangler dev",
+    "start": "next dev",
     "test": "npm run build && node --experimental-strip-types --test tests/rendered-html.test.mjs tests/combat-engine.test.ts",
-    "validate:artifact": "bash scripts/validate-artifact.sh",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "validate:artifact": "test -f out/index.html",
+    "lint": "eslint . --ignore-pattern out --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
