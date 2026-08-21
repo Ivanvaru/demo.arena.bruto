@@ -25,15 +25,37 @@ npm run dev
 npm run build
 ```
 
+El build genera y valida:
+
+- `dist/server/index.js` — Worker de Cloudflare
+- `dist/server/wrangler.json` — configuración de despliegue generada
+- `dist/.openai/hosting.json` — manifiesto del proyecto
+
 ## Publicar en Cloudflare Workers
 
-Después de iniciar sesión con Wrangler:
+Después de autenticar Wrangler:
 
 ```bash
+npm run build
 npm run deploy
 ```
 
-La compilación genera un Worker de Cloudflare y sus recursos estáticos dentro de `dist/`.
+El script `deploy` ejecuta:
+
+```bash
+wrangler deploy --config dist/server/wrangler.json
+```
+
+### Cloudflare Workers Builds
+
+Si el repositorio está conectado directamente desde Cloudflare, usar:
+
+- Rama de producción: `main`
+- Build command: `npm run build`
+- Deploy command: `npm run deploy`
+- Node.js: 22 o posterior
+
+No usar un directorio de salida estático como `out/` o `public/`: esta aplicación se publica como Cloudflare Worker mediante el artefacto generado por vinext.
 
 ## Estado
 
