@@ -503,6 +503,7 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 .start-button.loading{background-color:transparent;background-image:url("/ui/cartel-pergamino.svg");color:#2b180d}
 .start-button.loading i{inset:19px 34px 21px;width:auto;border-radius:4px;opacity:.46;mix-blend-mode:multiply;transform-origin:left center;transition:transform .08s linear}
 .start-button:disabled,.primary-game-button:disabled,.secondary-game-button:disabled{cursor:not-allowed;filter:grayscale(.35) opacity(.7)}
+.start-button.loading:disabled{cursor:wait;opacity:1;filter:drop-shadow(5px 7px 3px #160c0766)}
 
 @media(max-width:620px){
   .start-button{width:min(300px,88vw);height:auto;min-height:82px}
