@@ -72,6 +72,18 @@ export const CLASS_CLOTHING: Record<FighterClass, Pick<Outfit, "shirtColor" | "p
   Coloso: { shirtColor: null, pantsColor: "#4a4a4a", glovesColor: "#1c1c1c", bootsColor: "#1c1c1c" },
 };
 
+/** Per-class body texture: each class has its own body proportions, laid out on the
+ * exact same 979×1606 canvas and 43-region layout as `rig.json`, so the shared skeleton
+ * geometry, clip paths and clothing/hair patches keep working unchanged — only the
+ * source image swaps. Falls back to the original shared texture if a class is missing. */
+export const CLASS_BODY_TEXTURE: Record<FighterClass, string> = {
+  Coloso: "/characters/classes/coloso/montaje-verificacion.png",
+  Luchador: "/characters/classes/luchador/montaje-verificacion.png",
+  Atleta: "/characters/classes/atleta/montaje-verificacion.png",
+  Aventurero: "/characters/classes/aventurero/montaje-verificacion.png",
+};
+export const DEFAULT_BODY_TEXTURE = "/characters/active/montaje-verificacion.png";
+
 export type FaceAppearance = {
   skinFilter: string;
   eyeColor: string;
