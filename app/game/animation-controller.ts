@@ -65,13 +65,16 @@ export const MOTIONS:Record<MotionName,MotionDefinition>={
 MOTIONS.critical={...MOTIONS.punch,duration:1260,contact:650};
 MOTIONS["perfect-block"]={...MOTIONS.block,duration:720,contact:320};
 
-const ease=(v:number)=>v<.5?4*v*v*v:1-Math.pow(-2*v+2,3)/2;
-const mix=(a:number|undefined,b:number|undefined,t:number,fallback=0)=>(a??fallback)+((b??fallback)-(a??fallback))*t;
+type PoseField=keyof Pose;
+const poseValue=(key:MotionKey|undefined,field:PoseField,fallback:number)=>key?.pose[field]??fallback;
+// Continuous velocity between poses avoids a visible brake at each keyframe.
+const spline=(p0:number,p1:number,p2:number,p3:number,t:number)=>{const t2=t*t,t3=t2*t;return .5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t2+(-p0+3*p1-3*p2+p3)*t3)};
+const interpolate=(keys:MotionKey[],index:number,field:PoseField,t:number,fallback:number)=>spline(poseValue(keys[index-1]??keys[index],field,fallback),poseValue(keys[index],field,fallback),poseValue(keys[index+1],field,fallback),poseValue(keys[index+2]??keys[index+1],field,fallback),t);
 export function poseAt(keys:MotionKey[],progress:number):Pose{
   if(progress<=keys[0].t)return keys[0].pose;if(progress>=keys[keys.length-1].t)return keys[keys.length-1].pose;
   let index=0;while(index<keys.length-1&&progress>keys[index+1].t)index++;
-  const a=keys[index],b=keys[index+1],t=ease((progress-a.t)/(b.t-a.t));
-  return{x:mix(a.pose.x,b.pose.x,t),y:mix(a.pose.y,b.pose.y,t),r:mix(a.pose.r,b.pose.r,t),sx:mix(a.pose.sx,b.pose.sx,t,1),sy:mix(a.pose.sy,b.pose.sy,t,1),advance:mix(a.pose.advance,b.pose.advance,t)};
+  const a=keys[index],b=keys[index+1],t=Math.max(0,Math.min(1,(progress-a.t)/(b.t-a.t)));
+  return{x:interpolate(keys,index,"x",t,0),y:interpolate(keys,index,"y",t,0),r:interpolate(keys,index,"r",t,0),sx:interpolate(keys,index,"sx",t,1),sy:interpolate(keys,index,"sy",t,1),advance:interpolate(keys,index,"advance",t,0)};
 }
 
 export function poseTransform(pose:Pose,advanceDistance:number){const x=(pose.x??0)+(pose.advance??0)*advanceDistance;return `translate(${x}px,${pose.y??0}px) rotate(${pose.r??0}deg) scale(${pose.sx??1},${pose.sy??1})`;}
