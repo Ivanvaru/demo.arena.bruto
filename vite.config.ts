@@ -12,9 +12,18 @@ const { d1, r2 } = hostingConfig;
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 
 const localBindingConfig = {
+  name: "demo-arena-bruto",
   main: "./worker/index.ts",
+  compatibility_date: "2026-08-21",
   compatibility_flags: ["nodejs_compat"],
   workers_dev: true,
+  assets: {
+    binding: "ASSETS",
+    not_found_handling: "none",
+  },
+  images: {
+    binding: "IMAGES",
+  },
   d1_databases: d1
     ? [
         {
