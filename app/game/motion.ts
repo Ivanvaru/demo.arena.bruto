@@ -7,7 +7,7 @@ export type MotionTiming = {
 };
 
 export const MOTION_TIMINGS: Record<MotionAttack, MotionTiming> = {
-  punch: { total: 1120, contact: 590, settle: 210 },
+  punch: { total: 1250, contact: 700, settle: 230 },
   kick: { total: 1260, contact: 690, settle: 240 },
 };
 
