@@ -569,3 +569,71 @@ p,.screen-heading p,.sheet-title p,.match-card p,.feature-strip span small{line-
   }
   .start-button{width:min(310px,90vw)}
 }
+
+/* Vestuario: la ilustración funciona como plantilla de la pantalla completa.
+   Los paneles HTML quedan transparentes para no duplicar sus marcos. */
+main:has(.locker-screen){
+  min-height:100vh;
+  background:#2a160c url("/backgrounds/vestuario.webp") center top/cover no-repeat;
+}
+.locker-screen{
+  width:min(1360px,100%);
+  min-height:calc(100vh - 96px);
+  margin:0 auto;
+  padding:42px clamp(86px,8vw,128px) 28px;
+  border:0;
+  border-radius:0;
+  background:none;
+  box-shadow:none;
+}
+.locker-screen:before,.locker-screen:after{display:none}
+.locker-screen .screen-heading small{
+  min-width:300px;
+  padding:9px 34px;
+  border:0;
+  background:none;
+  box-shadow:none;
+}
+.locker-screen .locker-layout{
+  grid-template-columns:minmax(330px,.82fr) minmax(510px,1.18fr);
+  gap:42px;
+  margin:28px auto 12px;
+}
+.locker-screen .locker-character,
+.locker-screen .locker-sheet{
+  border:0;
+  background:none;
+  box-shadow:none;
+}
+.locker-screen .locker-character{height:430px}
+.locker-screen .locker-character:before,
+.locker-screen .locker-character:after{
+  padding:0;
+  border:0;
+  background:none;
+  box-shadow:none;
+}
+.locker-screen .locker-character:before{top:-17px}
+.locker-screen .locker-character:after{bottom:-17px}
+.locker-screen .locker-character .fighter{height:88%;bottom:6px}
+.locker-screen .locker-sheet{padding:26px 30px}
+.locker-screen .locker-actions{margin-top:2px}
+
+@media(max-width:980px){
+  main:has(.locker-screen){background-position:center top;background-size:auto 100vh}
+  .locker-screen{padding:45px 34px 36px}
+  .locker-screen .locker-layout{grid-template-columns:1fr;max-width:650px}
+  .locker-screen .locker-character,.locker-screen .locker-sheet{
+    background:#f2d6a7e8;
+    border:5px ridge #765432;
+    box-shadow:0 0 0 3px #21150dcc;
+  }
+  .locker-screen .locker-character{background:radial-gradient(ellipse at 50% 78%,#d79b38e8,#74400ef2 70%)}
+}
+
+@media(max-width:620px){
+  .locker-screen{width:100%;padding:38px 14px 30px}
+  .locker-screen .screen-heading small{min-width:0;width:70%}
+  .locker-screen .locker-character{height:345px}
+  .locker-screen .locker-sheet{padding:20px 15px}
+}
