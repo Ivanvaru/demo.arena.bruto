@@ -3,7 +3,7 @@
   "name": "demo-arena-bruto",
   "compatibility_date": "2026-08-21",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "./worker/index.ts",
+  "main": "vinext/server/app-router-entry",
   "workers_dev": true,
   "preview_urls": true,
   "assets": {
