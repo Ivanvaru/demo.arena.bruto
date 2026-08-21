@@ -448,8 +448,8 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 .locker-actions .primary-game-button,.locker-actions .secondary-game-button{margin:0}
 .match-character{bottom:18px;width:35%;height:68%;pointer-events:none}
 .match-character .fighter{position:relative;width:auto;height:100%;margin:0;flex:0 0 auto}
-.player-card>small,.player-card>h3,.player-card>b,.player-card>p,.player-card>.stats-panel{margin-left:42%}
-.rival-card>small,.rival-card>h3,.rival-card>b,.rival-card>p,.rival-card>.stats-panel{margin-right:42%}
+.player-card>small,.player-card>h3,.player-card>b,.player-card>p,.player-card>.stats-panel{margin-left:44%}
+.rival-card>small,.rival-card>h3,.rival-card>b,.rival-card>p,.rival-card>.stats-panel{margin-right:44%}
 
 /* Laboratorio integrado: usa el mismo Brute y las mismas clases del combate */
 .lab-screen{width:min(1120px,calc(100% - 32px))}
