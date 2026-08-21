@@ -2,12 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "demo-arena-bruto",
   "compatibility_date": "2026-08-21",
-  "compatibility_flags": ["nodejs_compat"],
-  "main": "vinext/server/app-router-entry",
   "workers_dev": true,
   "preview_urls": true,
   "assets": {
-    "not_found_handling": "none",
-    "binding": "ASSETS"
+    "directory": "./out",
+    "not_found_handling": "single-page-application"
   }
 }
