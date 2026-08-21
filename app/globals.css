@@ -351,7 +351,7 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 @keyframes rig2-defeat{0%{transform:none}12%{transform:translate(-4px,-3px) rotate(2deg)}28%{transform:translate(-15px,-7px) rotate(8deg)}48%{transform:translate(-28px,1px) rotate(15deg)}72%{transform:translate(-38px,14px) rotate(22deg) scaleY(.98)}100%{transform:translate(-42px,20px) rotate(26deg) scaleY(.95)}}
 
 /* Motor esquelético v1: jerarquía real, poses corporales y contacto sincronizado */
-.skeleton-character-rig{position:absolute;z-index:4;left:50%;bottom:0;width:auto;height:100%;aspect-ratio:979/1606;transform:translateX(-50%);filter:drop-shadow(0 3px 1px rgba(36,27,18,.22));pointer-events:none;user-select:none;will-change:transform}
+.skeleton-character-rig{position:absolute;z-index:4;left:0;bottom:0;width:100%;height:100%;transform:none;filter:drop-shadow(0 3px 1px rgba(36,27,18,.22));pointer-events:none;user-select:none;will-change:transform}
 .skeleton-character-rig .character-rig-svg{display:block;width:100%;height:100%;overflow:visible}
 .skeleton-bone,.skeleton-root{transform-box:view-box;will-change:transform;backface-visibility:hidden}
 .skeleton-art{pointer-events:none}
@@ -420,7 +420,7 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 .fighter.hit .skeleton-character-rig{animation:sk-hit-root .43s cubic-bezier(.16,.82,.2,1)}
 .fighter.hit .bone-core{animation:sk-hit-core .43s ease-out}.fighter.hit .bone-head{animation:sk-hit-head .43s ease-out}
 .fighter.hit{animation:none}
-@keyframes sk-hit-root{0%,100%{transform:translateX(-50%)}24%{transform:translateX(calc(-50% - 20px)) rotate(6deg)}58%{transform:translateX(calc(-50% + 7px)) rotate(-2deg)}80%{transform:translateX(calc(-50% - 2px))}}
+@keyframes sk-hit-root{0%,100%{transform:none}24%{transform:translateX(-20px) rotate(6deg)}58%{transform:translateX(7px) rotate(-2deg)}80%{transform:translateX(-2px)}}
 @keyframes sk-hit-core{0%,100%{transform:none}24%{transform:rotate(8deg) translate(-8px,2px)}58%{transform:rotate(-2deg)}}
 @keyframes sk-hit-head{0%,100%{transform:none}24%{transform:rotate(17deg) translate(-7px,-3px)}58%{transform:rotate(-4deg)}}
 .fighter.defense-block .bone-upper-arm-izq,.fighter.defense-perfect-block .bone-upper-arm-izq{animation:sk-block-front .52s ease-out}.fighter.defense-block .bone-forearm-izq,.fighter.defense-perfect-block .bone-forearm-izq{animation:sk-block-forearm .52s ease-out}.fighter.defense-block .bone-upper-arm-der,.fighter.defense-perfect-block .bone-upper-arm-der{animation:sk-block-back .52s ease-out}
@@ -434,12 +434,12 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 .fighter.defense-perfect-block .skeleton-character-rig{filter:drop-shadow(0 0 12px #ffd44d) brightness(1.08)}
 .fighter.defense-dodge .skeleton-character-rig{animation:sk-dodge .56s cubic-bezier(.16,.84,.18,1)}
 .fighter.defense-dodge .bone-core{animation:sk-dodge-core .56s ease-out}
-@keyframes sk-dodge{0%,100%{transform:translateX(-50%)}24%,68%{transform:translate(calc(-50% - 25px),-12px) rotate(-8deg)}}
+@keyframes sk-dodge{0%,100%{transform:none}24%,68%{transform:translate(-25px,-12px) rotate(-8deg)}}
 @keyframes sk-dodge-core{0%,100%{transform:none}24%,68%{transform:rotate(-9deg) translate(-8px,-2px)}}
 .fighter.critical .skeleton-character-rig{filter:drop-shadow(0 0 12px #ffd33d) saturate(1.24) brightness(1.07)}
 .fighter.left.defeated{transform:none;animation:none}.fighter.right.defeated{transform:scaleX(-1);animation:none}
 .fighter.defeated .skeleton-character-rig{animation:sk-defeat .9s cubic-bezier(.32,.04,.58,1) both}
-@keyframes sk-defeat{0%{transform:translateX(-50%)}18%{transform:translate(calc(-50% - 5px),-4px) rotate(3deg)}45%{transform:translate(calc(-50% - 20px),2px) rotate(12deg)}75%{transform:translate(calc(-50% - 34px),17px) rotate(24deg)}100%{transform:translate(calc(-50% - 40px),22px) rotate(29deg) scaleY(.96)}}
+@keyframes sk-defeat{0%{transform:none}18%{transform:translate(-5px,-4px) rotate(3deg)}45%{transform:translate(-20px,2px) rotate(12deg)}75%{transform:translate(-34px,17px) rotate(24deg)}100%{transform:translate(-40px,22px) rotate(29deg) scaleY(.96)}}
 
 /* Calibración de espacios: el contenedor, la sombra y los pies comparten el mismo eje */
 .locker-character .fighter{position:absolute;left:50%;bottom:18px;width:auto;height:86%;margin:0;transform:translateX(-50%);transform-origin:50% 100%}
