@@ -477,7 +477,7 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
   border:0;
   border-radius:0;
   background-color:transparent;
-  background-image:url("/ui/cartel-pergamino.svg");
+  background-image:url("/ui/cartel-pergamino.png");
   background-repeat:no-repeat;
   background-position:center;
   background-size:100% 100%;
@@ -499,7 +499,7 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 .primary-game-button:focus-visible,
 .secondary-game-button:focus-visible{outline:3px solid #fff4c7;outline-offset:4px}
 .secondary-game-button{color:#3b2415}
-.start-button.loading{background-color:transparent;background-image:url("/ui/cartel-pergamino.svg");color:#2b180d}
+.start-button.loading{background-color:transparent;background-image:url("/ui/cartel-pergamino.png");color:#2b180d}
 .start-button.loading i{inset:19px 34px 21px;border-radius:4px;opacity:.46;mix-blend-mode:multiply}
 .start-button:disabled,.primary-game-button:disabled,.secondary-game-button:disabled{cursor:not-allowed;filter:grayscale(.35) opacity(.7)}
 
