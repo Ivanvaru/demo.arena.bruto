@@ -684,3 +684,22 @@ main:has(.encounter-screen){
   .encounter-screen{width:100%;padding:38px 14px 30px}
   .encounter-screen .match-card{min-height:440px;padding:30px 15px 20px}
 }
+
+/* Editor de vestuario (pelo, camiseta, pantalón, guantes, botas) */
+.locker-actions{flex-wrap:wrap}
+.skeleton-cloth{pointer-events:none;stroke:rgba(0,0,0,.18);stroke-width:2}
+.wardrobe-controls{display:flex;flex-direction:column;gap:2px}
+.wardrobe-row{margin-bottom:16px}
+.wardrobe-row:last-child{margin-bottom:0}
+.wardrobe-row-label{display:block;margin-bottom:8px;color:#59452e;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.wardrobe-style-picker{margin-top:0}
+.swatch-list{display:flex;flex-wrap:wrap;gap:10px}
+.swatch{width:34px;height:34px;padding:0;border:3px solid var(--ink);border-radius:50%;cursor:pointer;box-shadow:2px 3px #0002;transition:transform .12s}
+.swatch:hover{transform:translateY(-2px)}
+.swatch.selected{box-shadow:0 0 0 3px #fff6df,0 0 0 6px var(--gold);transform:translateY(-1px)}
+.swatch-none{display:grid;place-items:center;background:#fff6df;color:#59452e;font-weight:900}
+
+@media(max-width:720px){
+  .swatch{width:30px;height:30px}
+  .locker-actions{gap:12px}
+}
