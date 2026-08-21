@@ -467,6 +467,47 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 .lab-transport{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px}.lab-transport label{display:flex;align-items:center;gap:8px;color:#4d321c;font-size:9px;font-weight:900}.lab-transport select{padding:8px;border:3px solid #2b1a0f;border-radius:7px;background:#fff7df;font-weight:900}.lab-back{display:block;margin:24px auto 0}
 @media(max-width:720px){.locker-character .fighter{height:82%;bottom:15px}.locker-actions{flex-direction:column}.locker-actions button{width:100%}.match-character{position:relative;left:auto!important;right:auto!important;bottom:auto;width:100%;height:235px;margin-bottom:10px}.player-card>small,.player-card>h3,.player-card>b,.player-card>p,.player-card>.stats-panel,.rival-card>small,.rival-card>h3,.rival-card>b,.rival-card>p,.rival-card>.stats-panel{margin-left:0;margin-right:0}.lab-demo{height:330px}.lab-demo .fighter{left:6%;height:70%;--advance-distance:clamp(75px,27vw,130px)}.lab-demo .lab-target{right:5%;width:88px;height:150px}.lab-motion-list{grid-template-columns:repeat(2,1fr)}.lab-transport{flex-wrap:wrap}}
 
+/* Marco reutilizable para las acciones principales. El SVG se mantiene como
+   recurso independiente para poder sustituir el diseño sin tocar el marcado. */
+.start-button,
+.primary-game-button,
+.secondary-game-button{
+  isolation:isolate;
+  overflow:hidden;
+  border:0;
+  border-radius:0;
+  background-color:transparent;
+  background-image:url("/ui/cartel-pergamino.svg");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:100% 100%;
+  color:#2b180d;
+  box-shadow:none;
+  text-shadow:0 1px 0 #ffe9b5;
+  filter:drop-shadow(5px 7px 3px #160c0766);
+  transition:transform .16s ease,filter .16s ease;
+}
+.start-button{width:300px;height:90px;padding:18px 42px;font-family:Georgia,serif}
+.primary-game-button,.secondary-game-button{min-height:72px;padding:18px 42px}
+.start-button:hover:not(:disabled),
+.primary-game-button:hover:not(:disabled),
+.secondary-game-button:hover:not(:disabled){transform:translateY(-3px);filter:brightness(1.06) drop-shadow(6px 9px 3px #160c0773)}
+.start-button:active:not(:disabled),
+.primary-game-button:active:not(:disabled),
+.secondary-game-button:active:not(:disabled){transform:translateY(1px) scale(.985);filter:brightness(.98) drop-shadow(3px 4px 2px #160c0759)}
+.start-button:focus-visible,
+.primary-game-button:focus-visible,
+.secondary-game-button:focus-visible{outline:3px solid #fff4c7;outline-offset:4px}
+.secondary-game-button{color:#3b2415}
+.start-button.loading{background-color:transparent;background-image:url("/ui/cartel-pergamino.svg");color:#2b180d}
+.start-button.loading i{inset:19px 34px 21px;border-radius:4px;opacity:.46;mix-blend-mode:multiply}
+.start-button:disabled,.primary-game-button:disabled,.secondary-game-button:disabled{cursor:not-allowed;filter:grayscale(.35) opacity(.7)}
+
+@media(max-width:620px){
+  .start-button{width:min(300px,88vw);height:auto;min-height:82px}
+  .primary-game-button,.secondary-game-button{min-height:68px;padding:16px 34px}
+}
+
 /* Motor temporal JS: impide que los keyframes heredados compitan con el controlador */
 .fighter.motion-driven,.fighter.motion-driven .skeleton-character-rig,.fighter.motion-driven .skeleton-bone{animation:none!important}
 .fighter.motion-driven{transition:none;will-change:transform}.fighter.motion-driven .skeleton-character-rig,.fighter.motion-driven .skeleton-bone{will-change:transform}
