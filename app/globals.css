@@ -511,6 +511,10 @@ main:has(.flow-screen){min-height:100vh;background:repeating-linear-gradient(0de
 .start-button>.start-progress{position:absolute;z-index:1;inset:20% 11% 22%;display:block;overflow:hidden;border-radius:5px}
 .start-button>.start-progress>i{position:relative;inset:auto;display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,#d23a1e,#ffc347);opacity:.46;mix-blend-mode:multiply;transition:none}
 
+/* Fondo independiente de la portada */
+.splash-screen{background:linear-gradient(#1b0c0326,#12080242),url("/backgrounds/portada-arena.webp") center/cover no-repeat}
+.splash-screen:before{background:radial-gradient(circle at 50% 44%,transparent 32%,#10070155 100%),linear-gradient(115deg,transparent 25%,#f4bc3c0d 50%,transparent 75%)}
+
 @media(max-width:620px){
   .start-button{width:min(300px,88vw);height:auto;min-height:82px}
   .primary-game-button,.secondary-game-button{min-height:68px;padding:16px 34px}
