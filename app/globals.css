@@ -527,8 +527,10 @@ p,.screen-heading p,.sheet-title p,.match-card p,.feature-strip span small{line-
 
 /* El marco crece con su etiqueta y reserva los extremos decorativos */
 .start-button,.primary-game-button,.secondary-game-button{
-  display:inline-grid;
-  place-items:center;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
   width:max-content;
   max-width:100%;
   min-width:220px;
