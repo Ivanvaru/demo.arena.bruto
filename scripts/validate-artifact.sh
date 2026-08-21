@@ -8,10 +8,15 @@ if [[ "${SITES_ENV_READY:-}" != "1" ]]; then
 fi
 
 worker="${SITES_PROJECT_ROOT}/dist/server/index.js"
+wrangler_config="${SITES_PROJECT_ROOT}/dist/server/wrangler.json"
 hosting="${SITES_PROJECT_ROOT}/dist/.openai/hosting.json"
 
 [[ -f "${worker}" ]] || {
   echo "Missing Sites Worker entry: dist/server/index.js" >&2
+  exit 66
+}
+[[ -f "${wrangler_config}" ]] || {
+  echo "Missing Cloudflare deployment config: dist/server/wrangler.json" >&2
   exit 66
 }
 [[ -f "${hosting}" ]] || {
@@ -19,11 +24,12 @@ hosting="${SITES_PROJECT_ROOT}/dist/.openai/hosting.json"
   exit 66
 }
 
-node --input-type=module - "${worker}" "${hosting}" <<'NODE'
+node --input-type=module - "${worker}" "${wrangler_config}" "${hosting}" <<'NODE'
 import { readFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 
-const [workerPath, hostingPath] = process.argv.slice(2);
+const [workerPath, wranglerPath, hostingPath] = process.argv.slice(2);
+JSON.parse(await readFile(wranglerPath, "utf8"));
 JSON.parse(await readFile(hostingPath, "utf8"));
 
 const workerUrl = pathToFileURL(workerPath);
@@ -34,4 +40,4 @@ if (!worker.default || typeof worker.default.fetch !== "function") {
 }
 NODE
 
-echo "Validated Sites artifact: ESM Worker default.fetch and hosting manifest are present."
+echo "Validated Cloudflare artifact: Worker default.fetch, Wrangler config and hosting manifest are present."
