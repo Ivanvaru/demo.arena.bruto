@@ -3,10 +3,11 @@ export type StatKey="strength"|"speed"|"agility"|"resistance"|"precision"|"luck"
 export type Stats=Record<StatKey,number>;
 export type AttackKind="punch"|"kick"|"heavy"|"combo";
 export type Outcome="hit"|"dodge"|"block"|"perfect-block";
+export type AbilityId="guardia-de-hierro"|"golpe-de-suerte"|"rafaga"|"piel-de-piedra";
 
 export type FighterProfile={id:string;name:string;title:string;className:FighterClass;level:number;stats:Stats;stat:string};
 export type BattleFighter=FighterProfile&{hp:number;maxHp:number};
-export type BattleTurn={actor:0|1;target:0|1;attack:AttackKind;outcome:Outcome;damage:number;hpAfter:number;critical:boolean;knockback:boolean;knockdown:boolean;stun:boolean;counter:boolean;hits:number};
+export type BattleTurn={actor:0|1;target:0|1;attack:AttackKind;outcome:Outcome;damage:number;hpAfter:number;critical:boolean;knockback:boolean;knockdown:boolean;stun:boolean;counter:boolean;hits:number;ability?:AbilityId};
 export type BattleResult={seed:number;fighters:[BattleFighter,BattleFighter];turns:BattleTurn[];winner:0|1};
 
 export const CLASS_TEMPLATES:Record<FighterClass,{stats:Stats;title:string}>={
@@ -14,6 +15,16 @@ export const CLASS_TEMPLATES:Record<FighterClass,{stats:Stats;title:string}>={
   Aventurero:{title:"El imprevisible",stats:{strength:3,speed:4,agility:4,resistance:4,precision:5,luck:5}},
   Atleta:{title:"La centella",stats:{strength:2,speed:5,agility:5,resistance:3,precision:4,luck:2}},
   Coloso:{title:"El rompefilas",stats:{strength:6,speed:2,agility:1,resistance:6,precision:3,luck:2}},
+};
+
+/** One signature ability per class. These are resolved inside `simulateBattle`'s
+ * turn loop (see `resolve`) and surfaced on `BattleTurn.ability` so the UI can call
+ * them out with their own message/animation cue. */
+export const CLASS_ABILITIES:Record<FighterClass,{id:AbilityId;name:string;description:string}>={
+  Luchador:{id:"guardia-de-hierro",name:"Guardia de Hierro",description:"Al bloquear un golpe, puede anularlo por completo."},
+  Aventurero:{id:"golpe-de-suerte",name:"Golpe de Suerte",description:"Mayor probabilidad de asestar golpes críticos."},
+  Atleta:{id:"rafaga",name:"Ráfaga",description:"Tras conectar, puede encadenar un ataque extra al instante."},
+  Coloso:{id:"piel-de-piedra",name:"Piel de Piedra",description:"Recibe menos daño y nunca puede ser derribado."},
 };
 
 export const CLASS_NAMES:FighterClass[]=["Luchador","Aventurero","Atleta","Coloso"];
@@ -37,11 +48,11 @@ export function simulateBattle(left:FighterProfile,right:FighterProfile,seed=(Da
   const stunned=[0,0],turns:BattleTurn[]=[];
   let guard=0;
 
-  const resolve=(actor:0|1,target:0|1,forcedCounter=false)=>{
+  const resolve=(actor:0|1,target:0|1,forcedCounter=false,bonus=false)=>{
     const a=fighters[actor],d=fighters[target],as=a.stats,ds=d.stats;
     const attack=forcedCounter?"punch":weighted<AttackKind>(rng,[["punch",38],["kick",27+as.agility],["heavy",12+as.strength],["combo",8+as.speed]]);
     const costs:Record<AttackKind,number>={punch:100,kick:116,heavy:142,combo:132};
-    let outcome:Outcome="hit",damage=0,hits=1,critical=false,knockback=false,knockdown=false,stun=false,counter=false;
+    let outcome:Outcome="hit",damage=0,hits=1,critical=false,knockback=false,knockdown=false,stun=false,counter=false,ability:AbilityId|undefined;
     {
       const dodge=clamp(.06+(ds.agility-as.precision)*.022,.02,.32);
       const block=clamp(.08+(ds.resistance-as.strength)*.014,.03,.28);
@@ -52,25 +63,36 @@ export function simulateBattle(left:FighterProfile,right:FighterProfile,seed=(Da
         hits=attack==="combo"?2+(rng()<clamp(as.speed*.035,.08,.45)?1:0):1;
         const power={punch:8.5,kick:9.8,heavy:13.2,combo:5.1}[attack];
         const variance=.9+rng()*.2;
-        const critChance=clamp(.025+as.luck*.007+as.strength*.002,.03,.22);
+        // Golpe de Suerte (Aventurero): probabilidad de crítico extra respecto al resto de clases.
+        const critChance=clamp(.025+as.luck*.007+as.strength*.002+(a.className==="Aventurero"?.06:0),.03,.28);
         critical=rng()<critChance;
+        if(critical&&a.className==="Aventurero")ability="golpe-de-suerte";
         const lateFightBoost=turns.length>18?1+Math.min(.75,(turns.length-18)*.08):1;
         damage=Math.max(1,Math.round(power*1.27*lateFightBoost*(1+as.strength*.038)*variance*hits*(critical?1.62:1)));
         if(outcome==="block")damage=Math.max(1,Math.round(damage*.22));
+        // Piel de Piedra (Coloso): reduce todo el daño recibido un poco más.
+        if(d.className==="Coloso")damage=Math.max(1,Math.round(damage*.88));
+        // Guardia de Hierro (Luchador): puede anular por completo un golpe ya bloqueado.
+        if(outcome==="block"&&d.className==="Luchador"&&rng()<.4){damage=0;ability="guardia-de-hierro"}
         d.hp=Math.max(0,d.hp-damage);
         knockback=critical||damage>=d.maxHp*.16;
-        knockdown=d.hp>0&&rng()<clamp(.012+(as.strength-ds.resistance)*.006+(attack==="heavy"?.045:0)+(critical?.035:0),.005,.14);
+        const knockdownRoll=d.hp>0&&rng()<clamp(.012+(as.strength-ds.resistance)*.006+(attack==="heavy"?.045:0)+(critical?.035:0),.005,.14);
+        // Piel de Piedra (Coloso): nunca cae derribado, como mucho queda aturdido.
+        if(knockdownRoll&&d.className==="Coloso"){knockdown=false;ability="piel-de-piedra"}
+        else knockdown=knockdownRoll;
         stun=d.hp>0&&!knockdown&&rng()<clamp(.003+(as.strength-ds.resistance)*.002+(critical?.018:0),.002,.05);
         if(knockdown)stunned[target]=Math.max(stunned[target],78/(1+ds.agility*.045));
         if(stun)stunned[target]=Math.max(stunned[target],52/(1+ds.speed*.035));
       }
       counter=d.hp>0&&(outcome==="dodge"||outcome==="block"||outcome==="perfect-block")&&rng()<clamp(.1+ds.agility*.018+ds.speed*.009,.12,.42);
     }
-    turns.push({actor,target,attack,outcome,damage,hpAfter:d.hp,critical,knockback,knockdown,stun,counter,hits});
+    turns.push({actor,target,attack,outcome,damage,hpAfter:d.hp,critical,knockback,knockdown,stun,counter,hits,ability:ability??(bonus?"rafaga":undefined)});
     next[actor]+=costs[attack]/(1+as.speed*.105)+(forcedCounter?18:0);
     if(outcome==="block")next[target]+=rng()<.5?12:28;
     if(outcome==="dodge")next[target]+=rng()<.65?0:16;
     if(counter&&turns.length<48)resolve(target,actor,true);
+    // Ráfaga (Atleta): tras conectar un golpe normal, puede encadenar un ataque extra inmediato.
+    if(!forcedCounter&&!bonus&&outcome==="hit"&&a.className==="Atleta"&&d.hp>0&&turns.length<48&&rng()<.15)resolve(actor,target,false,true);
   };
 
   while(fighters[0].hp>0&&fighters[1].hp>0&&guard++<64){
