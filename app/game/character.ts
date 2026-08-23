@@ -83,6 +83,12 @@ export const CLASS_BODY_TEXTURE: Record<FighterClass, string> = {
   Aventurero: "/characters/classes/aventurero/montaje-verificacion.png",
 };
 export const DEFAULT_BODY_TEXTURE = "/characters/active/montaje-verificacion.png";
+export const CLASS_DRESSED_TEXTURE: Record<FighterClass, string> = {
+    Coloso: "/characters/classes/coloso/vestido-verificacion.png",
+    Luchador: "/characters/classes/luchador/vestido-verificacion.png",
+    Atleta: "/characters/classes/atleta/vestido-verificacion.png",
+    Aventurero: "/characters/classes/aventurero/vestido-verificacion.png",
+};
 
 export type FaceAppearance = {
   skinFilter: string;
