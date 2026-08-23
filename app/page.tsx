@@ -101,7 +101,7 @@ function LegacyBrute({side,variant,attacking,attackKind,hit,critical,reaction,de
   return <div className={`fighter ${side} ${variant} ${attacking?`attack attack-${attackKind}`:""} ${critical?"critical":""} ${hit?"hit":""} ${reaction?`defense-${reaction}`:""} ${defeated?"defeated":""}`} aria-hidden="true">
     <div className="fighter-aura"/><div className="shadow"/>
     <LayeredCharacterRig/>
-    <svg className=""brute-rig" viewBox="0 0 240 360" role="presentation">
+    <svg className="brute-rig" viewBox="0 0 240 360" role="presentation">
       <defs>
         <linearGradient id={`skin-${side}`} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#ffd08a"/><stop offset=".58" stopColor="#f3a85f"/><stop offset="1" stopColor="#c8753f"/></linearGradient>
         <linearGradient id={`cloth-${side}`} x1="0" y1="0" x2="0" y2="1"><stop stopColor="var(--cloth-light)"/><stop offset="1" stopColor="var(--cloth)"/></linearGradient>
