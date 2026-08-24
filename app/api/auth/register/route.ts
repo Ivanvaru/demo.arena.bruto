@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
   const passwordError = validatePassword(password);
   if (passwordError) return NextResponse.json({ error: passwordError }, { status: 400 });
 
-  const db = getDb();
+  const db = await getDb();
   const existing = await db.select({ username: users.username }).from(users).where(eq(users.username, username)).get();
   if (existing) return NextResponse.json({ error: "Ese nombre de usuario ya está en uso." }, { status: 409 });
 
