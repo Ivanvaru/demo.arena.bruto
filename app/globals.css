@@ -734,3 +734,10 @@ main:has(.encounter-screen){
 @media(max-width:720px){
   .login-screen{margin-top:20px}
 }
+
+
+/* Fondo exclusivo de la pantalla de inicio de sesión */
+main:has(.login-screen){
+  min-height:100vh;
+  background:url("/backgrounds/login-screen.png") center/cover no-repeat;
+}
