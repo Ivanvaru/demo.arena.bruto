@@ -10,7 +10,7 @@ import { SESSION_COOKIE_NAME } from "./auth";
 export async function getSessionUsername(request: NextRequest): Promise<string | null> {
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
   if (!token) return null;
-  const db = getDb();
+    const db = await getDb();
   const session = await db
     .select({ username: sessions.username })
     .from(sessions)
