@@ -1,6 +1,6 @@
 /** Password hashing + session token helpers, built on the Web Crypto API that's
  * natively available in the Workers runtime (no extra dependency, no native addon). */
-export const PBKDF2_ITERATIONS = 120_000;
+export const PBKDF2_ITERATIONS = 100_000;
 
 function toHex(bytes: ArrayBuffer | Uint8Array): string {
   const view = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
