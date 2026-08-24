@@ -7,7 +7,7 @@ import { getSessionUsername } from "../../lib/session";
 export async function GET(request: NextRequest) {
   const username = await getSessionUsername(request);
   if (!username) return NextResponse.json({ error: "No autenticado." }, { status: 401 });
-  const db = getDb();
+    const db = await getDb();
   const character = await db.select().from(characters).where(eq(characters.username, username)).get();
   return NextResponse.json({ character: character ?? null });
 }
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
   const payload = parsePayload(rawBody);
   if (!payload) return NextResponse.json({ error: "Datos de personaje incompletos." }, { status: 400 });
 
-  const db = getDb();
+    const db = await getDb();
   const now = Date.now();
   await db
     .insert(characters)
