@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   const password = typeof body.password === "string" ? body.password : "";
   if (!username || !password) return NextResponse.json({ error: "Introduce usuario y contraseña." }, { status: 400 });
 
-  const db = getDb();
+  const db = await getDb();
   const user = await db.select().from(users).where(eq(users.username, username)).get();
   if (!user || !(await verifyPassword(password, user.passwordHash, user.passwordSalt))) {
     return NextResponse.json({ error: "Usuario o contraseña incorrectos." }, { status: 401 });
