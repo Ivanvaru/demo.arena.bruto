@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const username = await getSessionUsername(request);
   if (!username) return NextResponse.json({ error: "No autenticado." }, { status: 401 });
 
-  const db = getDb();
+  const db = await getDb();
   const character = await db.select().from(characters).where(eq(characters.username, username)).get();
   return NextResponse.json({ username, character: character ?? null });
 }
