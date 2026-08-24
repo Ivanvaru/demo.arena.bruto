@@ -32,9 +32,12 @@ const clamp=(n:number,min:number,max:number)=>Math.max(min,Math.min(max,n));
 const mulberry32=(seed:number)=>()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
 const weighted=<T,>(rng:()=>number,items:Array<[T,number]>)=>{const total=items.reduce((n,x)=>n+x[1],0);let roll=rng()*total;for(const[item,weight]of items){roll-=weight;if(roll<=0)return item}return items.at(-1)![0]};
 
+export function statBonusForLevel(level:number){return Math.floor(Math.max(0,level-1)/2)}
 export function makeProfile(name:string,className:FighterClass,level=1):FighterProfile{
-  const base=CLASS_TEMPLATES[className];
-  return{id:`${name}-${className}`,name,title:base.title,className,level,stats:{...base.stats},stat:`Nivel ${level} · ${className}`};
+    const base=CLASS_TEMPLATES[className];
+    const bonus=statBonusForLevel(level);
+    const stats=Object.fromEntries(Object.entries(base.stats).map(([key,value])=>[key,value+bonus]))as Stats;
+    return{id:`${name}-${className}`,name,title:base.title,className,level,stats,stat:`Nivel ${level} · ${className}`};
 }
 
 export function maxHp(f:FighterProfile){return Math.round(80+f.level*2.2+f.stats.resistance*4.2)}
