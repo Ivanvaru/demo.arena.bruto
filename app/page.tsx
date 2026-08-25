@@ -20,6 +20,15 @@ type DefenseReaction="dodge"|"block"|"perfect-block";
 const wait=(ms:number)=>new Promise(r=>setTimeout(r,ms));
 const fresh=(name:string,className:FighterClass,level=1):BattleFighter=>{const profile=makeProfile(name,className,level);const life=maxHp(profile);return{...profile,hp:life,maxHp:life}};
 const INITIAL:[BattleFighter,BattleFighter]=[fresh("Ragnar","Luchador"),fresh("Brakka","Atleta")];
+/** Instantly resolves every match in a round that doesn't involve the player —
+ * only the player's own match gets the full animated treatment. */
+function resolveAiMatches(matches:TournamentMatch[]):TournamentMatch[]{
+  return matches.map(match=>{
+    if(match.a.isPlayer||match.b.isPlayer)return match;
+    const result=simulateBattle(makeProfile(match.a.name,match.a.className,match.a.level),makeProfile(match.b.name,match.b.className,match.b.level));
+    return{...match,winnerId:result.winner===0?match.a.id:match.b.id};
+  });
+}
 const CHARACTER_RIG_SVG="/characters/base-normal/personaje-43-capas.svg";
 type RigLayer={id:string;file:string;parent:string;z_index:number;canvas_position:{x:number;y:number};size:{width:number;height:number};pivot_global:{x:number;y:number};pivot_local:{x:number;y:number}};
 const RIG_CANVAS=rigDefinition.canvas;
