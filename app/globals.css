@@ -752,3 +752,94 @@ main:has(.login-screen) .login-screen{
   border:0;
   box-shadow:none;
 }
+
+/* Escala transversal: mantiene una densidad consistente entre pantallas. */
+:root{
+  --ui-header-height:clamp(72px,9svh,88px);
+  --ui-screen-inline:clamp(16px,4vw,64px);
+  --ui-screen-block:clamp(14px,3svh,30px);
+  --ui-control-height:clamp(56px,7svh,66px);
+  --ui-surface-padding:clamp(16px,2.2vw,28px);
+  --ui-gap:clamp(10px,1.8vw,22px);
+  --ui-heading-size:clamp(30px,4.3vw,52px);
+  --ui-copy-size:clamp(12px,1.1vw,14px);
+  --ui-label-size:clamp(10px,.9vw,12px);
+}
+
+html,body,#__next{min-height:100%}
+body{min-height:100svh;overflow-x:hidden}
+main{min-height:100svh}
+
+.topbar{height:var(--ui-header-height);min-height:var(--ui-header-height);padding-inline:var(--ui-screen-inline)}
+.header-logo{height:calc(var(--ui-header-height) - 20px)}
+.season{font-size:var(--ui-label-size);padding:6px 14px}
+
+.screen-heading{gap:6px}
+.screen-heading small{padding:5px 15px;font-size:var(--ui-label-size);white-space:normal}
+.screen-heading h2{margin:0;font-size:var(--ui-heading-size);line-height:.95;white-space:normal}
+.screen-heading p{margin:0;font-size:var(--ui-copy-size);line-height:1.25;white-space:normal}
+
+.flow-screen{width:min(1420px,calc(100% - (var(--ui-screen-inline) * 2)));min-height:calc(100svh - var(--ui-header-height));margin:0 auto;padding:var(--ui-screen-block) var(--ui-screen-inline)}
+main:has(.login-screen) .login-screen{min-height:100svh;padding-block:clamp(24px,7svh,62px)}
+.login-form{gap:var(--ui-gap)}
+
+.login-input,.wardrobe-name-input,.locked-name{min-height:var(--ui-control-height);padding:0 clamp(14px,2vw,20px);font-size:clamp(14px,1.2vw,16px)}
+.start-button,.primary-game-button,.secondary-game-button{min-height:var(--ui-control-height);padding:0 clamp(22px,3vw,42px);font-size:clamp(12px,1.1vw,15px)}
+.start-button{width:min(300px,88vw);height:var(--ui-control-height)}
+.auth-switch{min-height:auto;padding:0}
+
+.locker-screen,.encounter-screen,.lab-screen,.wardrobe-screen{height:calc(100svh - var(--ui-header-height));min-height:0;overflow:hidden;padding:var(--ui-screen-block) var(--ui-screen-inline)}
+.locker-screen .locker-layout,.encounter-screen .matchup,.wardrobe-screen .locker-layout{min-height:0;margin-block:var(--ui-gap);gap:var(--ui-gap)}
+.locker-screen .locker-layout,.wardrobe-screen .locker-layout{flex:1}
+.locker-screen .locker-sheet,.wardrobe-screen .locker-sheet,.encounter-screen .match-card{min-height:0;padding:var(--ui-surface-padding)}
+.locker-screen .locker-character,.wardrobe-screen .locker-character{min-height:0;height:auto}
+.locker-screen .stats-panel,.wardrobe-screen .stats-panel,.encounter-screen .match-card{gap:clamp(8px,1.2vw,14px)}
+.locker-screen .class-picker{gap:8px}
+.locker-screen .class-option{min-height:48px;padding:7px 10px;font-size:var(--ui-label-size)}
+.locker-actions,.encounter-actions,.lab-back{gap:var(--ui-gap);margin-top:0}
+.logout-link{margin-top:8px;font-size:var(--ui-label-size)}
+
+.encounter-screen .matchup{flex:1;align-items:stretch}
+.encounter-screen .match-card{min-height:0}
+.encounter-screen .match-character{height:min(38svh,340px);min-height:220px}
+.match-vs{font-size:clamp(30px,4vw,48px)}
+
+.lab-screen{display:flex;flex-direction:column;gap:var(--ui-gap)}
+.lab-screen .screen-heading{flex:0 0 auto}
+.lab-demo{height:clamp(250px,38svh,350px);min-height:0;margin:0}
+.lab-controls{gap:var(--ui-gap);margin:0}
+.motion-list{gap:8px}
+.motion-button{min-height:42px;padding:8px 12px;font-size:var(--ui-label-size)}
+
+.wardrobe-screen{display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+.wardrobe-screen .locker-layout{width:min(1180px,100%);height:auto}
+.wardrobe-screen .wardrobe-controls{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-right:max(8px,1vw)}
+.wardrobe-screen .locker-actions{margin:0}
+
+.battle-wrap{gap:var(--ui-gap);padding:var(--ui-screen-block) var(--ui-screen-inline)}
+.battle-hero{padding-block:clamp(12px,2svh,24px)}
+.battle-hero h1{font-size:var(--ui-heading-size);line-height:.95}
+.battle-hero p,.battle-label,.battle-commentary p{font-size:var(--ui-copy-size)}
+.battle-frame{min-height:0;height:clamp(370px,52svh,500px)}
+.battle-commentary{min-height:64px;padding:12px var(--ui-surface-padding)}
+.feature-strip{margin-top:0;gap:var(--ui-gap)}
+.feature-card{padding:var(--ui-surface-padding)}
+.site-footer{min-height:48px;padding:10px var(--ui-screen-inline)}
+
+@media(max-width:820px){
+  .flow-screen{width:min(calc(100% - 24px),720px)}
+  .locker-screen,.encounter-screen,.lab-screen,.wardrobe-screen{height:auto;min-height:calc(100svh - var(--ui-header-height));overflow:visible}
+  .wardrobe-screen .wardrobe-controls{max-height:min(50svh,440px)}
+  .encounter-screen .match-character{height:clamp(220px,34svh,300px)}
+  .battle-frame{height:clamp(340px,50svh,440px)}
+}
+
+@media(max-width:520px){
+  :root{--ui-screen-inline:12px;--ui-screen-block:14px;--ui-control-height:54px}
+  .topbar{padding-inline:14px}
+  .season{padding:5px 9px}
+  .flow-screen{width:100%;border-inline-width:0}
+  .start-button,.primary-game-button,.secondary-game-button{width:min(100%,340px)}
+  .locker-screen .locker-layout,.encounter-screen .matchup,.wardrobe-screen .locker-layout{gap:12px}
+  .battle-wrap{padding-inline:12px}
+}
