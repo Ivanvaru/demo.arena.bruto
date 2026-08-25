@@ -837,7 +837,7 @@ main:has(.login-screen) .login-screen{
   height:100svh;
   min-height:100svh;
   margin:0;
-  padding:clamp(88px,10svh,104px) clamp(20px,4vw,48px) 12px;
+  padding:clamp(108px,12svh,122px) clamp(20px,4vw,48px) 12px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -859,7 +859,7 @@ main:has(.login-screen) .login-screen::after{content:none}
 .login-form{
   width:min(520px,calc(100vw - 48px));
   max-width:none;
-  margin:clamp(205px,25.75svh,242px) auto 0;
+  margin:clamp(185px,23.75svh,222px) auto 0;
   display:flex;
   flex-direction:column;
   align-items:center;
