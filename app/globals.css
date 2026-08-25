@@ -915,7 +915,7 @@ main:has(.login-screen) .login-screen::after{content:none}
   main:has(.login-screen) .login-screen{padding-top:clamp(48px,7svh,64px)}
   .login-screen .screen-heading h2{font-size:clamp(30px,9vw,40px)}
   .login-screen .screen-heading p{font-size:11px}
-  .login-form{width:min(100% - 28px,420px);margin-top:clamp(150px,25svh,210px)}
+  .login-form{width:min(100% - 28px,420px);margin-top:clamp(170px,28svh,235px)}
   .login-input{min-height:clamp(66px,10svh,84px)}
   .login-form .primary-game-button{width:min(300px,78vw);min-height:clamp(76px,12svh,96px)}
 }
