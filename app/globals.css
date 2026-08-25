@@ -741,3 +741,11 @@ main:has(.login-screen){
   min-height:100vh;
   background:url("/backgrounds/login-screen.png") center/cover no-repeat;
 }
+
+
+/* El panel de acceso es transparente para mostrar la plantilla completa */
+main:has(.login-screen) .login-screen{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
