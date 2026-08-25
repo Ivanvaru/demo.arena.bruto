@@ -837,7 +837,7 @@ main:has(.login-screen) .login-screen{
   height:100svh;
   min-height:100svh;
   margin:0;
-  padding:clamp(62px,8svh,78px) clamp(20px,4vw,48px) 12px;
+  padding:clamp(88px,10svh,104px) clamp(20px,4vw,48px) 12px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -851,15 +851,15 @@ main:has(.login-screen) .login-screen{
 main:has(.login-screen) .login-screen::before,
 main:has(.login-screen) .login-screen::after{content:none}
 
-.login-screen .screen-heading{width:min(500px,90vw);flex:0 0 auto}
+.login-screen .screen-heading{width:min(500px,90vw);display:flex;flex:0 0 auto;flex-direction:column;align-items:center;gap:6px}
 .login-screen .screen-heading small{min-width:0;padding:0;border:0;background:transparent;box-shadow:none;color:#f6e3ba;font-size:clamp(9px,1.1vw,12px);line-height:1.1}
-.login-screen .screen-heading h2{margin:3px 0 4px;color:#f5dfaf;font-size:clamp(34px,3.4vw,42px);line-height:.9;text-shadow:0 2px #1e120b}
-.login-screen .screen-heading p{margin-top:8px;color:#4b3523;font-size:clamp(11px,1.1vw,14px);line-height:1.2}
+.login-screen .screen-heading h2{margin:0;color:#f5dfaf;font-size:clamp(34px,3.4vw,42px);line-height:.9;text-shadow:0 2px #1e120b}
+.login-screen .screen-heading p{margin:0;color:#4b3523;font-size:clamp(11px,1.1vw,14px);line-height:1.2}
 
 .login-form{
   width:min(520px,calc(100vw - 48px));
   max-width:none;
-  margin:clamp(215px,26.6svh,250px) auto 0;
+  margin:clamp(205px,25.75svh,242px) auto 0;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -867,8 +867,9 @@ main:has(.login-screen) .login-screen::after{content:none}
 }
 
 .login-input{
+  --login-input-height:clamp(82px,10svh,94px);
   width:100%;
-  height:clamp(82px,10svh,94px);
+  height:var(--login-input-height);
   min-height:0;
   padding:0 clamp(18px,3vw,28px);
   border:0;
@@ -876,7 +877,7 @@ main:has(.login-screen) .login-screen::after{content:none}
   background:transparent;
   color:#3d291b;
   box-shadow:none;
-  font:800 clamp(15px,1.4vw,19px)/normal var(--game-font);
+  font:800 clamp(15px,1.4vw,19px)/var(--login-input-height) var(--game-font);
   text-align:center;
   text-shadow:0 1px #fff8df;
 }
@@ -906,7 +907,7 @@ main:has(.login-screen) .login-screen::after{content:none}
   .login-screen .screen-heading h2{font-size:clamp(30px,8.5vw,38px)}
   .login-screen .screen-heading p{font-size:11px}
   .login-form{width:min(100% - 28px,420px);margin-top:clamp(185px,30svh,255px)}
-  .login-input{height:clamp(68px,10svh,84px)}
+  .login-input{--login-input-height:clamp(68px,10svh,84px);height:var(--login-input-height)}
   .login-form .primary-game-button{width:min(280px,74vw);min-height:68px;margin-top:20px}
 }
 
