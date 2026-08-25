@@ -580,74 +580,6 @@ p,.screen-heading p,.sheet-title p,.match-card p,.feature-strip span small{line-
   .start-button{width:min(310px,90vw)}
 }
 
-/* Vestuario: la ilustración funciona como plantilla de la pantalla completa.
-   Los paneles HTML quedan transparentes para no duplicar sus marcos. */
-main:has(.locker-screen){
-  min-height:100vh;
-  background:#2a160c url("/backgrounds/vestuario.webp") center top/cover no-repeat;
-}
-.locker-screen{
-  width:min(1360px,100%);
-  min-height:calc(100vh - 96px);
-  margin:0 auto;
-  padding:42px clamp(86px,8vw,128px) 28px;
-  border:0;
-  border-radius:0;
-  background:none;
-  box-shadow:none;
-}
-.locker-screen:before,.locker-screen:after{display:none}
-.locker-screen .screen-heading small{
-  min-width:300px;
-  padding:9px 34px;
-  border:0;
-  background:none;
-  box-shadow:none;
-}
-.locker-screen .locker-layout{
-  grid-template-columns:minmax(330px,.82fr) minmax(510px,1.18fr);
-  gap:42px;
-  margin:28px auto 12px;
-}
-.locker-screen .locker-character,
-.locker-screen .locker-sheet{
-  border:0;
-  background:none;
-  box-shadow:none;
-}
-.locker-screen .locker-character{height:430px}
-.locker-screen .locker-character:before,
-.locker-screen .locker-character:after{
-  padding:0;
-  border:0;
-  background:none;
-  box-shadow:none;
-}
-.locker-screen .locker-character:before{top:-17px}
-.locker-screen .locker-character:after{bottom:-17px}
-.locker-screen .locker-character .fighter{height:88%;bottom:6px}
-.locker-screen .locker-sheet{padding:26px 30px}
-.locker-screen .locker-actions{margin-top:2px}
-
-@media(max-width:980px){
-  main:has(.locker-screen){background-position:center top;background-size:auto 100vh}
-  .locker-screen{padding:45px 34px 36px}
-  .locker-screen .locker-layout{grid-template-columns:1fr;max-width:650px}
-  .locker-screen .locker-character,.locker-screen .locker-sheet{
-    background:#f2d6a7e8;
-    border:5px ridge #765432;
-    box-shadow:0 0 0 3px #21150dcc;
-  }
-  .locker-screen .locker-character{background:radial-gradient(ellipse at 50% 78%,#d79b38e8,#74400ef2 70%)}
-}
-
-@media(max-width:620px){
-  .locker-screen{width:100%;padding:38px 14px 30px}
-  .locker-screen .screen-heading small{min-width:0;width:70%}
-  .locker-screen .locker-character{height:345px}
-  .locker-screen .locker-sheet{padding:20px 15px}
-}
-
 /* Precombate: plantilla ilustrada independiente con las dos fichas laterales. */
 main:has(.encounter-screen){
   min-height:100vh;
@@ -888,4 +820,208 @@ main{min-height:100svh}
   .login-input{font-size:clamp(13px,3.8vw,18px)}
   .login-actions .login-submit{font-size:clamp(11px,3.4vw,16px)}
   .login-actions .auth-switch{font-size:clamp(9px,2.8vw,13px)}
+}
+
+/* Vestuario de un personaje existente: composición autónoma, sin la plantilla
+   transparente que hacía competir encabezado, paneles y acciones. */
+main:has(.locker-screen){
+  min-height:100svh;
+  background:#26150c url("/backgrounds/vestuario.webp") center/cover no-repeat;
+}
+.locker-screen{
+  width:min(1380px,calc(100% - (var(--ui-screen-inline) * 2)));
+  height:calc(100svh - var(--ui-header-height));
+  min-height:0;
+  margin:0 auto;
+  padding:clamp(14px,2.5svh,28px) clamp(18px,4vw,58px) 12px;
+  box-sizing:border-box;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto auto;
+  gap:clamp(8px,1.6svh,16px);
+  overflow:hidden;
+  border:10px solid #3a2113;
+  border-radius:8px;
+  background:radial-gradient(circle at 50% 28%,#f7e7c6,#e3c79a 72%,#c69d65);
+  box-shadow:0 0 0 5px #16100b,inset 0 0 60px #8b5d2e55,0 15px 25px #0007;
+}
+.locker-screen:before,.locker-screen:after{display:none}
+.locker-screen .screen-heading{
+  display:grid;
+  justify-items:center;
+  align-content:start;
+  gap:5px;
+  text-align:center;
+}
+.locker-screen .screen-heading small{
+  min-width:0;
+  margin:0;
+  padding:7px clamp(20px,3vw,38px);
+  border:4px ridge #806540;
+  background:linear-gradient(#4b2d19,#25160d);
+  box-shadow:0 0 0 3px #21150d;
+  color:#fff4dc;
+  font-family:"Fredoka",Arial,sans-serif;
+  font-size:var(--ui-label-size);
+  font-weight:900;
+  letter-spacing:.18em;
+}
+.locker-screen .screen-heading h2{
+  margin:0;
+  color:#21140d;
+  font-family:"Lilita One",Georgia,serif;
+  font-size:clamp(28px,3.4vw,46px);
+  font-weight:400;
+  line-height:1;
+  text-transform:uppercase;
+  text-shadow:0 2px #fff3d1;
+}
+.locker-screen .screen-heading p{
+  margin:0;
+  color:#4b3523;
+  font-family:"Fredoka",Arial,sans-serif;
+  font-size:var(--ui-copy-size);
+  font-weight:700;
+}
+.locker-screen .locker-layout{
+  min-height:0;
+  margin:0;
+  display:grid;
+  grid-template-columns:minmax(300px,.86fr) minmax(460px,1.14fr);
+  gap:clamp(16px,2.8vw,38px);
+  align-items:stretch;
+}
+.locker-screen .locker-character,
+.locker-screen .locker-sheet{
+  min-height:0;
+  border:7px ridge #795a35;
+  border-radius:7px;
+  box-shadow:0 0 0 4px #24170f,inset 0 0 32px #8a541d55,7px 9px #0002;
+}
+.locker-screen .locker-character{
+  position:relative;
+  isolation:isolate;
+  height:auto;
+  overflow:hidden;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  background:radial-gradient(ellipse at 50% 78%,#d79b38,#94530e 62%,#4c270d);
+}
+.locker-screen .locker-character:before,
+.locker-screen .locker-character:after{
+  position:absolute;
+  z-index:6;
+  left:50%;
+  margin:0;
+  padding:6px 22px;
+  transform:translateX(-50%);
+  border:3px ridge #765432;
+  background:linear-gradient(#4b2d19,#29170d);
+  box-shadow:0 0 0 2px #21150d;
+  color:#fff2d0;
+  font-family:"Fredoka",Arial,sans-serif;
+  font-size:var(--ui-label-size);
+  font-weight:900;
+  letter-spacing:.15em;
+  white-space:nowrap;
+}
+.locker-screen .locker-character:before{content:"VESTUARIO";top:14px}
+.locker-screen .locker-character:after{content:"♙  ATUENDO BASE";bottom:14px}
+.locker-screen .locker-character .fighter{
+  position:absolute;
+  left:50%;
+  bottom:11%;
+  width:auto;
+  height:78%;
+  max-width:84%;
+  margin:0;
+  transform:translateX(-50%)!important;
+  transform-origin:50% 100%;
+}
+.locker-screen .locker-character .fighter .shadow{bottom:-2px}
+.locker-screen .locker-sheet{
+  overflow:auto;
+  overscroll-behavior:contain;
+  padding:clamp(16px,2vw,26px);
+  box-sizing:border-box;
+  background:linear-gradient(#f7e7c7,#dfc08d);
+}
+.locker-screen .sheet-title{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  gap:14px;
+  align-items:center;
+  margin:0;
+  padding:0 0 14px;
+  border-bottom:2px solid #7e5c32;
+}
+.locker-screen .sheet-title>span{
+  display:grid;
+  place-items:center;
+  min-width:66px;
+  min-height:48px;
+  padding:0 10px;
+  box-sizing:border-box;
+  border:4px ridge #805716;
+  border-radius:2px;
+  background:linear-gradient(#4a2a16,#21130c);
+  box-shadow:0 0 0 3px #24160d;
+  color:#ffc347;
+  font-family:"Fredoka",Arial,sans-serif;
+  font-size:var(--ui-label-size);
+  font-weight:900;
+}
+.locker-screen .sheet-title h3{
+  margin:0;
+  color:#21140d;
+  font-family:"Lilita One",Georgia,serif;
+  font-size:clamp(28px,3vw,40px);
+  font-weight:400;
+  line-height:.95;
+  text-transform:uppercase;
+}
+.locker-screen .sheet-title p{margin:5px 0 0;color:#3d291b;font-size:var(--ui-label-size);font-weight:800;text-transform:uppercase}
+.locker-xp-section{padding:14px 0 12px;border-bottom:2px solid #7e5c3266}
+.locker-screen .xp-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;margin:0}
+.locker-screen .xp-bar{height:13px;border:3px solid #24170f;border-radius:99px;background:#2a2118}
+.locker-screen .xp-row>span{font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:900}
+.locker-screen .record-line{margin:7px 0 0;color:#6d5534;font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:800}
+.locker-stats-section{padding:12px 0;border-bottom:2px solid #7e5c3266}
+.locker-screen .stats-panel{display:grid;gap:clamp(8px,1.2svh,12px);margin:0}
+.locker-screen .stat-row{display:grid;grid-template-columns:minmax(82px,110px) minmax(0,1fr) 28px;gap:10px;align-items:center}
+.locker-screen .stat-row>span{font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:900}
+.locker-screen .stat-row>div{height:12px;border:3px solid #24170f}
+.locker-screen .stat-row>b{text-align:right;font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:900}
+.locker-ability-section{padding:12px 0 0}
+.locker-screen .ability-callout{display:grid;gap:4px;margin:0;padding:11px 13px;border:3px solid #765432;border-radius:7px;background:#f7e7c788;color:#3d291b}
+.locker-screen .ability-callout b{font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:900}
+.locker-screen .ability-callout span{font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:700;line-height:1.35}
+.locker-screen .class-picker{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px;margin:14px 0 0}
+.locker-screen .class-picker button{flex:1 1 110px;min-height:40px;padding:7px 10px;font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size)}
+.locker-screen .locker-actions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:var(--ui-gap);margin:0}
+.locker-screen .locker-actions .primary-game-button,.locker-screen .locker-actions .secondary-game-button{min-width:min(100%,230px)}
+.locker-screen .logout-link{margin:0 auto;font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size)}
+
+@media(max-width:980px){
+  .locker-screen{height:auto;min-height:calc(100svh - var(--ui-header-height));overflow:visible}
+  .locker-screen .locker-layout{grid-template-columns:minmax(260px,.8fr) minmax(380px,1.2fr)}
+  .locker-screen .locker-character{min-height:440px}
+  .locker-screen .locker-sheet{overflow:visible}
+}
+@media(max-width:720px){
+  .locker-screen{width:min(calc(100% - 20px),620px);padding:18px 14px 16px;border-width:7px}
+  .locker-screen .locker-layout{grid-template-columns:1fr}
+  .locker-screen .locker-character{height:clamp(340px,52svh,460px);min-height:0}
+  .locker-screen .locker-sheet{min-height:0}
+  .locker-screen .locker-actions{display:grid;grid-template-columns:1fr}
+  .locker-screen .locker-actions .primary-game-button,.locker-screen .locker-actions .secondary-game-button{width:100%;min-width:0}
+}
+@media(max-width:460px){
+  .locker-screen{width:100%;border-inline-width:0}
+  .locker-screen .screen-heading small{letter-spacing:.1em}
+  .locker-screen .sheet-title{gap:10px}
+  .locker-screen .stat-row{grid-template-columns:76px minmax(0,1fr) 22px;gap:7px}
+  .locker-screen .stat-row>div{height:10px;border-width:2px}
+  .locker-screen .xp-row{grid-template-columns:1fr}
+  .locker-screen .xp-row>span{text-align:right}
 }
