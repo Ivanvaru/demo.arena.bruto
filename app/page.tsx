@@ -9,6 +9,7 @@ import {MOTIONS,poseAt,poseTransform,type MotionName} from "./game/animation-con
 import {DEFAULT_OUTFIT,loadOutfit,saveOutfit,HAIR_STYLES,HAIR_COLORS,type Outfit} from "./game/wardrobe";
 import {DEFAULT_IDENTITY,loadIdentity,saveIdentity,SKIN_TONES,DEFAULT_SKIN_TONE_ID,EYE_STYLES,EYE_COLORS,EYEBROW_STYLES,CLASS_CLOTHING,CLASS_BODY_TEXTURE,CLASS_DRESSED_TEXTURE,DEFAULT_BODY_TEXTURE,FACE_PLACEHOLDER_GEOMETRY,resolveFaceAppearance,type PlayerIdentity,type FaceAppearance} from "./game/character";
 import {xpToNextLevel,xpReward,applyXpGain} from "./game/leveling";
+import {shuffle,pairUp,roundName,roundResolved,collectWinners,type TournamentFighter,type TournamentMatch} from "./game/tournament";
 
 /** Shape returned by the API for the logged-in user's saved character (see db/schema.ts). */
 type SavedCharacter={name:string;className:FighterClass;level:number;xp:number;wins:number;losses:number;hairStyle:string;hairColor:string;skinToneId:string;eyeStyleId:string;eyeColor:string;eyebrowStyleId:string};
