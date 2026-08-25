@@ -580,53 +580,6 @@ p,.screen-heading p,.sheet-title p,.match-card p,.feature-strip span small{line-
   .start-button{width:min(310px,90vw)}
 }
 
-/* Precombate: plantilla ilustrada independiente con las dos fichas laterales. */
-main:has(.encounter-screen){
-  min-height:100vh;
-  background:#2a160c url("/backgrounds/precombate.webp") center top/cover no-repeat;
-}
-.encounter-screen{
-  width:min(1360px,100%);
-  min-height:calc(100vh - 96px);
-  margin:0 auto;
-  padding:38px clamp(80px,7.5vw,120px) 28px;
-  border:0;
-  border-radius:0;
-  background:none;
-  box-shadow:none;
-}
-.encounter-screen:before,.encounter-screen:after{display:none}
-.encounter-screen .matchup{
-  grid-template-columns:minmax(350px,1fr) 190px minmax(350px,1fr);
-  gap:42px;
-  margin:35px auto 24px;
-}
-.encounter-screen .match-card{
-  min-height:440px;
-  padding:35px 22px 24px;
-  border:0;
-  background:none;
-  box-shadow:none;
-}
-.encounter-screen .match-versus>span{width:160px;height:145px;font-size:57px}
-.encounter-screen .encounter-actions{margin-top:0}
-
-@media(max-width:980px){
-  main:has(.encounter-screen){background-position:center top;background-size:auto 100vh}
-  .encounter-screen{padding:45px 28px 36px}
-  .encounter-screen .matchup{grid-template-columns:1fr;max-width:650px}
-  .encounter-screen .match-card{
-    border:5px ridge #765432;
-    background:#f3dbb2ed;
-    box-shadow:0 0 0 3px #21150dcc;
-  }
-}
-
-@media(max-width:620px){
-  .encounter-screen{width:100%;padding:38px 14px 30px}
-  .encounter-screen .match-card{min-height:440px;padding:30px 15px 20px}
-}
-
 /* Editor de vestuario (pelo, camiseta, pantalón, guantes, botas) */
 .locker-actions{flex-wrap:wrap}
 .skeleton-cloth{pointer-events:none;stroke:rgba(0,0,0,.18);stroke-width:2}
@@ -1024,4 +977,145 @@ main:has(.locker-screen){
   .locker-screen .stat-row>div{height:10px;border-width:2px}
   .locker-screen .xp-row{grid-template-columns:1fr}
   .locker-screen .xp-row>span{text-align:right}
+}
+
+/* Precombate: el encabezado, las fichas y las acciones comparten una sola
+   rejilla vertical para no perder controles por debajo del viewport. */
+main:has(.encounter-screen){
+  min-height:100svh;
+  background:#26150c url("/backgrounds/precombate.webp") center/cover no-repeat;
+}
+.encounter-screen{
+  width:min(1420px,calc(100% - (var(--ui-screen-inline) * 2)));
+  height:calc(100svh - var(--ui-header-height));
+  min-height:0;
+  margin:0 auto;
+  padding:clamp(14px,2.4svh,26px) clamp(18px,4vw,58px) 14px;
+  box-sizing:border-box;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto;
+  gap:clamp(10px,1.8svh,18px);
+  overflow:hidden;
+  border:10px solid #3a2113;
+  border-radius:8px;
+  background:radial-gradient(circle at 50% 30%,#f7e7c6,#e3c79a 72%,#c69d65);
+  box-shadow:0 0 0 5px #16100b,inset 0 0 60px #8b5d2e55,0 15px 25px #0007;
+}
+.encounter-screen:before,.encounter-screen:after{display:none}
+.encounter-screen .screen-heading{
+  display:grid;
+  justify-items:center;
+  align-content:start;
+  gap:5px;
+  text-align:center;
+}
+.encounter-screen .screen-heading small{
+  margin:0;
+  padding:0;
+  border:0;
+  background:none;
+  box-shadow:none;
+  color:#8a5b2a;
+  font-family:"Fredoka",Arial,sans-serif;
+  font-size:var(--ui-label-size);
+  font-weight:900;
+  letter-spacing:.18em;
+}
+.encounter-screen .screen-heading h2{
+  margin:0;
+  color:#21140d;
+  font-family:"Lilita One",Georgia,serif;
+  font-size:clamp(28px,3.4vw,46px);
+  font-weight:400;
+  line-height:1;
+  text-transform:uppercase;
+  text-shadow:0 2px #fff3d1;
+}
+.encounter-screen .screen-heading p{margin:0;color:#4b3523;font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-copy-size);font-weight:700}
+.encounter-screen .matchup{
+  min-height:0;
+  margin:0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) clamp(124px,13vw,184px) minmax(0,1fr);
+  gap:clamp(12px,2.2vw,30px);
+  align-items:stretch;
+}
+.encounter-screen .match-card{
+  position:relative;
+  min-width:0;
+  min-height:0;
+  padding:clamp(16px,2vw,26px);
+  box-sizing:border-box;
+  overflow:hidden;
+  border:7px ridge #795a35;
+  border-radius:7px;
+  background:linear-gradient(#f7e7c7,#dfc08d);
+  box-shadow:0 0 0 4px #24170f,inset 0 0 32px #8a541d55,7px 9px #0002;
+}
+.encounter-screen .match-card>small,
+.encounter-screen .match-card>h3,
+.encounter-screen .match-card>b,
+.encounter-screen .match-card>p,
+.encounter-screen .match-card>.stats-panel{position:relative;z-index:2}
+.encounter-screen .match-card>small{display:block;color:#6a4321;font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:900;letter-spacing:.16em}
+.encounter-screen .match-card h3{margin:5px 0 0;color:#21140d;font-family:"Lilita One",Georgia,serif;font-size:clamp(24px,2.6vw,36px);font-weight:400;line-height:.95;text-transform:uppercase}
+.encounter-screen .match-card>b{display:inline-flex;margin-top:7px;padding:5px 9px;border-radius:99px;background:#21150d;color:#ffc347;font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:900;text-transform:uppercase}
+.encounter-screen .match-card>p{margin:5px 0 0;color:#3d291b;font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:800;text-transform:uppercase}
+.encounter-screen .player-card>small,.encounter-screen .player-card>h3,.encounter-screen .player-card>b,.encounter-screen .player-card>p,.encounter-screen .player-card>.stats-panel{margin-left:36%}
+.encounter-screen .rival-card>small,.encounter-screen .rival-card>h3,.encounter-screen .rival-card>b,.encounter-screen .rival-card>p,.encounter-screen .rival-card>.stats-panel{margin-right:36%}
+.encounter-screen .rival-card{text-align:right}
+.encounter-screen .rival-card .stat-row{text-align:left}
+.encounter-screen .match-character{
+  position:absolute;
+  z-index:1;
+  left:5%;
+  bottom:8%;
+  width:29%;
+  height:68%;
+  min-height:0;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  pointer-events:none;
+}
+.encounter-screen .rival-card .match-character{right:5%;left:auto}
+.encounter-screen .match-character .fighter{position:relative;left:auto;bottom:auto;width:auto;height:100%;max-width:none;margin:0;flex:0 0 auto}
+.encounter-screen .stats-panel{display:grid;gap:clamp(7px,1.1svh,11px);margin-top:clamp(15px,2svh,22px)}
+.encounter-screen .stat-row{display:grid;grid-template-columns:minmax(70px,92px) minmax(0,1fr) 24px;gap:8px;align-items:center}
+.encounter-screen .stat-row>span{font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:900}
+.encounter-screen .stat-row>div{height:11px;border:3px solid #24170f}
+.encounter-screen .stat-row>b{text-align:right;font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:900}
+.encounter-screen .match-versus{display:grid;align-content:center;justify-items:center;gap:10px;min-width:0}
+.encounter-screen .match-versus>span{width:clamp(92px,10vw,132px);height:clamp(86px,9vw,120px);display:grid;place-items:center;border:0;border-radius:0;background:linear-gradient(145deg,#ffd12f,#f26a0a 60%,#b4200f);box-shadow:none;color:#fff0a5;font-family:"Lilita One",Georgia,serif;font-size:clamp(34px,4vw,54px);font-style:normal;font-weight:400;text-shadow:-3px 0 #28140a,0 3px #28140a,3px 0 #28140a,0 -3px #28140a;transform:rotate(-7deg);filter:drop-shadow(5px 7px 0 #2b160b);clip-path:polygon(9% 19%,35% 23%,48% 0,59% 24%,89% 11%,77% 38%,100% 52%,76% 62%,89% 92%,58% 78%,43% 100%,35% 73%,4% 88%,19% 60%,0 44%,25% 38%)}
+.encounter-screen .match-versus small{color:#3a2515;font-family:"Fredoka",Arial,sans-serif;font-size:var(--ui-label-size);font-weight:900;letter-spacing:.05em;text-align:center}
+.encounter-screen .encounter-actions{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:var(--ui-gap);margin:0}
+.encounter-screen .encounter-actions .secondary-game-button{justify-self:start;min-width:220px}
+.encounter-screen .encounter-actions .primary-game-button{grid-column:3;justify-self:end;min-width:300px}
+
+@media(max-width:980px){
+  .encounter-screen{height:auto;min-height:calc(100svh - var(--ui-header-height));overflow:visible}
+  .encounter-screen .matchup{grid-template-columns:minmax(0,1fr) 126px minmax(0,1fr)}
+  .encounter-screen .match-card{min-height:410px}
+  .encounter-screen .match-character{width:31%;height:64%}
+  .encounter-screen .player-card>small,.encounter-screen .player-card>h3,.encounter-screen .player-card>b,.encounter-screen .player-card>p,.encounter-screen .player-card>.stats-panel{margin-left:38%}
+  .encounter-screen .rival-card>small,.encounter-screen .rival-card>h3,.encounter-screen .rival-card>b,.encounter-screen .rival-card>p,.encounter-screen .rival-card>.stats-panel{margin-right:38%}
+}
+@media(max-width:720px){
+  .encounter-screen{width:min(calc(100% - 20px),620px);padding:18px 14px 16px;border-width:7px}
+  .encounter-screen .matchup{grid-template-columns:1fr;gap:16px}
+  .encounter-screen .match-versus{grid-row:2;min-height:132px}
+  .encounter-screen .match-card{min-height:430px}
+  .encounter-screen .match-character{width:30%;height:66%}
+  .encounter-screen .encounter-actions{grid-template-columns:1fr}
+  .encounter-screen .encounter-actions .secondary-game-button,.encounter-screen .encounter-actions .primary-game-button{grid-column:auto;justify-self:center;width:100%;min-width:0}
+}
+@media(max-width:460px){
+  .encounter-screen{width:100%;border-inline-width:0}
+  .encounter-screen .match-card{padding:15px 12px;min-height:400px}
+  .encounter-screen .match-character{left:3%;width:31%;height:62%}
+  .encounter-screen .rival-card .match-character{right:3%;left:auto}
+  .encounter-screen .player-card>small,.encounter-screen .player-card>h3,.encounter-screen .player-card>b,.encounter-screen .player-card>p,.encounter-screen .player-card>.stats-panel{margin-left:36%}
+  .encounter-screen .rival-card>small,.encounter-screen .rival-card>h3,.encounter-screen .rival-card>b,.encounter-screen .rival-card>p,.encounter-screen .rival-card>.stats-panel{margin-right:36%}
+  .encounter-screen .stat-row{grid-template-columns:62px minmax(0,1fr) 20px;gap:6px}
+  .encounter-screen .stat-row>div{height:9px;border-width:2px}
 }
