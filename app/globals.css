@@ -823,12 +823,12 @@ main{min-height:100svh}
   .battle-wrap{padding-inline:12px}
 }
 
-/* Acceso: la plantilla es un fondo; el formulario se distribuye sobre ella. */
+/* Acceso: plantilla sin botón y controles interactivos alineados sobre ella. */
 main:has(.login-screen){
   height:100svh;
   min-height:100svh;
   overflow:hidden;
-  background:url("/backgrounds/login-screen.webp") center/cover no-repeat;
+  background:url("/backgrounds/login-reference.webp") center/cover no-repeat;
 }
 
 main:has(.login-screen) .login-screen{
@@ -837,7 +837,7 @@ main:has(.login-screen) .login-screen{
   height:100svh;
   min-height:100svh;
   margin:0;
-  padding:clamp(58px,7svh,76px) clamp(20px,4vw,48px) 12px;
+  padding:clamp(62px,8svh,78px) clamp(20px,4vw,48px) 12px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -852,30 +852,31 @@ main:has(.login-screen) .login-screen::before,
 main:has(.login-screen) .login-screen::after{content:none}
 
 .login-screen .screen-heading{width:min(500px,90vw);flex:0 0 auto}
-.login-screen .screen-heading small{min-width:0;padding:5px 16px;font-size:clamp(9px,1.1vw,12px)}
-.login-screen .screen-heading h2{margin:6px 0 4px;font-size:clamp(34px,4vw,48px);line-height:.9}
-.login-screen .screen-heading p{font-size:clamp(11px,1.1vw,14px);line-height:1.2}
+.login-screen .screen-heading small{min-width:0;padding:0;border:0;background:transparent;box-shadow:none;color:#f6e3ba;font-size:clamp(9px,1.1vw,12px);line-height:1.1}
+.login-screen .screen-heading h2{margin:3px 0 4px;color:#f5dfaf;font-size:clamp(34px,3.4vw,42px);line-height:.9;text-shadow:0 2px #1e120b}
+.login-screen .screen-heading p{color:#4b3523;font-size:clamp(11px,1.1vw,14px);line-height:1.2}
 
 .login-form{
   width:min(520px,calc(100vw - 48px));
   max-width:none;
-  margin:clamp(168px,27svh,265px) auto 0;
+  margin:clamp(245px,30svh,285px) auto 0;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:clamp(10px,1.6svh,15px);
+  gap:clamp(12px,1.5svh,15px);
 }
 
 .login-input{
   width:100%;
-  min-height:clamp(68px,10svh,92px);
+  height:clamp(82px,10svh,94px);
+  min-height:0;
   padding:0 clamp(18px,3vw,28px);
   border:0;
   border-radius:0;
   background:transparent;
   color:#3d291b;
   box-shadow:none;
-  font:800 clamp(15px,1.4vw,19px)/1 var(--game-font);
+  font:800 clamp(15px,1.4vw,19px)/normal var(--game-font);
   text-align:center;
   text-shadow:0 1px #fff8df;
 }
@@ -884,21 +885,10 @@ main:has(.login-screen) .login-screen::after{content:none}
 .login-input:focus{outline:3px solid #f5c23a;outline-offset:-5px;border-radius:8px}
 
 .login-form .primary-game-button{
-  width:min(420px,82vw);
-  min-height:clamp(80px,12svh,110px);
-  margin-top:clamp(18px,3svh,32px);
-  padding:0 20px;
-  border:0;
-  border-radius:0;
-  background:transparent;
-  box-shadow:none;
-  color:#f5e5bf;
-  font-size:clamp(14px,1.4vw,18px);
-  text-shadow:0 2px #21140d;
+  width:min(300px,72vw);
+  min-height:78px;
+  margin-top:clamp(20px,3svh,28px);
 }
-
-.login-form .primary-game-button:hover:not(:disabled){transform:none;filter:brightness(1.08)}
-.login-form .primary-game-button:focus-visible{outline:3px solid #f5c23a;outline-offset:-8px}
 
 .login-form .auth-switch{
   width:auto;
@@ -912,10 +902,10 @@ main:has(.login-screen) .login-screen::after{content:none}
 }
 
 @media(max-width:620px){
-  main:has(.login-screen) .login-screen{padding-top:clamp(48px,7svh,64px)}
-  .login-screen .screen-heading h2{font-size:clamp(30px,9vw,40px)}
+  main:has(.login-screen) .login-screen{padding-top:clamp(48px,7svh,62px)}
+  .login-screen .screen-heading h2{font-size:clamp(30px,8.5vw,38px)}
   .login-screen .screen-heading p{font-size:11px}
-  .login-form{width:min(100% - 28px,420px);margin-top:clamp(170px,28svh,235px)}
-  .login-input{min-height:clamp(66px,10svh,84px)}
-  .login-form .primary-game-button{width:min(300px,78vw);min-height:clamp(76px,12svh,96px)}
+  .login-form{width:min(100% - 28px,420px);margin-top:clamp(185px,30svh,255px)}
+  .login-input{height:clamp(68px,10svh,84px)}
+  .login-form .primary-game-button{width:min(280px,74vw);min-height:68px;margin-top:20px}
 }
