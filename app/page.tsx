@@ -263,7 +263,7 @@ function SkinToneRow({label,tones,value,onSelect}:{label:string;tones:typeof SKI
 }
 
 export default function Home(){
-  const [view,setView]=useState<"splash"|"login"|"creator"|"locker"|"encounter"|"battle"|"lab">("splash");
+  const [view,setView]=useState<"splash"|"login"|"creator"|"locker"|"encounter"|"battle"|"lab"|"tournament"|"tournament-battle">("splash");
   const [outfit,setOutfit]=useState<Outfit>(DEFAULT_OUTFIT);
   const [identity,setIdentity]=useState<PlayerIdentity>(DEFAULT_IDENTITY);
   useEffect(()=>{setOutfit(loadOutfit());setIdentity(loadIdentity())},[]);
