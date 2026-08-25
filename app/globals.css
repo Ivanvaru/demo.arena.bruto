@@ -722,36 +722,17 @@ main:has(.encounter-screen){
 .xp-row>span{font:900 9px Georgia,serif;color:#3d291b;white-space:nowrap}
 .record-line{margin:0 0 10px;font:900 10px Georgia,serif;color:#6d5534}
 .logout-link{display:block;margin:14px auto 0;background:none;border:none;color:#7a6142;font:700 10px Georgia,serif;text-decoration:underline;cursor:pointer}
-/* Pantalla de login (solo nombre, sin cuentas) y creación de personaje */
-.login-screen{max-width:520px;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:60px}
-.login-form{width:100%;max-width:360px;display:flex;flex-direction:column;gap:16px;margin-top:10px}
-.login-input,.wardrobe-name-input{width:100%;padding:14px 16px;border:4px solid var(--ink);border-radius:10px;background:#fff6df;color:var(--ink);font:900 15px Georgia,serif;text-align:center;box-shadow:inset 2px 2px #0002}
-.login-input:focus,.wardrobe-name-input:focus{outline:3px solid var(--gold);outline-offset:1px}
+/* Campos compartidos con el editor de personaje */
+.wardrobe-name-input{width:100%;padding:14px 16px;border:4px solid var(--ink);border-radius:10px;background:#fff6df;color:var(--ink);font:900 15px Georgia,serif;text-align:center;box-shadow:inset 2px 2px #0002}
+.wardrobe-name-input:focus{outline:3px solid var(--gold);outline-offset:1px}
 .wardrobe-name-input{text-align:left;margin-top:6px}
 .wardrobe-note{margin:14px 0 0;padding:10px 12px;border:2px dashed #9d7b4d88;border-radius:10px;color:#7a6142;font-size:9px;font-weight:700;line-height:1.5}
 .skeleton-face-placeholder{opacity:.92}
-
-@media(max-width:720px){
-  .login-screen{margin-top:20px}
-}
-
-
-/* Fondo exclusivo de la pantalla de inicio de sesión */
-main:has(.login-screen){
-  min-height:100svh;
-  background:url("/backgrounds/login-screen.webp") center/cover no-repeat;
-}
 
 .locked-name{margin:6px 0 0;padding:12px 14px;border:3px solid var(--ink);border-radius:10px;background:#e8dcc0;color:var(--ink);font:900 15px Georgia,serif}
 .class-picker button:disabled{opacity:1;cursor:default}
 
 
-/* El panel de acceso es transparente para mostrar la plantilla completa */
-main:has(.login-screen) .login-screen{
-  background:transparent;
-  border:0;
-  box-shadow:none;
-}
 
 /* Escala transversal: mantiene una densidad consistente entre pantallas. */
 :root{
@@ -780,10 +761,8 @@ main{min-height:100svh}
 .screen-heading p{margin:0;font-size:var(--ui-copy-size);line-height:1.25;white-space:normal}
 
 .flow-screen{width:min(1420px,calc(100% - (var(--ui-screen-inline) * 2)));min-height:calc(100svh - var(--ui-header-height));margin:0 auto;padding:var(--ui-screen-block) var(--ui-screen-inline)}
-main:has(.login-screen) .login-screen{min-height:100svh;padding-block:clamp(24px,7svh,62px)}
-.login-form{gap:var(--ui-gap)}
 
-.login-input,.wardrobe-name-input,.locked-name{min-height:var(--ui-control-height);padding:0 clamp(14px,2vw,20px);font-size:clamp(14px,1.2vw,16px)}
+.wardrobe-name-input,.locked-name{min-height:var(--ui-control-height);padding:0 clamp(14px,2vw,20px);font-size:clamp(14px,1.2vw,16px)}
 .start-button,.primary-game-button,.secondary-game-button{min-height:var(--ui-control-height);padding:0 clamp(22px,3vw,42px);font-size:clamp(12px,1.1vw,15px)}
 .start-button{width:min(300px,88vw);height:var(--ui-control-height)}
 .auth-switch{min-height:auto;padding:0}
@@ -842,4 +821,101 @@ main:has(.login-screen) .login-screen{min-height:100svh;padding-block:clamp(24px
   .start-button,.primary-game-button,.secondary-game-button{width:min(100%,340px)}
   .locker-screen .locker-layout,.encounter-screen .matchup,.wardrobe-screen .locker-layout{gap:12px}
   .battle-wrap{padding-inline:12px}
+}
+
+/* Acceso: la plantilla es un fondo; el formulario se distribuye sobre ella. */
+main:has(.login-screen){
+  height:100svh;
+  min-height:100svh;
+  overflow:hidden;
+  background:url("/backgrounds/login-screen.webp") center/cover no-repeat;
+}
+
+main:has(.login-screen) .login-screen{
+  width:100%;
+  max-width:none;
+  height:100svh;
+  min-height:100svh;
+  margin:0;
+  padding:clamp(58px,7svh,76px) clamp(20px,4vw,48px) 12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+main:has(.login-screen) .login-screen::before,
+main:has(.login-screen) .login-screen::after{content:none}
+
+.login-screen .screen-heading{width:min(500px,90vw);flex:0 0 auto}
+.login-screen .screen-heading small{min-width:0;padding:5px 16px;font-size:clamp(9px,1.1vw,12px)}
+.login-screen .screen-heading h2{margin:6px 0 4px;font-size:clamp(34px,4vw,48px);line-height:.9}
+.login-screen .screen-heading p{font-size:clamp(11px,1.1vw,14px);line-height:1.2}
+
+.login-form{
+  width:min(520px,calc(100vw - 48px));
+  max-width:none;
+  margin:clamp(168px,27svh,265px) auto 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:clamp(10px,1.6svh,15px);
+}
+
+.login-input{
+  width:100%;
+  min-height:clamp(68px,10svh,92px);
+  padding:0 clamp(18px,3vw,28px);
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:#3d291b;
+  box-shadow:none;
+  font:800 clamp(15px,1.4vw,19px)/1 var(--game-font);
+  text-align:center;
+  text-shadow:0 1px #fff8df;
+}
+
+.login-input::placeholder{color:#6a563d;opacity:.78}
+.login-input:focus{outline:3px solid #f5c23a;outline-offset:-5px;border-radius:8px}
+
+.login-form .primary-game-button{
+  width:min(420px,82vw);
+  min-height:clamp(80px,12svh,110px);
+  margin-top:clamp(18px,3svh,32px);
+  padding:0 20px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  color:#f5e5bf;
+  font-size:clamp(14px,1.4vw,18px);
+  text-shadow:0 2px #21140d;
+}
+
+.login-form .primary-game-button:hover:not(:disabled){transform:none;filter:brightness(1.08)}
+.login-form .primary-game-button:focus-visible{outline:3px solid #f5c23a;outline-offset:-8px}
+
+.login-form .auth-switch{
+  width:auto;
+  min-height:auto;
+  margin:0;
+  padding:3px 10px!important;
+  color:#4b3523;
+  font:800 clamp(11px,1.1vw,14px)/1.2 var(--game-font);
+  text-decoration:underline;
+  text-shadow:0 1px #fff8df;
+}
+
+@media(max-width:620px){
+  main:has(.login-screen) .login-screen{padding-top:clamp(48px,7svh,64px)}
+  .login-screen .screen-heading h2{font-size:clamp(30px,9vw,40px)}
+  .login-screen .screen-heading p{font-size:11px}
+  .login-form{width:min(100% - 28px,420px);margin-top:clamp(150px,25svh,210px)}
+  .login-input{min-height:clamp(66px,10svh,84px)}
+  .login-form .primary-game-button{width:min(300px,78vw);min-height:clamp(76px,12svh,96px)}
 }
