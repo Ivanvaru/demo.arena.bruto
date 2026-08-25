@@ -744,3 +744,11 @@ main:has(.login-screen){
 
 .locked-name{margin:6px 0 0;padding:12px 14px;border:3px solid var(--ink);border-radius:10px;background:#e8dcc0;color:var(--ink);font:900 15px Georgia,serif}
 .class-picker button:disabled{opacity:1;cursor:default}
+
+
+/* El panel de acceso es transparente para mostrar la plantilla completa */
+main:has(.login-screen) .login-screen{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
