@@ -1,5 +1,4 @@
-export type HairStyle = "ninguno" | "corto" | "mohawk" | "largo";
-
+export type HairStyle = "ninguno" | "mohawk-punk" | "melena-lateral";
 export type Outfit = {
   hairStyle: HairStyle;
   hairColor: string;
@@ -10,7 +9,7 @@ export type Outfit = {
 };
 
 export const DEFAULT_OUTFIT: Outfit = {
-  hairStyle: "corto",
+    hairStyle: "ninguno",
   hairColor: "#3b2313",
   shirtColor: "#2d6f91",
   pantsColor: "#33261a",
@@ -20,9 +19,8 @@ export const DEFAULT_OUTFIT: Outfit = {
 
 export const HAIR_STYLES: { id: HairStyle; label: string }[] = [
   { id: "ninguno", label: "Sin pelo" },
-  { id: "corto", label: "Corto" },
-  { id: "mohawk", label: "Cresta" },
-  { id: "largo", label: "Largo" },
+  { id: "mohawk-punk", label: "Punk" },
+  { id: "melena-lateral", label: "Rebelde" },
 ];
 
 export const HAIR_COLORS = ["#1c1c1c", "#3b2313", "#8a5a2b", "#d4a017", "#c94f4f", "#e8e8e8"];
