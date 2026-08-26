@@ -55,6 +55,14 @@ function RigColorPatch({id,instance,color,inset=6,radius=10}:{id:string;instance
   const height=Math.max(0,layer.size.height-inset*2);
   return <rect className="skeleton-cloth" data-cloth-part={id} x={layer.canvas_position.x+inset} y={layer.canvas_position.y+inset} width={width} height={height} rx={radius} fill={color} clipPath={`url(#skeleton-clip-${id}-${instance})`}/>;
 }
+/** The supplied PNGs act as alpha masks. This preserves the existing colour
+ * picker: the selected hair colour fills the original silhouette. */
+function RigHairArtwork({style,color,instance}:{style:"puntas-salvajes"|"flequillo-salvaje";color:string;instance:string}){
+  const asset=style==="puntas-salvajes"?"/characters/hair/puntas-salvajes.png":"/characters/hair/flequillo-salvaje.png";
+  const maskId=`hair-mask-${style}-${instance}`;
+  const x=74,y=-96,size=850;
+  return <><mask id={maskId} maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" style={{maskType:"alpha" as "alpha"}}><image href={asset} x={x} y={y} width={size} height={size} preserveAspectRatio="none"/></mask><rect className={`rig-hair-art rig-hair-${style}`} x={x} y={y} width={size} height={size} fill={color} mask={`url(#${maskId})`}/></>;
+}
 function Bone({name,pivot,children}:{name:string;pivot:{x:number;y:number};children:ReactNode}){return <g className={`skeleton-bone bone-${name}`} style={{transformOrigin:`${pivot.x}px ${pivot.y}px`}}>{children}</g>}
 function limbPivot(id:string){return LAYER_BY_ID.get(id)!.pivot_global}
 function ArmChain({side,instance,baseId,glovesColor}:{side:"izq"|"der";instance:string;baseId:string;glovesColor?:string|null}){
@@ -97,13 +105,13 @@ function SkeletonCharacterRig({outfit,face,bodyTexture}:{outfit?:Outfit;face?:Fa
         <Bone name="head" pivot={limbPivot("rostro_mandibula")}>
           {part("rostro_mandibula")}{part("craneo")}
           {face?<FacePlaceholder instance={instance} face={face}/>:null}
-          {hairColor&&outfit!.hairStyle==="corto"?<RigColorPatch id="craneo" instance={instance} color={hairColor} inset={10} radius={40}/>:null}
-          {hairColor&&outfit!.hairStyle==="mohawk"?<RigColorPatch id="craneo" instance={instance} color={hairColor} inset={26} radius={16}/>:null}
-          {hairColor&&outfit!.hairStyle==="largo"?<>
+          {hairColor&&outfit!.hairStyle==="mohawk-punk"?<RigColorPatch id="craneo" instance={instance} color={hairColor} inset={26} radius={16}/>:null}
+          {hairColor&&outfit!.hairStyle==="melena-lateral"?<>
             <RigColorPatch id="craneo" instance={instance} color={hairColor} inset={8} radius={40}/>
             <RigColorPatch id="cuello_superior" instance={instance} color={hairColor} inset={6} radius={14}/>
             <RigColorPatch id="cuello_inferior" instance={instance} color={hairColor} inset={10} radius={14}/>
           </>:null}
+          {hairColor&&(outfit!.hairStyle==="puntas-salvajes"||outfit!.hairStyle==="flequillo-salvaje")?<RigHairArtwork style={outfit!.hairStyle} color={hairColor} instance={instance}/>:null}
         </Bone>
       </Bone>
       <ArmChain side="izq" instance={instance} baseId={baseId}/>
