@@ -866,7 +866,7 @@ main:has(.locker-screen){
   display:flex;
   align-items:flex-end;
   justify-content:center;
-  background:radial-gradient(ellipse at 50% 78%,#d79b38,#94530e 62%,#4c270d);
+  background:#3b210f url("/backgrounds/vestuario-panel.webp") center/cover no-repeat;
 }
 .locker-screen .locker-character:before,
 .locker-screen .locker-character:after{
