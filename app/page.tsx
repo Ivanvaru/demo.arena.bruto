@@ -237,7 +237,7 @@ const STAT_LABELS={strength:"Fuerza",speed:"Velocidad",agility:"Agilidad",resist
 function StatsPanel({fighter}:{fighter:BattleFighter}){
   return <div className="stats-panel">{Object.entries(fighter.stats).map(([key,value])=><div className="stat-row" key={key}><span>{STAT_LABELS[key as keyof typeof STAT_LABELS]}</span><div><i style={{width:`${Math.min(100,value*12)}%`}}/></div><b>{value}</b></div>)}</div>;
 }
-function GameHeader(){return <header className="topbar game-header"><img className="game-header-banner" src="/brand/game-header-banner.webp" alt="Liga de Brutos — Temporada I"/></header>}
+function GameHeader(){return <header className="topbar game-header"><img className="game-header-logo" src="/brand/logo-horizontal.webp" alt="Liga de Brutos"/><img className="game-header-season" src="/brand/game-header-season.webp" alt="Temporada I"/></header>}
 
 function ColorSwatchRow({label,colors,value,onSelect,allowNone,noneLabel}:{label:string;colors:string[];value:string|null;onSelect:(color:string|null)=>void;allowNone?:boolean;noneLabel?:string}){
   return <div className="wardrobe-row">

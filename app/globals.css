@@ -622,7 +622,7 @@ p,.screen-heading p,.sheet-title p,.match-card p,.feature-strip span small{line-
 
 /* Escala transversal: mantiene una densidad consistente entre pantallas. */
 :root{
-  --ui-header-height:8.683vw;
+  --ui-header-height:clamp(36px,6.5vw,96px);
   --ui-screen-inline:clamp(16px,4vw,64px);
   --ui-screen-block:clamp(14px,3svh,30px);
   --ui-control-height:clamp(56px,7svh,66px);
@@ -641,9 +641,11 @@ main{min-height:100svh}
 .header-logo{height:calc(var(--ui-header-height) - 20px)}
 .season{font-size:var(--ui-label-size);padding:6px 14px}
 
-/* Cabecera global: el propio arte ya incluye el logotipo y la placa de temporada. */
-.topbar.game-header{display:block;width:82%;max-width:1500px;height:auto;min-height:0;padding:0;margin:0 auto;border:0;background:transparent;box-shadow:none;aspect-ratio:2172/230}
-.game-header-banner{display:block;width:100%;height:auto;max-width:100%;margin:0;padding:0}
+/* Cabecera global: franja del arte original a todo el ancho y emblemas escalados de forma independiente. */
+.topbar.game-header{position:relative;display:block;width:100%;max-width:none;height:var(--ui-header-height);min-height:var(--ui-header-height);padding:0;margin:0;border:0;background-color:#1b0e08;background-image:url("/brand/game-header-base.webp");background-repeat:repeat-x;background-position:center;background-size:auto 100%;box-shadow:none;overflow:hidden}
+.game-header-logo,.game-header-season{position:absolute;top:50%;display:block;width:auto;max-width:none;transform:translateY(-50%);object-fit:contain}
+.game-header-logo{left:clamp(6px,2.2vw,34px);height:clamp(30px,5.35vw,78px)}
+.game-header-season{right:clamp(6px,2.2vw,34px);height:clamp(22px,3.65vw,54px)}
 
 .screen-heading{gap:6px}
 .screen-heading small{padding:5px 15px;font-size:var(--ui-label-size);white-space:normal}
@@ -698,8 +700,9 @@ main{min-height:100svh}
 }
 
 @media(max-width:520px){
-  :root{--ui-header-height:9.530vw;--ui-screen-inline:12px;--ui-screen-block:14px;--ui-control-height:54px}
-  .topbar.game-header{width:90%}
+  :root{--ui-header-height:clamp(36px,10vw,52px);--ui-screen-inline:12px;--ui-screen-block:14px;--ui-control-height:54px}
+  .game-header-logo{left:8px;height:30px}
+  .game-header-season{right:8px;height:22px}
   .topbar{padding-inline:14px}
   .season{padding:5px 9px}
   .flow-screen{width:100%;border-inline-width:0}
