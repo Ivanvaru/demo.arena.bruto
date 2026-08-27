@@ -353,13 +353,10 @@ if(view==="tournament"){
     const allResolved=tMatches?roundResolved(tMatches):false;
     const heading=tChampion?"¡Eres el campeón!":tEliminatedRound?`Eliminado en ${tEliminatedRound}`:tMatches?roundName(tBracketSize):"Cuadro de 16 brutos";
     const subtitle=tChampion?"Has derrotado a los quince rivales y alzado el título.":tEliminatedRound?"Tu bruto cayó en el cuadro. Puedes intentarlo de nuevo cuando quieras.":tMatches?"Sorteo por ronda, eliminación directa. Un solo combate, sin segundas oportunidades.":"Dieciséis brutos, sorteo en cada ronda: octavos, cuartos, semifinal y final.";
+    const tournamentAction=!tMatches&&!tChampion&&!tEliminatedRound?<button className="primary-game-button" onClick={drawTournament}><span>🏆</span> SORTEAR OCTAVOS</button>:tMatches&&allResolved&&!tChampion&&!tEliminatedRound?<button className="primary-game-button" onClick={advanceTournamentRound}><span>{tBracketSize===2?"🏆":"🎲"}</span> {tBracketSize===2?"PROCLAMAR CAMPEÓN":`SORTEAR ${roundName(tBracketSize/2).toUpperCase()}`}</button>:tChampion?<button className="secondary-game-button" onClick={drawTournament}>🏆 NUEVO TORNEO</button>:tEliminatedRound?<button className="secondary-game-button" onClick={drawTournament}>🏆 REINTENTAR</button>:null;
     return <main><GameHeader/><section className="tournament-screen"><div className="tournament-stage"><div className="tournament-heading"><small>TORNEO DE LA LIGA</small><h2>{heading}</h2><p>{subtitle}</p></div>
-      {!tMatches&&!tChampion&&!tEliminatedRound?<div className="tournament-controls"><button className="primary-game-button" onClick={drawTournament}><span>🏆</span> SORTEAR OCTAVOS</button></div>:null}
       {tMatches?<div className="bracket-overlay">{tMatches.map((match,index)=><TournamentBracketMatch key={match.id} match={match} index={index} size={tBracketSize} onFight={startTournamentMatch}/>)}</div>:null}
-      {tMatches&&allResolved&&!tChampion&&!tEliminatedRound?<div className="tournament-controls"><button className="primary-game-button" onClick={advanceTournamentRound}><span>{tBracketSize===2?"🏆":"🎲"}</span> {tBracketSize===2?"PROCLAMAR CAMPEÓN":`SORTEAR ${roundName(tBracketSize/2).toUpperCase()}`}</button></div>:null}
-      {tChampion?<div className="tournament-controls"><button className="secondary-game-button" onClick={drawTournament}>🏆 NUEVO TORNEO</button></div>:null}
-      {tEliminatedRound?<div className="tournament-controls"><button className="secondary-game-button" onClick={drawTournament}>🏆 REINTENTAR</button></div>:null}
-      <button className="secondary-game-button tournament-back" onClick={()=>{setTChampion(false);setTEliminatedRound(null);setView("locker")}}>← VOLVER AL VESTUARIO</button>
+      <div className="tournament-actions"><div>{tournamentAction}</div><button className="secondary-game-button" onClick={()=>{setTChampion(false);setTEliminatedRound(null);setView("locker")}}>← VOLVER AL VESTUARIO</button></div>
     </div></section></main>;
   }
   if(view==="tournament-battle"&&tFighters&&tOpponent)return <main>
