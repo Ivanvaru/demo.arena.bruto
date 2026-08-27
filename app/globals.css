@@ -683,6 +683,7 @@ main{min-height:100svh}
 .motion-button{min-height:42px;padding:8px 12px;font-size:var(--ui-label-size)}
 
 .battle-wrap{gap:var(--ui-gap);padding:var(--ui-screen-block) var(--ui-screen-inline)}
+.combat-page{min-height:calc(100svh - var(--ui-header-height));background:#4a2a16 url("/backgrounds/battle-exterior.webp") center/cover no-repeat}
 .battle-hero{padding-block:clamp(12px,2svh,24px)}
 .battle-hero h1{font-size:var(--ui-heading-size);line-height:.95}
 .battle-hero p,.battle-label,.battle-commentary p{font-size:var(--ui-copy-size)}
