@@ -377,8 +377,7 @@ if(view==="tournament"){
   </main>;
   return <main>
     <GameHeader/>
-    <div className="combat-page">
-    <section className="hero" id="arena"><div className="eyebrow"><span/>COMBATE DE EXHIBICIÓN<span/></div><h2>{winner?`${winner} es el vencedor`:"Dos brutos. Un solo vencedor."}</h2><p>{winner&&lastXpGain!==null?`+${lastXpGain} XP · Nivel ${level}`:"La suerte elige el golpe. Las estadísticas inclinan la balanza."}</p></section>
+    <div className="combat-page regular-combat-page">
     <section className="battle-wrap">
       <div className="battle-frame"><div className="frame-rivets"><i/><i/><i/><i/></div>
         <div className="sky"><div className="sun"/><div className="cloud cloud-a"/><div className="cloud cloud-b"/><div className="mountains"/></div>

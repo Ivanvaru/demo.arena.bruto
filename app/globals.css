@@ -712,6 +712,19 @@ main{min-height:100svh}
   .battle-wrap{padding-inline:12px}
 }
 
+/* Combate de exhibición: la arena usa todo el espacio entre la cabecera y el registro. */
+.regular-combat-page{height:calc(100svh - var(--ui-header-height));min-height:0;overflow:hidden}
+.regular-combat-page .battle-wrap{height:100%;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:var(--ui-gap);padding:clamp(8px,1.5svh,16px) var(--ui-screen-inline)}
+.regular-combat-page .battle-frame{height:100%;min-height:0;max-height:none}
+.regular-combat-page .commentary{width:calc(100% - 54px);min-height:clamp(64px,9svh,86px);margin:0 auto}
+.regular-combat-page .feature-strip,.regular-combat-page footer{display:none}
+
+@media(max-width:720px){
+  .regular-combat-page{height:auto;overflow:visible}
+  .regular-combat-page .battle-wrap{height:auto;display:flex;flex-direction:column}
+  .regular-combat-page .battle-frame{height:clamp(420px,62svh,560px)}
+}
+
 /* Primera creación: preview y controles independientes del vestuario existente. */
 .initial-creator-screen{width:min(1420px,calc(100% - (var(--ui-screen-inline) * 2)));height:calc(100svh - var(--ui-header-height));min-height:0;margin:0 auto;padding:var(--ui-screen-block) var(--ui-screen-inline);box-sizing:border-box;border:12px solid #3a2113;border-radius:8px;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:var(--ui-gap);color:#3d291b;background:radial-gradient(circle at 50% 35%,#f7e7c6,#e3c79a 72%,#c69d65);box-shadow:0 0 0 5px #16100b,inset 0 0 70px #8b5d2e55,0 15px 25px #0007;font-family:"Fredoka",Arial,sans-serif}
 .initial-creator-heading{text-align:center;display:grid;justify-items:center;gap:5px}
