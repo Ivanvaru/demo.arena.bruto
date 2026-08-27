@@ -237,6 +237,14 @@ const STAT_LABELS={strength:"Fuerza",speed:"Velocidad",agility:"Agilidad",resist
 function StatsPanel({fighter}:{fighter:BattleFighter}){
   return <div className="stats-panel">{Object.entries(fighter.stats).map(([key,value])=><div className="stat-row" key={key}><span>{STAT_LABELS[key as keyof typeof STAT_LABELS]}</span><div><i style={{width:`${Math.min(100,value*12)}%`}}/></div><b>{value}</b></div>)}</div>;
 }
+const FIRST_ROUND_Y=[[32.2,38.4],[45.5,51.8],[58.8,65.5],[72.8,79.3]];
+const ROUND_POSITIONS:{[key:number]:Array<{left:number;top:number}>}={8:[{left:29.1,top:36.6},{left:29.1,top:50.1},{left:29.1,top:63.7},{left:29.1,top:76.1}],4:[{left:39.3,top:45.5},{left:39.3,top:71.1}],2:[{left:50,top:45.5}]};
+function TournamentBracketMatch({match,index,size,onFight}:{match:TournamentMatch;index:number;size:number;onFight:()=>void}){
+  const winner=match.winnerId?(match.winnerId===match.a.id?match.a:match.b):null,playerMatch=match.a.isPlayer||match.b.isPlayer;
+  const content=(fighter:TournamentFighter)=><><strong className={winner===fighter?"bracket-winner":""}>{fighter.name}</strong><small>{fighter.className}</small></>;
+  if(size===16){const side=index<4?17.5:82.7,slot=FIRST_ROUND_Y[index%4];return <>{[match.a,match.b].map((fighter,slotIndex)=><div className="bracket-slot bracket-first-slot" key={fighter.id} style={{left:`${side}%`,top:`${slot[slotIndex]}%`}}>{content(fighter)}{playerMatch&&fighter.isPlayer&&!winner?<button className="bracket-slot-action" onClick={onFight}>LUCHAR</button>:null}</div>)}</>}
+  const position=ROUND_POSITIONS[size][index];return <div className="bracket-slot bracket-round-slot" style={{left:`${position.left}%`,top:`${position.top}%`}}>{content(match.a)}<b>VS</b>{content(match.b)}{playerMatch&&!winner?<button className="bracket-slot-action" onClick={onFight}>LUCHAR</button>:null}</div>;
+}
 function GameHeader(){return <header className="topbar game-header"><img className="game-header-logo" src="/brand/logo-horizontal.webp" alt="Liga de Brutos"/><img className="game-header-season" src="/brand/game-header-season.webp" alt="Temporada I"/></header>}
 
 function ColorSwatchRow({label,colors,value,onSelect,allowNone,noneLabel}:{label:string;colors:string[];value:string|null;onSelect:(color:string|null)=>void;allowNone?:boolean;noneLabel?:string}){
@@ -345,23 +353,14 @@ if(view==="tournament"){
     const allResolved=tMatches?roundResolved(tMatches):false;
     const heading=tChampion?"¡Eres el campeón!":tEliminatedRound?`Eliminado en ${tEliminatedRound}`:tMatches?roundName(tBracketSize):"Cuadro de 16 brutos";
     const subtitle=tChampion?"Has derrotado a los quince rivales y alzado el título.":tEliminatedRound?"Tu bruto cayó en el cuadro. Puedes intentarlo de nuevo cuando quieras.":tMatches?"Sorteo por ronda, eliminación directa. Un solo combate, sin segundas oportunidades.":"Dieciséis brutos, sorteo en cada ronda: octavos, cuartos, semifinal y final.";
-    return <main><GameHeader/><section className="flow-screen tournament-screen"><div className="screen-heading"><small>TORNEO DE LA LIGA</small><h2>{heading}</h2><p>{subtitle}</p></div>
-      {!tMatches&&!tChampion&&!tEliminatedRound?<div className="locker-actions"><button className="primary-game-button" onClick={drawTournament}><span>🏆</span> SORTEAR OCTAVOS</button></div>:null}
-      {tMatches?<div className="bracket-list">{tMatches.map(match=>{
-        const isPlayerMatch=match.a.isPlayer||match.b.isPlayer;
-        const winner=match.winnerId?(match.winnerId===match.a.id?match.a:match.b):null;
-        return <div key={match.id} className={`bracket-match ${isPlayerMatch?"bracket-match-player":""} ${winner?"bracket-resolved":""}`}>
-          <span className={winner===match.a?"bracket-winner":""}>{match.a.name}<i>{match.a.className}</i></span>
-          <b>VS</b>
-          <span className={winner===match.b?"bracket-winner":""}>{match.b.name}<i>{match.b.className}</i></span>
-          {isPlayerMatch&&!match.winnerId?<button className="secondary-game-button" onClick={startTournamentMatch}>LUCHAR</button>:winner?<em>{winner.isPlayer?"¡Ganaste!":`Gana ${winner.name}`}</em>:<em>Pendiente</em>}
-        </div>;
-      })}</div>:null}
-      {tMatches&&allResolved&&!tChampion&&!tEliminatedRound?<div className="locker-actions"><button className="primary-game-button" onClick={advanceTournamentRound}><span>{tBracketSize===2?"🏆":"🎲"}</span> {tBracketSize===2?"PROCLAMAR CAMPEÓN":`SORTEAR ${roundName(tBracketSize/2).toUpperCase()}`}</button></div>:null}
-      {tChampion?<div className="locker-actions"><button className="secondary-game-button" onClick={drawTournament}>🏆 NUEVO TORNEO</button></div>:null}
-      {tEliminatedRound?<div className="locker-actions"><button className="secondary-game-button" onClick={drawTournament}>🏆 REINTENTAR</button></div>:null}
-      <button className="secondary-game-button lab-back" onClick={()=>{setTChampion(false);setTEliminatedRound(null);setView("locker")}}>← VOLVER AL VESTUARIO</button>
-    </section></main>;
+    return <main><GameHeader/><section className="tournament-screen"><div className="tournament-stage"><div className="tournament-heading"><small>TORNEO DE LA LIGA</small><h2>{heading}</h2><p>{subtitle}</p></div>
+      {!tMatches&&!tChampion&&!tEliminatedRound?<div className="tournament-controls"><button className="primary-game-button" onClick={drawTournament}><span>🏆</span> SORTEAR OCTAVOS</button></div>:null}
+      {tMatches?<div className="bracket-overlay">{tMatches.map((match,index)=><TournamentBracketMatch key={match.id} match={match} index={index} size={tBracketSize} onFight={startTournamentMatch}/>)}</div>:null}
+      {tMatches&&allResolved&&!tChampion&&!tEliminatedRound?<div className="tournament-controls"><button className="primary-game-button" onClick={advanceTournamentRound}><span>{tBracketSize===2?"🏆":"🎲"}</span> {tBracketSize===2?"PROCLAMAR CAMPEÓN":`SORTEAR ${roundName(tBracketSize/2).toUpperCase()}`}</button></div>:null}
+      {tChampion?<div className="tournament-controls"><button className="secondary-game-button" onClick={drawTournament}>🏆 NUEVO TORNEO</button></div>:null}
+      {tEliminatedRound?<div className="tournament-controls"><button className="secondary-game-button" onClick={drawTournament}>🏆 REINTENTAR</button></div>:null}
+      <button className="secondary-game-button tournament-back" onClick={()=>{setTChampion(false);setTEliminatedRound(null);setView("locker")}}>← VOLVER AL VESTUARIO</button>
+    </div></section></main>;
   }
   if(view==="tournament-battle"&&tFighters&&tOpponent)return <main>
     <GameHeader/>
