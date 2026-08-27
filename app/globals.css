@@ -621,6 +621,7 @@ p,.screen-heading p,.sheet-title p,.match-card p,.feature-strip span small{line-
 
 
 /* Escala transversal: mantiene una densidad consistente entre pantallas. */
+/* Production deployment refresh: no visual changes. */
 :root{
   --ui-header-height:clamp(36px,6.5vw,96px);
   --ui-screen-inline:clamp(16px,4vw,64px);
