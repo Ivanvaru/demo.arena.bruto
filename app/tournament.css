@@ -21,8 +21,8 @@
 .bracket-slot b { margin: .18em 0; color: #a65313; font: 900 clamp(5px, .5vw, 8px)/1 "Fredoka", Arial, sans-serif; }
 .bracket-slot .bracket-winner { color: #16732a; }
 .bracket-slot-action { margin-top: 2px; padding: 0; border: 0; background: none; color: #9f3413; font: 900 clamp(6px, .52vw, 9px) "Fredoka", Arial, sans-serif; letter-spacing: .05em; text-decoration: underline; cursor: pointer; }
-.tournament-actions { z-index: 3; width: 100%; min-height: clamp(42px, 5vh, 58px); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.tournament-actions > div { min-width: 0; }
+.tournament-actions { z-index: 3; width: 100%; min-height: clamp(42px, 5vh, 58px); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; }
+.tournament-actions > :first-child { justify-self: start; }.tournament-actions > :nth-child(2) { min-width: 0; justify-self: center; }.tournament-actions > :last-child { justify-self: end; }
 .tournament-actions .primary-game-button,.tournament-actions .secondary-game-button { min-width: clamp(150px, 18vw, 300px); padding: clamp(7px, .7vw, 12px) clamp(14px, 1.2vw, 22px); font-size: clamp(8px, .8vw, 13px); }
-@media (max-width: 720px) { .tournament-screen { padding: 12px; gap: 10px; } .tournament-title { font-size: clamp(18px, 7vw, 28px); } .tournament-stage { width: 90%; } .bracket-overlay { column-gap: 2px; } .bracket-slot { width: 100%; padding-inline: 13%; } .tournament-actions { min-height: 38px; gap: 8px; } .tournament-actions .primary-game-button,.tournament-actions .secondary-game-button { min-width: 0; } }
+@media (max-width: 720px) { .tournament-screen { padding: 12px; gap: 10px; } .tournament-title { font-size: clamp(18px, 7vw, 28px); } .tournament-stage { width: 90%; } .bracket-overlay { column-gap: 2px; } .bracket-slot { width: 100%; padding-inline: 13%; } .tournament-actions { min-height: 38px; grid-template-columns: 1fr; gap: 8px; } .tournament-actions > :first-child,.tournament-actions > :nth-child(2),.tournament-actions > :last-child { justify-self: center; } .tournament-actions .primary-game-button,.tournament-actions .secondary-game-button { min-width: 0; } }
 
