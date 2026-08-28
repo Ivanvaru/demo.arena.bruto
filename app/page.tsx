@@ -253,7 +253,7 @@ function TournamentBracketSkeleton({activeSize}:{activeSize:number}){
 }
 function TournamentBracketMatch({match,index,size,onFight}:{match:TournamentMatch;index:number;size:number;onFight:()=>void}){
   const winner=match.winnerId?(match.winnerId===match.a.id?match.a:match.b):null,playerMatch=match.a.isPlayer||match.b.isPlayer;
-  const content=(fighter:TournamentFighter)=><><strong className={winner===fighter?"bracket-winner":""}>{fighter.name}</strong><small>{fighter.className}</small></>;
+  const content=(fighter:TournamentFighter)=><strong className={winner===fighter?"bracket-winner":""}>{fighter.name}</strong>;
   return <div className={`bracket-slot bracket-match-slot bracket-size-${size} bracket-index-${index}`}>{content(match.a)}<b>VS</b>{content(match.b)}{playerMatch&&!winner?<button className="bracket-slot-action" onClick={onFight}>LUCHAR</button>:null}</div>;
 }
 function GameHeader(){return <header className="topbar game-header"><img className="game-header-logo" src="/brand/logo-horizontal.webp" alt="Liga de Brutos"/><img className="game-header-season" src="/brand/game-header-season.webp" alt="Temporada I"/></header>}
