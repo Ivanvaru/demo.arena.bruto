@@ -251,10 +251,10 @@ function TournamentBracketLines(){
 function TournamentBracketSkeleton({activeSize}:{activeSize:number}){
   return <>{([16,8,4,2] as const).flatMap(size=>size===activeSize?[]:Array.from({length:BRACKET_MATCH_COUNT[size]},(_,index)=><div className={`bracket-slot bracket-match-slot bracket-size-${size} bracket-index-${index} bracket-placeholder`} key={`${size}-${index}`}><strong>—</strong><small>pendiente</small></div>))}</>;
 }
-function TournamentBracketMatch({match,index,size,onFight}:{match:TournamentMatch;index:number;size:number;onFight:()=>void}){
-  const winner=match.winnerId?(match.winnerId===match.a.id?match.a:match.b):null,playerMatch=match.a.isPlayer||match.b.isPlayer;
+function TournamentBracketMatch({match,index,size}:{match:TournamentMatch;index:number;size:number}){
+  const winner=match.winnerId?(match.winnerId===match.a.id?match.a:match.b):null;
   const content=(fighter:TournamentFighter)=><strong className={winner===fighter?"bracket-winner":""}>{fighter.name}</strong>;
-  return <div className={`bracket-slot bracket-match-slot bracket-size-${size} bracket-index-${index}`}>{content(match.a)}<b>VS</b>{content(match.b)}{playerMatch&&!winner?<button className="bracket-slot-action" onClick={onFight}>LUCHAR</button>:null}</div>;
+  return <div className={`bracket-slot bracket-match-slot bracket-size-${size} bracket-index-${index}`}>{content(match.a)}<b>VS</b>{content(match.b)}</div>;
 }
 function GameHeader(){return <header className="topbar game-header"><img className="game-header-logo" src="/brand/logo-horizontal.webp" alt="Liga de Brutos"/><img className="game-header-season" src="/brand/game-header-season.webp" alt="Temporada I"/></header>}
 
@@ -363,9 +363,10 @@ export default function Home(){
 if(view==="tournament"){
     const allResolved=tMatches?roundResolved(tMatches):false;
     const tournamentAction=!tMatches&&!tChampion&&!tEliminatedRound?<button className="primary-game-button" onClick={drawTournament}><span>🏆</span> SORTEAR OCTAVOS</button>:tMatches&&allResolved&&!tChampion&&!tEliminatedRound?<button className="primary-game-button" onClick={advanceTournamentRound}><span>{tBracketSize===2?"🏆":"🎲"}</span> {tBracketSize===2?"PROCLAMAR CAMPEÓN":`SORTEAR ${roundName(tBracketSize/2).toUpperCase()}`}</button>:tChampion?<button className="secondary-game-button" onClick={drawTournament}>🏆 NUEVO TORNEO</button>:tEliminatedRound?<button className="secondary-game-button" onClick={drawTournament}>🏆 REINTENTAR</button>:null;
+    const playerTournamentMatch=tMatches?findPlayerMatch(tMatches):null,canFight=Boolean(playerTournamentMatch&&!playerTournamentMatch.winnerId&&!tChampion&&!tEliminatedRound);
     return <main><GameHeader/><section className="tournament-screen"><h2 className="tournament-title">TORNEO</h2><div className="tournament-stage">
-      <TournamentBracketLines/><div className="bracket-overlay"><TournamentBracketSkeleton activeSize={tMatches?tBracketSize:0}/>{tMatches?.map((match,index)=><TournamentBracketMatch key={match.id} match={match} index={index} size={tBracketSize} onFight={startTournamentMatch}/>)}</div></div>
-      <div className="tournament-actions"><div>{tournamentAction}</div><button className="secondary-game-button" onClick={()=>{setTChampion(false);setTEliminatedRound(null);setView("locker")}}>← VOLVER AL VESTUARIO</button></div>
+      <TournamentBracketLines/><div className="bracket-overlay"><TournamentBracketSkeleton activeSize={tMatches?tBracketSize:0}/>{tMatches?.map((match,index)=><TournamentBracketMatch key={match.id} match={match} index={index} size={tBracketSize}/>)}</div></div>
+      <div className="tournament-actions"><button className="secondary-game-button" onClick={()=>{setTChampion(false);setTEliminatedRound(null);setView("locker")}}>← VOLVER AL VESTUARIO</button><div>{tournamentAction}</div><button className="primary-game-button" onClick={startTournamentMatch} disabled={!canFight}>⚔ LUCHAR</button></div>
     </section></main>;
   }
   if(view==="tournament-battle"&&tFighters&&tOpponent)return <main>
