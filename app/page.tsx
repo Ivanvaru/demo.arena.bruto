@@ -1,5 +1,7 @@
 "use client";
 
+import "./tournament.css";
+
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode, type RefObject } from "react";
 import {CLASS_NAMES,CLASS_ABILITIES,describeAttack,makeProfile,maxHp,simulateBattle,type AttackKind as EngineAttack,type BattleFighter,type FighterClass,type Outcome} from "./game/engine";
 import {pickRival,RIVAL_ROSTER,type RivalCard} from "./game/roster";
