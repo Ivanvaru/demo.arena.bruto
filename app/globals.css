@@ -1142,3 +1142,11 @@ main:has(.encounter-screen){
 @media(max-width:720px){
   .tournament-heading{width:42%}
 }
+
+
+/* El panel de acceso es transparente para mostrar la plantilla completa */
+main:has(.login-screen) .login-screen{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
