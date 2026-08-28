@@ -239,8 +239,19 @@ const STAT_LABELS={strength:"Fuerza",speed:"Velocidad",agility:"Agilidad",resist
 function StatsPanel({fighter}:{fighter:BattleFighter}){
   return <div className="stats-panel">{Object.entries(fighter.stats).map(([key,value])=><div className="stat-row" key={key}><span>{STAT_LABELS[key as keyof typeof STAT_LABELS]}</span><div><i style={{width:`${Math.min(100,value*12)}%`}}/></div><b>{value}</b></div>)}</div>;
 }
-const FIRST_ROUND_Y=[[32.2,38.4],[45.5,51.8],[58.8,65.5],[72.8,79.3]];
-const ROUND_POSITIONS:{[key:number]:Array<{left:number;top:number}>}={8:[{left:29.1,top:36.6},{left:29.1,top:50.1},{left:29.1,top:63.7},{left:29.1,top:76.1}],4:[{left:39.3,top:45.5},{left:39.3,top:71.1}],2:[{left:50,top:45.5}]};
+const FIRST_ROUND_Y=[[14,22],[32,40],[60,68],[78,86]];
+const ROUND_POSITIONS:{[key:number]:Array<{left:number;top:number}>}={8:[{left:31,top:20},{left:31,top:66},{left:69,top:20},{left:69,top:66}],4:[{left:42.5,top:43},{left:57.5,top:43}],2:[{left:50,top:52}]};
+function TournamentBracketLines(){
+  return <svg className="bracket-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <g>
+      <path d="M22 14H26V20H31M22 22H26V20M22 32H26V36H31M22 40H26V36M31 20H36V43H42.5M31 66H36V43" />
+      <path d="M78 14H74V20H69M78 22H74V20M78 32H74V36H69M78 40H74V36M69 20H64V43H57.5M69 66H64V43" />
+      <path d="M22 60H26V66H31M22 68H26V66M22 78H26V82H31M22 86H26V82M31 66H36V43M31 20H36V43" />
+      <path d="M78 60H74V66H69M78 68H74V66M78 78H74V82H69M78 86H74V82M69 66H64V43M69 20H64V43" />
+      <path d="M42.5 43H50M57.5 43H50" />
+    </g>
+  </svg>;
+}
 function TournamentBracketMatch({match,index,size,onFight}:{match:TournamentMatch;index:number;size:number;onFight:()=>void}){
   const winner=match.winnerId?(match.winnerId===match.a.id?match.a:match.b):null,playerMatch=match.a.isPlayer||match.b.isPlayer;
   const content=(fighter:TournamentFighter)=><><strong className={winner===fighter?"bracket-winner":""}>{fighter.name}</strong><small>{fighter.className}</small></>;
@@ -355,7 +366,7 @@ if(view==="tournament"){
     const allResolved=tMatches?roundResolved(tMatches):false;
     const tournamentAction=!tMatches&&!tChampion&&!tEliminatedRound?<button className="primary-game-button" onClick={drawTournament}><span>🏆</span> SORTEAR OCTAVOS</button>:tMatches&&allResolved&&!tChampion&&!tEliminatedRound?<button className="primary-game-button" onClick={advanceTournamentRound}><span>{tBracketSize===2?"🏆":"🎲"}</span> {tBracketSize===2?"PROCLAMAR CAMPEÓN":`SORTEAR ${roundName(tBracketSize/2).toUpperCase()}`}</button>:tChampion?<button className="secondary-game-button" onClick={drawTournament}>🏆 NUEVO TORNEO</button>:tEliminatedRound?<button className="secondary-game-button" onClick={drawTournament}>🏆 REINTENTAR</button>:null;
     return <main><GameHeader/><section className="tournament-screen"><h2 className="tournament-title">TORNEO</h2><div className="tournament-stage">
-      {tMatches?<div className="bracket-overlay">{tMatches.map((match,index)=><TournamentBracketMatch key={match.id} match={match} index={index} size={tBracketSize} onFight={startTournamentMatch}/>)}</div>:null}</div>
+      <TournamentBracketLines/>{tMatches?<div className="bracket-overlay">{tMatches.map((match,index)=><TournamentBracketMatch key={match.id} match={match} index={index} size={tBracketSize} onFight={startTournamentMatch}/>)}</div>:null}</div>
       <div className="tournament-actions"><div>{tournamentAction}</div><button className="secondary-game-button" onClick={()=>{setTChampion(false);setTEliminatedRound(null);setView("locker")}}>← VOLVER AL VESTUARIO</button></div>
     </section></main>;
   }
@@ -393,3 +404,4 @@ if(view==="tournament"){
     </div>
   </main>;
 }
+
