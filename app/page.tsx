@@ -2,7 +2,7 @@
 
 import "./tournament.css";
 
-import { useCallback, useEffect, useId, useRef, useState, type ReactNode, type RefObject } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import {CLASS_NAMES,CLASS_ABILITIES,describeAttack,makeProfile,maxHp,simulateBattle,type AttackKind as EngineAttack,type BattleFighter,type FighterClass,type Outcome} from "./game/engine";
 import {pickRival,RIVAL_ROSTER,type RivalCard} from "./game/roster";
 import rigDefinition from "./game/rig.json";
@@ -241,12 +241,43 @@ function StatsPanel({fighter}:{fighter:BattleFighter}){
 }
 const BRACKET_MATCH_COUNT:{[key:number]:number}={16:8,8:4,4:2,2:1};
 function TournamentBracketLines(){
-  return <svg className="bracket-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-    <g>
-      <path d="M13.63 12.5H16V25H18.37M13.63 37.5H16V25M13.63 62.5H16V75H18.37M13.63 87.5H16V75M28.47 25H30.3V50H32.2M28.47 75H30.3V50M42.4 50H51.03" />
-      <path d="M86.37 12.5H84V25H81.63M86.37 37.5H84V25M86.37 62.5H84V75H81.63M86.37 87.5H84V75M71.53 25H69V50H66.6M71.53 75H69V50M56.4 50H61.23" />
-    </g>
-  </svg>;
+  const svgRef=useRef<SVGSVGElement>(null);
+  const [geometry,setGeometry]=useState({width:100,height:100,paths:[] as string[]});
+  useLayoutEffect(()=>{
+    const svg=svgRef.current,stage=svg?.parentElement;
+    if(!svg||!stage)return;
+    let frame=0;
+    const update=()=>{
+      const root=stage.getBoundingClientRect(),round=(value:number)=>Math.round(value*100)/100;
+      const anchor=(size:number,index:number,edge:"left"|"right")=>{
+        const card=stage.querySelector<HTMLElement>(`.bracket-size-${size}.bracket-index-${index}`);
+        if(!card)return null;
+        const rect=card.getBoundingClientRect();
+        return {x:round((edge==="left"?rect.left:rect.right)-root.left),y:round(rect.top-root.top+rect.height/2)};
+      };
+      const merge=(sourceSize:number,first:number,second:number,targetSize:number,target:number,direction:"left"|"right")=>{
+        const sourceEdge=direction==="left"?"right":"left",targetEdge=direction==="left"?"left":"right";
+        const a=anchor(sourceSize,first,sourceEdge),b=anchor(sourceSize,second,sourceEdge),next=anchor(targetSize,target,targetEdge);
+        if(!a||!b||!next)return "";
+        const middle=round((a.x+next.x)/2);
+        return `M${a.x} ${a.y}H${middle}V${b.y}H${b.x}M${middle} ${next.y}H${next.x}`;
+      };
+      const direct=(fromSize:number,fromIndex:number,fromEdge:"left"|"right",toSize:number,toIndex:number,toEdge:"left"|"right")=>{
+        const from=anchor(fromSize,fromIndex,fromEdge),to=anchor(toSize,toIndex,toEdge);
+        return from&&to?`M${from.x} ${from.y}H${to.x}`:"";
+      };
+      const paths=[
+        merge(16,0,1,8,0,"left"),merge(16,2,3,8,1,"left"),merge(8,0,1,4,0,"left"),direct(4,0,"right",2,0,"left"),
+        direct(4,1,"left",2,0,"right"),merge(8,2,3,4,1,"right"),merge(16,4,5,8,2,"right"),merge(16,6,7,8,3,"right")
+      ].filter(Boolean);
+      setGeometry({width:round(root.width),height:round(root.height),paths});
+    };
+    const schedule=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(update)};
+    const observer=typeof ResizeObserver!=="undefined"?new ResizeObserver(schedule):null;
+    observer?.observe(stage);window.addEventListener("resize",schedule);update();schedule();
+    return()=>{cancelAnimationFrame(frame);observer?.disconnect();window.removeEventListener("resize",schedule)};
+  },[]);
+  return <svg ref={svgRef} className="bracket-lines" viewBox={`0 0 ${geometry.width} ${geometry.height}`} preserveAspectRatio="none" aria-hidden="true"><g>{geometry.paths.map((path,index)=><path d={path} key={index}/>)}</g></svg>;
 }
 function TournamentBracketSkeleton({activeSize}:{activeSize:number}){
   return <>{([16,8,4,2] as const).flatMap(size=>size===activeSize?[]:Array.from({length:BRACKET_MATCH_COUNT[size]},(_,index)=><div className={`bracket-slot bracket-match-slot bracket-size-${size} bracket-index-${index} bracket-placeholder`} key={`${size}-${index}`}><strong>—</strong><small>pendiente</small></div>))}</>;
