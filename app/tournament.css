@@ -36,3 +36,74 @@
     background: #1d0e07 url("/backgrounds/tournament-bracket.webp") center / cover no-repeat;
   }
 }
+
+
+.tournament-title {
+  position: absolute;
+  z-index: 4;
+  top: clamp(12px, 2vh, 24px);
+  left: 50%;
+  margin: 0;
+  padding: clamp(6px, .7vw, 12px) clamp(22px, 2.2vw, 42px);
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #f4e5c6;
+  color: #2b160c;
+  font: 400 clamp(22px, 2.4vw, 42px)/1 "Lilita One", Georgia, serif;
+  letter-spacing: .04em;
+  pointer-events: none;
+}
+
+.tournament-stage::before,
+.tournament-stage::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  width: 48%;
+  height: 12%;
+  transform: translateX(-50%);
+  background: #f4e5c6;
+  pointer-events: none;
+}
+
+.tournament-stage::before {
+  top: 0;
+}
+
+.tournament-stage::after {
+  bottom: 0;
+}
+
+.tournament-actions {
+  position: absolute;
+  z-index: 4;
+  right: clamp(20px, 5.5vw, 106px);
+  bottom: clamp(20px, 3.5vh, 38px);
+  left: clamp(20px, 5.5vw, 106px);
+}
+
+@media (min-width: 721px) {
+  .tournament-actions {
+    position: absolute;
+  }
+}
+
+@media (max-width: 720px) {
+  .tournament-title {
+    top: 12px;
+    font-size: clamp(18px, 7vw, 28px);
+  }
+
+  .tournament-stage::before,
+  .tournament-stage::after {
+    width: 54%;
+    height: 10%;
+  }
+
+  .tournament-actions {
+    right: 4%;
+    bottom: 2.5%;
+    left: 4%;
+  }
+}
