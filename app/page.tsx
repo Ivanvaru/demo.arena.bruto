@@ -357,7 +357,7 @@ if(view==="tournament"){
     return <main><GameHeader/><section className="tournament-screen"><h2 className="tournament-title">TORNEO</h2><div className="tournament-stage">
       {tMatches?<div className="bracket-overlay">{tMatches.map((match,index)=><TournamentBracketMatch key={match.id} match={match} index={index} size={tBracketSize} onFight={startTournamentMatch}/>)}</div>:null}</div>
       <div className="tournament-actions"><div>{tournamentAction}</div><button className="secondary-game-button" onClick={()=>{setTChampion(false);setTEliminatedRound(null);setView("locker")}}>← VOLVER AL VESTUARIO</button></div>
-    </div></section></main>;
+    </section></main>;
   }
   if(view==="tournament-battle"&&tFighters&&tOpponent)return <main>
     <GameHeader/>
