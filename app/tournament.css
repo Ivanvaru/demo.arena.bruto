@@ -5,7 +5,7 @@
 .bracket-lines { position: absolute; inset: 0; width: 100%; height: 100%; }
 .bracket-lines { z-index: 1; pointer-events: none; }
 .bracket-lines path { fill: none; stroke: #71421d; stroke-linecap: round; stroke-linejoin: round; stroke-width: .48; }
-.bracket-overlay { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(0, 1fr)); column-gap: clamp(8px, 1vw, 20px); width: 100%; height: 100%; }
+.bracket-overlay { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, .95fr) minmax(0, .9fr) minmax(0, .95fr) minmax(0, 1fr) minmax(0, 1.1fr); grid-template-rows: repeat(4, minmax(0, 1fr)); column-gap: clamp(8px, 1vw, 20px); width: 100%; height: 100%; }
 .bracket-slot { position: relative; align-self: center; justify-self: center; width: min(100%, clamp(72px, 8.2vw, 152px)); display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; aspect-ratio: 3 / 1; padding: 7% 15%; border: 0; border-radius: 0; background: url("/backgrounds/tournament-slot-frame.png") center / 100% 100% no-repeat; box-shadow: none; color: #35190b; text-align: center; }
 .bracket-size-16.bracket-index-0,.bracket-size-16.bracket-index-1,.bracket-size-16.bracket-index-2,.bracket-size-16.bracket-index-3 { grid-column: 1; }
 .bracket-size-16.bracket-index-4,.bracket-size-16.bracket-index-5,.bracket-size-16.bracket-index-6,.bracket-size-16.bracket-index-7 { grid-column: 7; }
