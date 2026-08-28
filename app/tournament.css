@@ -1,24 +1,24 @@
-/* Torneo: una sola escena de pergamino y un cuadro HTML proporcional. */
-.tournament-screen { width: 100%; height: calc(100dvh - var(--ui-header-height)); padding: clamp(12px, 1.6vh, 22px) clamp(16px, 2vw, 36px); overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: clamp(10px, 1.4vh, 18px); background: url("/backgrounds/tournament-clean.jpg") center / 100% 100% no-repeat; }
-.tournament-title { justify-self: center; margin: 0; padding: clamp(6px, .7vw, 12px) clamp(22px, 2.2vw, 42px); border: 3px solid #3d2110; border-radius: 999px; background: #f4e5c6; box-shadow: 0 3px 0 #5d3319; color: #2b160c; font: 400 clamp(22px, 2.4vw, 42px)/1 "Lilita One", Georgia, serif; letter-spacing: .04em; }
+/* Presentación independiente del Torneo: fondo y casillas aportados. */
+.tournament-screen { width: 100%; height: calc(100dvh - var(--ui-header-height)); padding: clamp(14px, 2vh, 28px) clamp(18px, 2.2vw, 42px); box-sizing: border-box; overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: clamp(10px, 1.5vh, 18px); background: url("/backgrounds/tournament-background-v2.jpg") center / 100% 100% no-repeat; }
+.tournament-title { justify-self: center; z-index: 3; margin: 0; padding: clamp(5px, .65vw, 10px) clamp(24px, 2.5vw, 48px); border: 0; border-radius: 0; background: url("/backgrounds/tournament-slot-frame.png") center / 100% 100% no-repeat; box-shadow: none; color: #2a1509; font: 400 clamp(22px, 2.4vw, 42px)/1 "Lilita One", Georgia, serif; letter-spacing: .04em; }
 .tournament-stage { position: relative; isolation: isolate; width: 100%; min-width: 0; min-height: 0; height: 100%; }
 .bracket-lines,.bracket-overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
 .bracket-lines { z-index: 1; pointer-events: none; }
-.bracket-lines path { fill: none; stroke: #5d3218; stroke-linecap: round; stroke-linejoin: round; stroke-width: .5; }
+.bracket-lines path { fill: none; stroke: #71421d; stroke-linecap: round; stroke-linejoin: round; stroke-width: .48; }
 .bracket-overlay { z-index: 2; }
-.bracket-slot { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; padding: .55% 1%; border: clamp(1px, .13vw, 3px) solid #4b2915; border-radius: clamp(3px, .35vw, 7px); background: linear-gradient(180deg, #fff1ca, #e7bd78); box-shadow: 0 clamp(1px, .2vw, 3px) 0 #7d4722; color: #2d1b0d; text-align: center; }
-.bracket-size-16 { width: 15%; min-height: 10%; }
-.bracket-size-8 { width: 14%; min-height: 12%; }
-.bracket-size-4,.bracket-size-2 { width: 10%; min-height: 13%; }
-.bracket-placeholder { opacity: .56; background: rgba(255, 234, 185, .72); }
+.bracket-slot { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; aspect-ratio: 3 / 1; padding: 6% 14%; border: 0; border-radius: 0; background: url("/backgrounds/tournament-slot-frame.png") center / 100% 100% no-repeat; box-shadow: none; color: #35190b; text-align: center; }
+.bracket-size-16 { width: 16%; }
+.bracket-size-8 { width: 15%; }
+.bracket-size-4,.bracket-size-2 { width: 12%; }
+.bracket-placeholder { opacity: .52; }
 .bracket-slot strong,.bracket-slot small { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.bracket-slot strong { font: 900 clamp(7px, .78vw, 14px)/1.05 "Fredoka", Arial, sans-serif; }
-.bracket-slot small { font: 800 clamp(5px, .52vw, 9px)/1.05 "Fredoka", Arial, sans-serif; text-transform: uppercase; }
-.bracket-slot b { margin: .17em 0; color: #8e5a16; font: 900 clamp(5px, .5vw, 8px)/1 "Fredoka", Arial, sans-serif; }
+.bracket-slot strong { font: 900 clamp(7px, .8vw, 14px)/1.05 "Fredoka", Arial, sans-serif; }
+.bracket-slot small { font: 800 clamp(5px, .5vw, 9px)/1.05 "Fredoka", Arial, sans-serif; text-transform: uppercase; }
+.bracket-slot b { margin: .18em 0; color: #a65313; font: 900 clamp(5px, .5vw, 8px)/1 "Fredoka", Arial, sans-serif; }
 .bracket-slot .bracket-winner { color: #16732a; }
 .bracket-slot-action { margin-top: 2px; padding: 0; border: 0; background: none; color: #9f3413; font: 900 clamp(6px, .52vw, 9px) "Fredoka", Arial, sans-serif; letter-spacing: .05em; text-decoration: underline; cursor: pointer; }
-.tournament-actions { width: 100%; min-height: clamp(42px, 5vh, 58px); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.tournament-actions { z-index: 3; width: 100%; min-height: clamp(42px, 5vh, 58px); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .tournament-actions > div { min-width: 0; }
 .tournament-actions .primary-game-button,.tournament-actions .secondary-game-button { min-width: clamp(150px, 18vw, 300px); padding: clamp(7px, .7vw, 12px) clamp(14px, 1.2vw, 22px); font-size: clamp(8px, .8vw, 13px); }
-@media (max-width: 720px) { .tournament-screen { padding: 12px; gap: 10px; } .tournament-title { font-size: clamp(18px, 7vw, 28px); } .bracket-size-16 { width: 18%; } .bracket-size-8 { width: 16%; } .bracket-size-4,.bracket-size-2 { width: 13%; } .tournament-actions { min-height: 38px; gap: 8px; } .tournament-actions .primary-game-button,.tournament-actions .secondary-game-button { min-width: 0; } }
+@media (max-width: 720px) { .tournament-screen { padding: 12px; gap: 10px; } .tournament-title { font-size: clamp(18px, 7vw, 28px); } .bracket-size-16 { width: 20%; } .bracket-size-8 { width: 18%; } .bracket-size-4,.bracket-size-2 { width: 15%; } .tournament-actions { min-height: 38px; gap: 8px; } .tournament-actions .primary-game-button,.tournament-actions .secondary-game-button { min-width: 0; } }
 
