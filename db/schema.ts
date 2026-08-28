@@ -38,3 +38,31 @@ export const characters = sqliteTable("characters", {
   eyebrowStyleId: text("eyebrow_style_id").notNull(),
   updatedAt: integer("updated_at").notNull(),
 });
+
+
+/** A player-created clan. `id` is a random token minted at creation time —
+ * kept as a plain string (no autoincrement) to match this schema's style. */
+export const clans = sqliteTable("clans", {
+    id: text("id").primaryKey(),
+    name: text("name").notNull(),
+    leaderUsername: text("leader_username").notNull(),
+    createdAt: integer("created_at").notNull(),
+});
+
+/** Clan roster. `username` is the primary key so a player can belong to at
+ * most one clan at a time — joining a new clan simply overwrites the row. */
+export const clanMembers = sqliteTable("clan_members", {
+    username: text("username").primaryKey(),
+    clanId: text("clan_id").notNull(),
+    role: text("role").notNull().default("member"),
+    joinedAt: integer("joined_at").notNull(),
+});
+
+/** Pending clan invites. `username` is the primary key: a player can only
+ * have one open invite at a time (a newer invite replaces an older one). */
+export const clanInvites = sqliteTable("clan_invites", {
+    username: text("username").primaryKey(),
+    clanId: text("clan_id").notNull(),
+    invitedBy: text("invited_by").notNull(),
+    createdAt: integer("created_at").notNull(),
+});
