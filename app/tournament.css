@@ -1,12 +1,12 @@
 /* Presentación independiente del Torneo: fondo y casillas aportados. */
 .tournament-screen { width: 100%; height: calc(100dvh - var(--ui-header-height)); padding: clamp(14px, 2vh, 28px) clamp(18px, 2.2vw, 42px); box-sizing: border-box; overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: clamp(10px, 1.5vh, 18px); background: url("/backgrounds/tournament-background-v2.jpg") center / 100% 100% no-repeat; }
 .tournament-title { justify-self: center; z-index: 3; margin: 0; padding: clamp(5px, .65vw, 10px) clamp(24px, 2.5vw, 48px); border: 0; border-radius: 0; background: url("/backgrounds/tournament-slot-frame.png") center / 100% 100% no-repeat; box-shadow: none; color: #2a1509; font: 400 clamp(22px, 2.4vw, 42px)/1 "Lilita One", Georgia, serif; letter-spacing: .04em; }
-.tournament-stage { position: relative; isolation: isolate; width: 100%; min-width: 0; min-height: 0; height: 100%; }
+.tournament-stage { position: relative; isolation: isolate; width: min(84%, 1500px); min-width: 0; min-height: 0; height: 100%; margin: 0 auto; }
 .bracket-lines { position: absolute; inset: 0; width: 100%; height: 100%; }
 .bracket-lines { z-index: 1; pointer-events: none; }
 .bracket-lines path { fill: none; stroke: #71421d; stroke-linecap: round; stroke-linejoin: round; stroke-width: .48; }
-.bracket-overlay { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(0, 1fr)); column-gap: clamp(4px, .7vw, 16px); width: 100%; height: 100%; }
-.bracket-slot { position: relative; align-self: center; justify-self: center; width: min(100%, clamp(90px, 10vw, 180px)); display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; aspect-ratio: 3 / 1; padding: 7% 16%; border: 0; border-radius: 0; background: url("/backgrounds/tournament-slot-frame.png") center / 100% 100% no-repeat; box-shadow: none; color: #35190b; text-align: center; }
+.bracket-overlay { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(0, 1fr)); column-gap: clamp(8px, 1vw, 20px); width: 100%; height: 100%; }
+.bracket-slot { position: relative; align-self: center; justify-self: center; width: min(100%, clamp(72px, 8.2vw, 152px)); display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; aspect-ratio: 3 / 1; padding: 7% 15%; border: 0; border-radius: 0; background: url("/backgrounds/tournament-slot-frame.png") center / 100% 100% no-repeat; box-shadow: none; color: #35190b; text-align: center; }
 .bracket-size-16.bracket-index-0,.bracket-size-16.bracket-index-1,.bracket-size-16.bracket-index-2,.bracket-size-16.bracket-index-3 { grid-column: 1; }
 .bracket-size-16.bracket-index-4,.bracket-size-16.bracket-index-5,.bracket-size-16.bracket-index-6,.bracket-size-16.bracket-index-7 { grid-column: 7; }
 .bracket-size-16.bracket-index-0,.bracket-size-16.bracket-index-4 { grid-row: 1; }.bracket-size-16.bracket-index-1,.bracket-size-16.bracket-index-5 { grid-row: 2; }.bracket-size-16.bracket-index-2,.bracket-size-16.bracket-index-6 { grid-row: 3; }.bracket-size-16.bracket-index-3,.bracket-size-16.bracket-index-7 { grid-row: 4; }
@@ -24,5 +24,5 @@
 .tournament-actions { z-index: 3; width: 100%; min-height: clamp(42px, 5vh, 58px); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .tournament-actions > div { min-width: 0; }
 .tournament-actions .primary-game-button,.tournament-actions .secondary-game-button { min-width: clamp(150px, 18vw, 300px); padding: clamp(7px, .7vw, 12px) clamp(14px, 1.2vw, 22px); font-size: clamp(8px, .8vw, 13px); }
-@media (max-width: 720px) { .tournament-screen { padding: 12px; gap: 10px; } .tournament-title { font-size: clamp(18px, 7vw, 28px); } .bracket-overlay { column-gap: 2px; } .bracket-slot { width: min(100%, 76px); } .tournament-actions { min-height: 38px; gap: 8px; } .tournament-actions .primary-game-button,.tournament-actions .secondary-game-button { min-width: 0; } }
+@media (max-width: 720px) { .tournament-screen { padding: 12px; gap: 10px; } .tournament-title { font-size: clamp(18px, 7vw, 28px); } .tournament-stage { width: 90%; } .bracket-overlay { column-gap: 2px; } .bracket-slot { width: 100%; padding-inline: 13%; } .tournament-actions { min-height: 38px; gap: 8px; } .tournament-actions .primary-game-button,.tournament-actions .secondary-game-button { min-width: 0; } }
 
