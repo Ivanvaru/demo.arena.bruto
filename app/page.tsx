@@ -239,27 +239,22 @@ const STAT_LABELS={strength:"Fuerza",speed:"Velocidad",agility:"Agilidad",resist
 function StatsPanel({fighter}:{fighter:BattleFighter}){
   return <div className="stats-panel">{Object.entries(fighter.stats).map(([key,value])=><div className="stat-row" key={key}><span>{STAT_LABELS[key as keyof typeof STAT_LABELS]}</span><div><i style={{width:`${Math.min(100,value*12)}%`}}/></div><b>{value}</b></div>)}</div>;
 }
-const BRACKET_POSITIONS:{[key:number]:Array<{left:number;top:number}>}={
-  16:[{left:9,top:11},{left:9,top:35},{left:9,top:59},{left:9,top:83},{left:91,top:11},{left:91,top:35},{left:91,top:59},{left:91,top:83}],
-  8:[{left:25,top:23},{left:25,top:71},{left:75,top:23},{left:75,top:71}],
-  4:[{left:39,top:47},{left:61,top:47}],
-  2:[{left:50,top:47}],
-};
+const BRACKET_MATCH_COUNT:{[key:number]:number}={16:8,8:4,4:2,2:1};
 function TournamentBracketLines(){
   return <svg className="bracket-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
     <g>
-      <path d="M15 11H17V23H19.5M15 35H17V23M15 59H17V71H19.5M15 83H17V71M30.5 23H33V47H35M30.5 71H33V47M43 47H45.5" />
-      <path d="M85 11H83V23H80.5M85 35H83V23M85 59H83V71H80.5M85 83H83V71M69.5 23H67V47H65M69.5 71H67V47M57 47H54.5" />
+      <path d="M13.5 12.5H14.5V25H15.4M13.5 37.5H14.5V25M13.5 62.5H14.5V75H15.4M13.5 87.5H14.5V75M27.4 25H28.8V50H30.2M27.4 75H28.8V50M41.2 50H44.5" />
+      <path d="M86.5 12.5H85.5V25H84.6M86.5 37.5H85.5V25M86.5 62.5H85.5V75H84.6M86.5 87.5H85.5V75M72.6 25H71.2V50H69.8M72.6 75H71.2V50M58.8 50H55.5" />
     </g>
   </svg>;
 }
 function TournamentBracketSkeleton({activeSize}:{activeSize:number}){
-  return <>{([16,8,4,2] as const).flatMap(size=>size===activeSize?[]:BRACKET_POSITIONS[size].map((position,index)=><div className={`bracket-slot bracket-match-slot bracket-size-${size} bracket-placeholder`} key={`${size}-${index}`} style={{left:`${position.left}%`,top:`${position.top}%`}}><strong>—</strong><small>pendiente</small></div>))}</>;
+  return <>{([16,8,4,2] as const).flatMap(size=>size===activeSize?[]:Array.from({length:BRACKET_MATCH_COUNT[size]},(_,index)=><div className={`bracket-slot bracket-match-slot bracket-size-${size} bracket-index-${index} bracket-placeholder`} key={`${size}-${index}`}><strong>—</strong><small>pendiente</small></div>))}</>;
 }
 function TournamentBracketMatch({match,index,size,onFight}:{match:TournamentMatch;index:number;size:number;onFight:()=>void}){
   const winner=match.winnerId?(match.winnerId===match.a.id?match.a:match.b):null,playerMatch=match.a.isPlayer||match.b.isPlayer;
   const content=(fighter:TournamentFighter)=><><strong className={winner===fighter?"bracket-winner":""}>{fighter.name}</strong><small>{fighter.className}</small></>;
-  const position=BRACKET_POSITIONS[size][index];return <div className={`bracket-slot bracket-match-slot bracket-size-${size}`} style={{left:`${position.left}%`,top:`${position.top}%`}}>{content(match.a)}<b>VS</b>{content(match.b)}{playerMatch&&!winner?<button className="bracket-slot-action" onClick={onFight}>LUCHAR</button>:null}</div>;
+  return <div className={`bracket-slot bracket-match-slot bracket-size-${size} bracket-index-${index}`}>{content(match.a)}<b>VS</b>{content(match.b)}{playerMatch&&!winner?<button className="bracket-slot-action" onClick={onFight}>LUCHAR</button>:null}</div>;
 }
 function GameHeader(){return <header className="topbar game-header"><img className="game-header-logo" src="/brand/logo-horizontal.webp" alt="Liga de Brutos"/><img className="game-header-season" src="/brand/game-header-season.webp" alt="Temporada I"/></header>}
 
