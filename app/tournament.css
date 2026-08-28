@@ -1,109 +1,119 @@
 /*
- * Torneo: el lienzo mantiene la proporción de la plantilla y la capa del
- * bracket usa exactamente el mismo sistema de coordenadas.
+ * Pantalla de Torneo: el bracket conserva una única superficie proporcional y
+ * las acciones ocupan una franja independiente.
  */
-@media (min-width: 721px) {
-  .tournament-screen {
-    position: relative;
-    display: block;
-    place-items: initial;
-    overflow: hidden;
-    background: #1d0e07 url("/backgrounds/tournament-bracket.webp") center / cover no-repeat;
-  }
-
-  .tournament-stage {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: auto;
-    max-width: none;
-    margin: 0;
-    transform: translate(-50%, -50%);
-    background-size: 100% auto;
-  }
-
-  .tournament-actions {
-    position: absolute;
-    right: clamp(20px, 5.5vw, 106px);
-    bottom: clamp(20px, 3.5vh, 38px);
-    left: clamp(20px, 5.5vw, 106px);
-  }
+.tournament-screen {
+  width: 100%;
+  height: calc(100dvh - var(--ui-header-height));
+  padding: clamp(12px, 1.6vh, 22px) clamp(16px, 2vw, 36px);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: clamp(10px, 1.4vh, 18px);
+  background: #1d0e07 url("/backgrounds/tournament-bracket.webp") center / cover no-repeat;
 }
-
-@media (max-width: 720px) {
-  .tournament-screen {
-    background: #1d0e07 url("/backgrounds/tournament-bracket.webp") center / cover no-repeat;
-  }
-}
-
 
 .tournament-title {
-  position: absolute;
+  position: static;
   z-index: 4;
-  top: clamp(12px, 2vh, 24px);
-  left: 50%;
+  justify-self: center;
   margin: 0;
   padding: clamp(6px, .7vw, 12px) clamp(22px, 2.2vw, 42px);
-  transform: translateX(-50%);
   border-radius: 999px;
   background: #f4e5c6;
   color: #2b160c;
   font: 400 clamp(22px, 2.4vw, 42px)/1 "Lilita One", Georgia, serif;
   letter-spacing: .04em;
-  pointer-events: none;
 }
 
-.tournament-stage::before,
-.tournament-stage::after {
+.tournament-stage {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  align-self: center;
+  transform: none;
+  background: url("/backgrounds/tournament-bracket.webp") center / contain no-repeat;
+  aspect-ratio: 1672 / 941;
+}
+
+.tournament-stage::before {
   content: "";
   position: absolute;
   z-index: 1;
-  left: 50%;
-  width: 48%;
-  height: 12%;
-  transform: translateX(-50%);
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 18%;
   background: #f4e5c6;
   pointer-events: none;
 }
 
-.tournament-stage::before {
-  top: 0;
+.tournament-stage::after {
+  display: none;
 }
 
-.tournament-stage::after {
-  bottom: 0;
+.bracket-overlay {
+  z-index: 2;
 }
 
 .tournament-actions {
-  position: absolute;
+  position: static;
   z-index: 4;
-  right: clamp(20px, 5.5vw, 106px);
-  bottom: clamp(20px, 3.5vh, 38px);
-  left: clamp(20px, 5.5vw, 106px);
+  width: 100%;
+  min-height: clamp(42px, 5vh, 58px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 16px;
 }
 
-@media (min-width: 721px) {
-  .tournament-actions {
-    position: absolute;
-  }
+.tournament-actions > div {
+  min-width: 0;
+  justify-self: start;
+}
+
+.tournament-actions .primary-game-button,
+.tournament-actions .secondary-game-button {
+  min-width: clamp(150px, 18vw, 300px);
+  padding: clamp(7px, .7vw, 12px) clamp(14px, 1.2vw, 22px);
+  font-size: clamp(8px, .8vw, 13px);
+}
+
+.tournament-actions .secondary-game-button {
+  justify-self: end;
 }
 
 @media (max-width: 720px) {
+  .tournament-screen {
+    padding: 12px;
+    gap: 10px;
+  }
+
   .tournament-title {
-    top: 12px;
     font-size: clamp(18px, 7vw, 28px);
   }
 
-  .tournament-stage::before,
-  .tournament-stage::after {
-    width: 54%;
-    height: 10%;
+  .tournament-stage {
+    width: 100%;
+    height: auto;
+    max-height: 56.28vw;
+  }
+
+  .tournament-stage::before {
+    height: 16%;
   }
 
   .tournament-actions {
-    right: 4%;
-    bottom: 2.5%;
-    left: 4%;
+    min-height: 38px;
+    gap: 8px;
+  }
+
+  .tournament-actions .primary-game-button,
+  .tournament-actions .secondary-game-button {
+    min-width: 0;
   }
 }
