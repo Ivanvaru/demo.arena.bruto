@@ -1126,8 +1126,6 @@ main:has(.encounter-screen){
 }
 
 /* Torneo: la plantilla ya aporta marco, conexiones y recuadros. */
-.tournament-screen{width:100%;height:calc(100dvh - var(--ui-header-height));padding:0;background:#1d0e07;overflow:hidden;display:grid;place-items:center}
-.tournament-stage{position:relative;width:auto;height:min(calc(100dvh - var(--ui-header-height)),56.28vw);max-width:100%;margin:0 auto;background:url("/backgrounds/tournament-bracket.webp") center/contain no-repeat;aspect-ratio:1672/941}
 .tournament-heading{position:absolute;z-index:2;top:7.4%;left:50%;width:38%;transform:translateX(-50%);text-align:center;color:#3b2415}
 .tournament-heading small{display:block;font-family:"Fredoka",Arial,sans-serif;font-size:clamp(8px,.75vw,13px);font-weight:900;letter-spacing:.13em}
 .tournament-heading h2{margin:4px 0 2px;font-family:"Lilita One",Georgia,serif;font-size:clamp(18px,2vw,36px);line-height:1;color:#2b160c}
@@ -1141,12 +1139,6 @@ main:has(.encounter-screen){
 .bracket-round-slot{min-height:4.8%;flex-direction:column;padding:1% 7%}
 .bracket-round-slot b{font:900 clamp(5px,.48vw,8px) "Fredoka",Arial,sans-serif;color:#8e5a16;line-height:1}
 .bracket-slot-action{margin-top:2px;padding:0;border:0;background:none;color:#9f3413;font:900 clamp(6px,.52vw,9px) "Fredoka",Arial,sans-serif;letter-spacing:.05em;text-decoration:underline;cursor:pointer}
-.tournament-actions{position:absolute;z-index:3;right:5.5%;bottom:3.5%;left:5.5%;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.tournament-actions .primary-game-button,.tournament-actions .secondary-game-button{min-width:clamp(150px,18vw,300px);padding:clamp(7px,.7vw,12px) clamp(14px,1.2vw,22px);font-size:clamp(8px,.8vw,13px)}
-.tournament-actions>div{min-width:clamp(150px,18vw,300px)}
 @media(max-width:720px){
-  .tournament-stage{height:min(calc(100dvh - var(--ui-header-height)),56.28vw)}
   .tournament-heading{width:42%}
-  .tournament-actions{right:4%;bottom:2.5%;left:4%;gap:8px}
-  .tournament-actions .primary-game-button,.tournament-actions .secondary-game-button,.tournament-actions>div{min-width:0}
 }
