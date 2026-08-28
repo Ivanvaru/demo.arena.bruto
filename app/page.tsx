@@ -292,7 +292,7 @@ function SkinToneRow({label,tones,value,onSelect}:{label:string;tones:typeof SKI
 }
 
 export default function Home(){
-  const [view,setView]=useState<"splash"|"login"|"creator"|"locker"|"encounter"|"battle"|"lab"|"tournament"|"tournament-battle">("splash");
+  const [view,setView]=useState<"splash"|"login"|"creator"|"locker"|"encounter"|"battle"|"lab"|"tournament"|"tournament-battle"|"clan">("splash");
   const [outfit,setOutfit]=useState<Outfit>(DEFAULT_OUTFIT);
   const [identity,setIdentity]=useState<PlayerIdentity>(DEFAULT_IDENTITY);
   useEffect(()=>{setOutfit(loadOutfit());setIdentity(loadIdentity())},[]);
@@ -307,7 +307,7 @@ export default function Home(){
   const applyCharacter=useCallback((character:SavedCharacter|null)=>{
     if(!character){setHasCharacter(false);return}
     setHasCharacter(true);updateIdentity({name:character.name,skinToneId:character.skinToneId,eyeStyleId:character.eyeStyleId,eyeColor:character.eyeColor,eyebrowStyleId:character.eyebrowStyleId});updateOutfit({...CLASS_CLOTHING[character.className],hairStyle:character.hairStyle as Outfit["hairStyle"],hairColor:character.hairColor});setPlayerClass(character.className);setLevel(character.level);setXp(character.xp);setWins(character.wins);setLosses(character.losses);
-  },[updateIdentity,updateOutfit]);
+  },[updateIdentity,updateOutfit]);type ClanMemberRow={username:string;clanId:string;role:string;joinedAt:number};type ClanRow={id:string;name:string;leaderUsername:string;createdAt:number;memberCount?:number};type ClanInviteRow={username:string;clanId:string;invitedBy:string;createdAt:number};type ClanStatus={clan:ClanRow|null;members:ClanMemberRow[];myRole:string|null;clans:ClanRow[];invite:ClanInviteRow|null};const [clanStatus,setClanStatus]=useState<ClanStatus|null>(null);const [clanLoading,setClanLoading]=useState(false);const [clanError,setClanError]=useState<string|null>(null);const [clanNameInput,setClanNameInput]=useState("");const [inviteInput,setInviteInput]=useState("");const refreshClan=useCallback(async()=>{try{const response=await fetch("/api/clan");if(!response.ok)return;const data=(await response.json())as ClanStatus;setClanStatus(data);}catch{}},[]);const clanAction=useCallback(async(body:Record<string,unknown>)=>{setClanLoading(true);setClanError(null);try{const response=await fetch("/api/clan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const data=await response.json().catch(()=>({}));if(!response.ok){setClanError(typeof data.error==="string"?data.error:"No se pudo completar la accion.");setClanLoading(false);return;}await refreshClan();}catch{setClanError("Error de conexion.");}setClanLoading(false);},[refreshClan]);useEffect(()=>{if(view==="clan")refreshClan();},[view,refreshClan]);
   useEffect(()=>{(async()=>{try{const response=await fetch("/api/auth/me");if(!response.ok)return;const data=(await response.json())as AuthResponse;setUsername(data.username);applyCharacter(data.character)}catch{/* sin sesión activa o backend no disponible: se queda en la pantalla de acceso */}})()},[applyCharacter]);
   const saveCharacter=useCallback(async(overrides?:Partial<{level:number;xp:number;wins:number;losses:number}>)=>{
     try{
