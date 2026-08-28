@@ -1,5 +1,5 @@
 /* Torneo: una sola escena de pergamino y un cuadro HTML proporcional. */
-.tournament-screen { width: 100%; height: calc(100dvh - var(--ui-header-height)); padding: clamp(12px, 1.6vh, 22px) clamp(16px, 2vw, 36px); overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: clamp(10px, 1.4vh, 18px); background: url("/backgrounds/tournament-clean.jpg") center / cover no-repeat; }
+.tournament-screen { width: 100%; height: calc(100dvh - var(--ui-header-height)); padding: clamp(12px, 1.6vh, 22px) clamp(16px, 2vw, 36px); overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: clamp(10px, 1.4vh, 18px); background: #1b0d06 url("/backgrounds/tournament-clean.jpg") center / contain no-repeat; }
 .tournament-title { justify-self: center; margin: 0; padding: clamp(6px, .7vw, 12px) clamp(22px, 2.2vw, 42px); border: 3px solid #3d2110; border-radius: 999px; background: #f4e5c6; box-shadow: 0 3px 0 #5d3319; color: #2b160c; font: 400 clamp(22px, 2.4vw, 42px)/1 "Lilita One", Georgia, serif; letter-spacing: .04em; }
 .tournament-stage { position: relative; isolation: isolate; width: 100%; min-width: 0; min-height: 0; height: 100%; }
 .bracket-lines,.bracket-overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
