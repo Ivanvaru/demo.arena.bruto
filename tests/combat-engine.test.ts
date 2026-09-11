@@ -1,7 +1,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import {CLASS_NAMES,makeProfile,simulateBattle} from "../app/game/engine.ts";
+import {CLASS_NAMES,makeProfile,simulateBattle,statBonusForLevel} from "../app/game/engine.ts";
 import {pickRival,RIVAL_ROSTER} from "../app/game/roster.ts";
+
+test("statBonusForLevel grants +1 stat point every two levels after the first",()=>{
+  assert.equal(statBonusForLevel(1),0);
+  assert.equal(statBonusForLevel(2),0);
+  assert.equal(statBonusForLevel(3),1);
+  assert.equal(statBonusForLevel(4),1);
+  assert.equal(statBonusForLevel(5),2);
+  assert.equal(statBonusForLevel(10),4);
+});
 
 test("a seed always produces the same combat",()=>{
   const left=makeProfile("Ragnar","Luchador"),right=makeProfile("Brakka","Atleta");
