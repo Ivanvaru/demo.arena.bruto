@@ -8,8 +8,8 @@ import {pickRival,RIVAL_ROSTER,type RivalCard} from "./game/roster";
 import rigDefinition from "./game/rig.json";
 import {motionTiming,REACTION_TIMINGS} from "./game/motion";
 import {MOTIONS,poseAt,poseTransform,type MotionName} from "./game/animation-controller";
-import {DEFAULT_OUTFIT,loadOutfit,saveOutfit,HAIR_STYLES,HAIR_COLORS,type Outfit} from "./game/wardrobe";
-import {DEFAULT_IDENTITY,loadIdentity,saveIdentity,SKIN_TONES,DEFAULT_SKIN_TONE_ID,EYE_STYLES,EYE_COLORS,EYEBROW_STYLES,CLASS_CLOTHING,CLASS_BODY_TEXTURE,CLASS_DRESSED_TEXTURE,DEFAULT_BODY_TEXTURE,FACE_PLACEHOLDER_GEOMETRY,resolveFaceAppearance,type PlayerIdentity,type FaceAppearance} from "./game/character";
+import {loadOutfit,saveOutfit,HAIR_STYLES,HAIR_COLORS,type Outfit} from "./game/wardrobe";
+import {loadIdentity,saveIdentity,SKIN_TONES,DEFAULT_SKIN_TONE_ID,EYE_STYLES,EYE_COLORS,EYEBROW_STYLES,CLASS_CLOTHING,CLASS_BODY_TEXTURE,CLASS_DRESSED_TEXTURE,DEFAULT_BODY_TEXTURE,FACE_PLACEHOLDER_GEOMETRY,resolveFaceAppearance,type PlayerIdentity,type FaceAppearance} from "./game/character";
 import {xpToNextLevel,xpReward,applyXpGain} from "./game/leveling";
 import {shuffle,pairUp,roundName,roundResolved,collectWinners,type TournamentFighter,type TournamentMatch} from "./game/tournament";
 
@@ -66,7 +66,7 @@ const HAIR_ARTWORK_LAYOUT={
 function RigHairArtwork({style,color,instance}:{style:keyof typeof HAIR_ARTWORK_LAYOUT;color:string;instance:string}){
   const {asset,x,y,size}=HAIR_ARTWORK_LAYOUT[style];
   const maskId=`hair-mask-${style}-${instance}`;
-  return <><mask id={maskId} maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" style={{maskType:"alpha" as "alpha"}}><image href={asset} x={x} y={y} width={size} height={size} preserveAspectRatio="none"/></mask><rect className={`rig-hair-art rig-hair-${style}`} x={x} y={y} width={size} height={size} fill={color} mask={`url(#${maskId})`}/></>;
+  return <><mask id={maskId} maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" style={{maskType:"alpha" as const}}><image href={asset} x={x} y={y} width={size} height={size} preserveAspectRatio="none"/></mask><rect className={`rig-hair-art rig-hair-${style}`} x={x} y={y} width={size} height={size} fill={color} mask={`url(#${maskId})`}/></>;
 }
 function Bone({name,pivot,children}:{name:string;pivot:{x:number;y:number};children:ReactNode}){return <g className={`skeleton-bone bone-${name}`} style={{transformOrigin:`${pivot.x}px ${pivot.y}px`}}>{children}</g>}
 function limbPivot(id:string){return LAYER_BY_ID.get(id)!.pivot_global}
@@ -188,7 +188,8 @@ function LegacyBrute({side,variant,attacking,attackKind,hit,critical,reaction,de
 
 type MotionControl={speed?:number;paused?:boolean;restart?:number;seek?:number;onProgress?:(progress:number)=>void};
 function useMotionController(rootRef:RefObject<HTMLDivElement|null>,motion:MotionName,control?:MotionControl){
-  const pausedRef=useRef(Boolean(control?.paused)),speedRef=useRef(control?.speed??1),progressRef=useRef(control?.onProgress);pausedRef.current=Boolean(control?.paused);speedRef.current=control?.speed??1;progressRef.current=control?.onProgress;
+  const pausedRef=useRef(Boolean(control?.paused)),speedRef=useRef(control?.speed??1),progressRef=useRef(control?.onProgress);
+  useLayoutEffect(()=>{pausedRef.current=Boolean(control?.paused);speedRef.current=control?.speed??1;progressRef.current=control?.onProgress;});
   useEffect(()=>{const root=rootRef.current;if(!root)return;const definition=MOTIONS[motion],targets=new Map<string,HTMLElement|SVGElement>();for(const motionTrack of definition.tracks){const target=motionTrack.selector==="root"?root.querySelector(".skeleton-character-rig"):root.querySelector(motionTrack.selector);if(target)targets.set(motionTrack.selector,target as HTMLElement|SVGElement)}
     const reset=()=>{root.querySelectorAll<HTMLElement|SVGElement>(".skeleton-character-rig,.skeleton-bone,.shadow").forEach(element=>{element.style.transform=""})};reset();
     const viewport=window.innerWidth,isLab=Boolean(root.closest(".lab-demo")),advance=isLab?Math.max(120,Math.min(300,viewport*.22)):viewport<=720?Math.max(72,Math.min(115,viewport*.22)):Math.max(120,Math.min(285,viewport*.19));let elapsed=Math.max(0,Math.min(1,control?.seek??0))*definition.duration,last=performance.now(),frame=0,lastReport=-1;
@@ -319,9 +320,8 @@ function SkinToneRow({label,tones,value,onSelect}:{label:string;tones:typeof SKI
 
 export default function Home(){
   const [view,setView]=useState<"splash"|"login"|"creator"|"locker"|"encounter"|"battle"|"lab"|"tournament"|"tournament-battle">("splash");
-  const [outfit,setOutfit]=useState<Outfit>(DEFAULT_OUTFIT);
-  const [identity,setIdentity]=useState<PlayerIdentity>(DEFAULT_IDENTITY);
-  useEffect(()=>{setOutfit(loadOutfit());setIdentity(loadIdentity())},[]);
+  const [outfit,setOutfit]=useState<Outfit>(loadOutfit);
+  const [identity,setIdentity]=useState<PlayerIdentity>(loadIdentity);
   const updateOutfit=useCallback((patch:Partial<Outfit>)=>{setOutfit(current=>{const next={...current,...patch};saveOutfit(next);return next})},[]);
   const updateIdentity=useCallback((patch:Partial<PlayerIdentity>)=>{setIdentity(current=>{const next={...current,...patch};saveIdentity(next);return next})},[]);
   const face=resolveFaceAppearance(identity);
