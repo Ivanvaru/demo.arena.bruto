@@ -7,7 +7,7 @@ function toHex(bytes: ArrayBuffer | Uint8Array): string {
   return Array.from(view).map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
-function fromHex(hex: string): Uint8Array {
+function fromHex(hex: string): Uint8Array<ArrayBuffer> {
   const bytes = new Uint8Array(hex.length / 2);
   for (let i = 0; i < bytes.length; i++) bytes[i] = parseInt(hex.substring(i * 2, i * 2 + 2), 16);
   return bytes;
@@ -16,7 +16,7 @@ function fromHex(hex: string): Uint8Array {
 /** Derives a PBKDF2-SHA256 hash for `password`. Generates a fresh random salt unless
  * `saltHex` is given (used when re-checking a password against a stored hash). */
 export async function hashPassword(password: string, saltHex?: string): Promise<{ hash: string; salt: string }> {
-  const salt = saltHex ? fromHex(saltHex) : crypto.getRandomValues(new Uint8Array(16));
+  const salt: Uint8Array<ArrayBuffer> = saltHex ? fromHex(saltHex) : crypto.getRandomValues(new Uint8Array(16));
   const keyMaterial = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
   const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: PBKDF2_ITERATIONS, hash: "SHA-256" }, keyMaterial, 256);
   return { hash: toHex(bits), salt: toHex(salt) };
