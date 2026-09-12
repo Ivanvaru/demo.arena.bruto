@@ -14,7 +14,7 @@ export const CLASS_TEMPLATES:Record<FighterClass,{stats:Stats;title:string}>={
   Luchador:{title:"El combatiente",stats:{strength:5,speed:3,agility:3,resistance:5,precision:3,luck:2}},
   Aventurero:{title:"El imprevisible",stats:{strength:3,speed:4,agility:4,resistance:4,precision:5,luck:5}},
   Atleta:{title:"La centella",stats:{strength:2,speed:5,agility:5,resistance:3,precision:4,luck:2}},
-  Coloso:{title:"El rompefilas",stats:{strength:6,speed:2,agility:1,resistance:6,precision:3,luck:2}},
+  Coloso:{title:"El rompefilas",stats:{strength:5,speed:2,agility:1,resistance:5,precision:3,luck:2}},
 };
 
 /** One signature ability per class. These are resolved inside `simulateBattle`'s

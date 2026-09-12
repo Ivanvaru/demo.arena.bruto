@@ -57,10 +57,12 @@ test("the initial classes remain competitive",()=>{
   }
 });
 
-test("the rival roster contains four distinct names and classes",()=>{
-  assert.equal(RIVAL_ROSTER.length,4);
-  assert.equal(new Set(RIVAL_ROSTER.map(rival=>rival.name)).size,4);
-  assert.equal(new Set(RIVAL_ROSTER.map(rival=>rival.className)).size,4);
+test("the rival roster contains sixteen distinct names and four rivals per class",()=>{
+  assert.equal(RIVAL_ROSTER.length,16);
+  assert.equal(new Set(RIVAL_ROSTER.map(rival=>rival.name)).size,16);
+  for(const className of ["Luchador","Aventurero","Atleta","Coloso"]){
+    assert.equal(RIVAL_ROSTER.filter(rival=>rival.className===className).length,4);
+  }
 });
 
 test("new rival never repeats the current opponent",()=>{
